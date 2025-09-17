@@ -2,4 +2,12 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  /* Ocultar scrollbar en todos los navegadores */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Edge */
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
 }

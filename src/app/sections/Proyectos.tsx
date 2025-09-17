@@ -4,12 +4,21 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaGlobe } from "react-icons/fa";
 
+type Proyecto = {
+  titulo: string;
+  fecha: string;
+  descripcion?: string;
+  imagen?: string;
+  github?: string;
+  web?: string;
+};
+
 export default function Proyectos() {
-  const proyectos = [
+  const proyectos: Proyecto[] = [
     { 
       titulo: "Proyecto 1", 
       fecha: "Ene 2025",
-      descripcion: "Proyecto frontend sobre un inicio de sesion realizado con tailwind y sus propiedades, en next.js",
+      descripcion: "Proyecto frontend sobre un inicio de sesion realizado con tailwind y sus propiedades, en Next.js",
       imagen: "/images/proyecto1.png",
       github: "https://github.com/luiscajigas/trabajos-diseno.git",
       web: "https://trabajos-diseno.vercel.app/"
@@ -17,7 +26,7 @@ export default function Proyectos() {
     { 
       titulo: "Proyecto 2",
       fecha: "Feb 2025",
-      descripcion: "Otro proyecto frontend en next.js con tailwind",
+      descripcion: "Otro proyecto frontend en Next.js con Tailwind",
       imagen: "/images/proyecto1.png",
       github: "https://github.com/luiscajigas/trabajos-diseno.git",
       web: "https://trabajos-diseno.vercel.app/" 
@@ -38,17 +47,17 @@ export default function Proyectos() {
       github: "https://github.com/luiscajigas/trabajos-diseno.git",
       web: "https://trabajos-diseno.vercel.app/"
     },
-    { titulo: "Proyecto 5", fecha: "May 2025" },
-    { titulo: "Proyecto 6", fecha: "Jun 2025" },
-    { titulo: "Proyecto 7", fecha: "Jul 2025" },
+    { titulo: "Proyecto 5", fecha: "May 2025", descripcion: "Próximamente..." },
+    { titulo: "Proyecto 6", fecha: "Jun 2025", descripcion: "Próximamente..." },
+    { titulo: "Proyecto 7", fecha: "Jul 2025", descripcion: "Próximamente..." },
   ];
 
-  const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState<Proyecto | null>(null);
 
   return (
     <section className="flex justify-end w-full min-h-screen px-10 py-20">
       {/* Lista de proyectos con animación */}
-      <div className="w-100 h-180 overflow-y-auto pr-4 space-y-16 scrollbar-hide">
+      <div className="w-[500px] max-h-[80vh] overflow-y-auto pr-4 space-y-16">
         {proyectos.map((proyecto, index) => (
           <motion.div 
             key={index} 
@@ -57,7 +66,7 @@ export default function Proyectos() {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.05, color: "#1e40af" }} // azul oscuro al hover
+            whileHover={{ scale: 1.05, color: "#1e40af" }}
           >
             <h2 className="text-3xl md:text-5xl font-light tracking-wide">
               {proyecto.titulo}
@@ -77,7 +86,7 @@ export default function Proyectos() {
             exit={{ opacity: 0 }}
           >
             <motion.div 
-              className="bg-neutral-800 text-white rounded-2xl p-8 w-[600px] max-h-[90vh] overflow-y-auto scrollbar-hide relative"
+              className="bg-neutral-800 text-white rounded-2xl p-8 w-[600px] max-h-[90vh] overflow-y-auto relative"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -116,33 +125,35 @@ export default function Proyectos() {
               )}
 
               {/* Enlaces */}
-              <motion.div 
-                className="flex gap-6 justify-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                {selected.github && (
-                  <a 
-                    href={selected.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-3xl hover:text-blue-900 transition"
-                  >
-                    <FaGithub />
-                  </a>
-                )}
-                {selected.web && (
-                  <a 
-                    href={selected.web} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-3xl hover:text-blue-900 transition"
-                  >
-                    <FaGlobe />
-                  </a>
-                )}
-              </motion.div>
+              {(selected.github || selected.web) && (
+                <motion.div 
+                  className="flex gap-6 justify-center"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  {selected.github && (
+                    <a 
+                      href={selected.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-3xl hover:text-blue-900 transition"
+                    >
+                      <FaGithub />
+                    </a>
+                  )}
+                  {selected.web && (
+                    <a 
+                      href={selected.web} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-3xl hover:text-blue-900 transition"
+                    >
+                      <FaGlobe />
+                    </a>
+                  )}
+                </motion.div>
+              )}
             </motion.div>
           </motion.div>
         )}

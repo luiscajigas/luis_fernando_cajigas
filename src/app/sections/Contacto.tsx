@@ -7,20 +7,11 @@ import emailjs from "@emailjs/browser";
 export default function Contactame() {
   const [hovered, setHovered] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [loading, setLoading] = useState(false);
-   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [loading, setLoading] = useState(false);;
 
 
   const repeatCount = 100;
   const textArray = Array.from({ length: repeatCount }, (_, i) => i);
-
-   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setCursorPos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

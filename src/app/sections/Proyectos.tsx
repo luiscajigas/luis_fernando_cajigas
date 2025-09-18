@@ -91,12 +91,11 @@ export default function Proyectos() {
   return (
     <section className="relative flex justify-end w-full min-h-screen px-10 py-20 overflow-hidden">
       
-      {/* Título de fondo */}
       <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-gray-700 opacity-10 select-none leading-none">
         PROYECTOS
       </h1>
 
-      {/* Partículas de fondo */}
+      {/* Partículas*/}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
@@ -120,7 +119,6 @@ export default function Proyectos() {
         ))}
       </div>
 
-      {/* Filtros */}
       <motion.div 
         className="absolute top-6 right-6 flex gap-2 z-10"
         initial={{ opacity: 0, y: -20 }}
@@ -147,7 +145,6 @@ export default function Proyectos() {
         ))}
       </motion.div>
 
-      {/* Lista de proyectos */}
       <div className="w-100 h-180 overflow-y-auto pr-4 space-y-12 scrollbar-hide mt-16">
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
@@ -159,12 +156,10 @@ export default function Proyectos() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ scale: 1.02 }}
           >
-            {/* Línea conectora */}
             <div className="absolute right-0 top-1/2 w-12 h-px bg-gradient-to-l from-blue-500/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
             <div className="relative bg-neutral-900/40 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 hover:bg-neutral-800/60 hover:border-blue-500/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/10">
               
-              {/* Estado del proyecto */}
               {proyecto.estado && (
                 <motion.span 
                   className={`inline-block px-2 py-1 text-xs rounded-full border mb-3 ${getStatusColor(proyecto.estado)}`}
@@ -185,7 +180,6 @@ export default function Proyectos() {
                 <p className="text-sm text-gray-400">{proyecto.fecha}</p>
               </div>
 
-              {/* Preview de tecnologías */}
               {proyecto.tecnologias && (
                 <div className="flex justify-end gap-2 mt-3 flex-wrap">
                   {proyecto.tecnologias.slice(0, 3).map((tech, i) => (
@@ -199,7 +193,6 @@ export default function Proyectos() {
                 </div>
               )}
 
-              {/* Indicador de click */}
               <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <ExternalLink size={14} className="text-gray-500" />
               </div>
@@ -208,7 +201,6 @@ export default function Proyectos() {
         ))}
       </div>
 
-      {/* Modal mejorado */}
       <AnimatePresence>
         {selected && (
           <motion.div 
@@ -227,7 +219,6 @@ export default function Proyectos() {
               onClick={(e) => e.stopPropagation()}
             >
               
-              {/* Header del modal */}
               <div className="relative p-6 border-b border-gray-700/30">
                 <button 
                   className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 bg-gray-800/50 rounded-full p-2"
@@ -252,7 +243,6 @@ export default function Proyectos() {
                   )}
                 </div>
 
-                {/* Tecnologías */}
                 {selected.tecnologias && (
                   <div className="flex flex-wrap gap-2">
                     {selected.tecnologias.map((tech: string, i: number) => (
@@ -270,9 +260,7 @@ export default function Proyectos() {
                 )}
               </div>
 
-              {/* Contenido del modal */}
               <div className="p-6">
-                {/* Imagen */}
                 {selected.imagen && (
                   <motion.img 
                     src={selected.imagen} 
@@ -284,7 +272,6 @@ export default function Proyectos() {
                   />
                 )}
 
-                {/* Descripción */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -295,7 +282,6 @@ export default function Proyectos() {
                   </p>
                 </motion.div>
 
-                {/* Enlaces */}
                 {(selected.github || selected.web) && (
                   <motion.div 
                     className="flex gap-4 justify-center pt-4 border-t border-gray-700/30"

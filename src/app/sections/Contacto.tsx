@@ -69,42 +69,41 @@ export default function Contactame() {
       icon: Mail,
       label: "Email",
       value: "cajigasluis51@gmail.com",
-      color: "text-blue-400",
+      color: "text-blue-700",
     },
     {
       icon: MapPin,
       label: "Ubicación",
       value: "Pasto, Nariño - Colombia",
-      color: "text-green-400",
+      color: "text-blue-700",
     },
     {
       icon: Clock,
       label: "Horario de respuesta",
       value: "24-48 horas",
-      color: "text-yellow-400",
+      color: "text-blue-700",
     },
   ];
 
   return (
     <div className="relative flex items-center justify-center min-h-screen px-4 py-20 overflow-hidden">
-      {/* Título de fondo */}
-      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-gray-700 opacity-10 select-none leading-none">
+    
+      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-neutral-700 opacity-10 select-none leading-none">
         CONTACTO
       </h1>
 
-      {/* Partículas de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 20 }).map((_, i) => (
+        {Array.from({ length: 50 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
+            className="absolute w-2 h-2 bg-gray-400/30 rounded-full"
             animate={{
               x: [0, 100, 0],
               y: [0, -80, 0],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: 8 + i * 0.5,
+              duration: 20 + i * 0.5,
               repeat: Infinity,
               delay: i * 0.4,
             }}
@@ -126,7 +125,6 @@ export default function Contactame() {
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center gap-8 text-center relative z-10 max-w-4xl"
           >
-            {/* Header principal */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -142,7 +140,6 @@ export default function Contactame() {
               </p>
             </motion.div>
 
-            {/* Información de contacto */}
             <motion.div
               className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl"
               initial={{ opacity: 0, y: 30 }}
@@ -170,7 +167,6 @@ export default function Contactame() {
               ))}
             </motion.div>
 
-            {/* Botón principal */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -181,7 +177,7 @@ export default function Contactame() {
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 whileTap={{ scale: 0.95 }}
-                className="relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
+                className="relative overflow-hidden bg-gradient-to-r from-blue-800 to-cyan-900 hover:from-blue-500 hover:to-blue-800 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
                 onClick={() => setShowForm(true)}
               >
                 <div className="relative flex overflow-hidden w-full justify-center items-center gap-2">
@@ -194,7 +190,7 @@ export default function Contactame() {
                         ? {
                             repeat: Infinity,
                             repeatType: "loop",
-                            duration: 20,
+                            duration: 170,
                             ease: "linear",
                           }
                         : { duration: 0 }
@@ -218,7 +214,7 @@ export default function Contactame() {
                 o envíame un correo directamente a{" "}
                 <a
                   href="mailto:cajigasluis51@gmail.com"
-                  className="text-blue-400 hover:text-blue-300 underline transition-colors"
+                  className="text-blue-700 hover:text-blue-900 underline transition-colors"
                 >
                   cajigasluis51@gmail.com
                 </a>
@@ -232,12 +228,11 @@ export default function Contactame() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5 }}
-            className="w-full max-w-lg bg-neutral-900/60 backdrop-blur-sm border border-gray-700/30 rounded-xl p-8 relative z-10"
+            className="w-130 h-120 max-w-lg bg-neutral-900/60 backdrop-blur-sm border border-gray-700/30 rounded-xl p-8 relative z-10"
           >
-            {/* Botón de volver */}
             <button
               onClick={() => setShowForm(false)}
-              className="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors"
+              className="absolute top-4 left-4 text-gray-400 hover:text-blue-800 transition-colors"
             >
               <ArrowLeft size={20} />
             </button>
@@ -270,7 +265,7 @@ export default function Contactame() {
               </div>
 
               <div className="flex items-center gap-3 bg-neutral-800/50 p-3 rounded-lg">
-                <MessageCircle size={18} className="text-gray-400" />
+                <div className="text-gray-400" />
                 <textarea
                   name="message"
                   required

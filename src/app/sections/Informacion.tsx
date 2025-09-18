@@ -33,7 +33,6 @@ import {
 import { VscJson } from "react-icons/vsc";
 import { FaJava, FaGamepad, FaBurger } from "react-icons/fa6";
 
-// Componente contador animado
 const AnimatedCounter = ({ end, duration = 2, suffix = "" }: {
   end: number;
   duration?: number;
@@ -61,12 +60,10 @@ export default function Informacion() {
   const [mostrarLogros, setMostrarLogros] = useState(false);
   const [disponible, setDisponible] = useState(true);
 
-  // Frases motivacionales que rotan
   const frases = [
-    "Convirtiendo ideas en código desde 2019",
-    "Creando experiencias digitales únicas",
-    "Passionate about clean code & user experience",
-    "Siempre aprendiendo, siempre creciendo"
+    "Aqui podras encontrar informacion laboral",
+    "RECUERDA VISITAR TODAS LAS SECCIONES DE MI PORTAFOLIO",
+    "SIEMPRE APRENDIENDO Y ADQUIRIENDO NUEVAS HABILIDADES"
   ];
   const [fraseActual, setFraseActual] = useState(0);
 
@@ -96,7 +93,6 @@ export default function Informacion() {
   return (
     <div className="w-full h-full relative overflow-y-auto scrollbar-hide">
       
-      {/* Partículas de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
@@ -120,12 +116,10 @@ export default function Informacion() {
         ))}
       </div>
 
-      {/* Título de fondo */}
       <h1 className="absolute top-130 left-1/2 -translate-x-1/2 text-9xl sm:text-6xl lg:text-8xl font-extrabold bg-gradient-to-r from-neutral-200 to-neutral-400 dark:from-neutral-600 dark:to-neutral-800 bg-clip-text text-transparent opacity-20 select-none leading-none">
         INFORMACION
       </h1>
 
-      {/* Status de disponibilidad */}
       <motion.div
         className="absolute top-4 left-4 flex items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg border border-white/20"
         initial={{ opacity: 0, x: -20 }}
@@ -143,7 +137,6 @@ export default function Informacion() {
       </motion.div>
 
      
-      {/* Botones de información */}
       <div className="absolute top-16 right-4 flex flex-col gap-2 z-20">
         {/* Idiomas */}
         <motion.button
@@ -156,7 +149,6 @@ export default function Informacion() {
           Idiomas
         </motion.button>
 
-        {/* Logros */}
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
@@ -168,7 +160,6 @@ export default function Informacion() {
         </motion.button>
       </div>
 
-      {/* Modal de Idiomas mejorado */}
       <AnimatePresence>
         {mostrarIdiomas && (
           <motion.div
@@ -207,7 +198,6 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
-      {/* Modal de Logros */}
       <AnimatePresence>
         {mostrarLogros && (
           <motion.div
@@ -239,7 +229,6 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
-      {/* Contenido principal */}
       <div className="relative z-10 py-20 px-6 min-h-full flex flex-col">
         <motion.div
           className="flex flex-col items-center text-center mb-8"
@@ -256,7 +245,6 @@ export default function Informacion() {
             Hola, soy Luis Fernando Cajigas
           </motion.h2>
           
-          {/* Frase rotativa */}
           <motion.p 
             key={fraseActual}
             initial={{ opacity: 0, y: 10 }}
@@ -312,7 +300,6 @@ export default function Informacion() {
           />
         </motion.div>
 
-        {/* Habilidades mejoradas */}
         <motion.div
           className="flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -396,7 +383,6 @@ export default function Informacion() {
         </motion.div>
       </div>
 
-      {/* Conocerme mejor mejorado */}
       <div className="absolute bottom-4 right-4 z-20">
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}

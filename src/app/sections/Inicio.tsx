@@ -9,8 +9,8 @@ export default function Inicio() {
   
   const quotes = [
     "BIENVENIDO A MI PORTAFOLIO",
-    "Transformando ideas en realidades digitales",
-    "El futuro se construye con código y creatividad"
+    "ESPERO TE GUSTE MI TRABAJO",
+    ";)"
   ];
 
   useEffect(() => {

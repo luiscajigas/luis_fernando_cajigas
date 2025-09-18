@@ -2,32 +2,212 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Code, Sparkles } from "lucide-react";
 
 export default function SplashScreen() {
   const [isVisible, setIsVisible] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(false), 2000);
-    return () => clearTimeout(timer);
+    // Simular progreso de carga
+    const progressInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        return prev + Math.random() * 15;
+      });
+    }, 150);
+
+    // Ocultar splash screen después de 3 segundos
+    const timer = setTimeout(() => setIsVisible(false), 3000);
+    
+    return () => {
+      clearTimeout(timer);
+      clearInterval(progressInterval);
+    };
   }, []);
 
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-black z-50"
+          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-900 to-black z-50 overflow-hidden"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          exit={{ 
+            opacity: 0,
+            scale: 1.1
+          }}
+          transition={{ 
+            duration: 1.2, 
+            ease: "easeInOut" 
+          }}
         >
-          <motion.h1
-            className="text-3xl md:text-5xl font-bold text-white"
+          
+          {/* Partículas de fondo */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {Array.from({ length: 50 }).map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-neutral-400/30 rounded-full"
+                animate={{
+                  x: [0, Math.random() * 200 - 100],
+                  y: [0, Math.random() * 200 - 100],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  delay: i * 0.1,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Círculo de fondo animado */}
+          <motion.div
+            className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-neutral-400/10 to-neutral-800/10 blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+
+          {/* Contenido principal */}
+          <div className="relative z-10 text-center">
+            
+            {/* Logo/Icono */}
+            <motion.div
+              className="mb-8 flex justify-center"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ 
+                duration: 1, 
+                type: "spring", 
+                stiffness: 200 
+              }}
+            >
+              <div className="relative">
+                <motion.div
+                  className="w-20 h-20 bg-gradient-to-r from-blue-900 to-blue-800 rounded-xl flex items-center justify-center shadow-2xl"
+                  whileHover={{ scale: 1.05 }}
+                  animate={{
+                    boxShadow: [
+                      "0 0 20px rgba(59, 130, 246, 0.3)",
+                      "0 0 40px rgba(147, 51, 234, 0.4)",
+                      "0 0 20px rgba(59, 130, 246, 0.3)"
+                    ]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Code className="text-white" size={32} />
+                </motion.div>
+                
+                {/* Elementos decorativos */}
+                <motion.div
+                  className="absolute -top-2 -right-2 text-gray-400"
+                  animate={{ 
+                    rotate: [0, 360],
+                    scale: [1, 1.2, 1]
+                  }}
+                  transition={{ 
+                    duration: 3, 
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                >
+                  <Sparkles size={16} />
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Título principal */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                <motion.span
+                  className="bg-gradient-to-r from-white via-neutral-400 to-neutral-600 bg-clip-text text-transparent"
+                  animate={{
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  Luis Fernando
+                </motion.span>
+              </h1>
+              
+              <motion.p
+                className="text-xl md:text-2xl text-gray-400 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              >
+                Desarrollador <span className="text-blue-900 font-semibold">Full Stack</span>
+              </motion.p>
+            </motion.div>
+
+            {/* Barra de progreso */}
+            <motion.div
+              className="w-80 mx-auto"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1, duration: 0.6 }}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-500">Cargando portafolio...</span>
+                <span className="text-sm text-blue-800 font-mono">
+                  {Math.round(loadingProgress)}%
+                </span>
+              </div>
+              
+              <div className="w-full bg-gray-800/50 rounded-full h-1 overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-neutral-600 to-neutral-800 rounded-full shadow-lg"
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${loadingProgress}%` }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                />
+              </div>
+            </motion.div>
+
+            {/* Texto animado */}
+            <motion.div
+              className="mt-8 flex items-center justify-center gap-2 text-gray-500 text-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="w-4 h-4 border-2 border-neutral-400/30 border-t-neural-400 rounded-full"
+              />
+              <span>BIENVENIDO A MI PORTAFOLIO</span>
+            </motion.div>
+          </div>
+
+          {/* Gradiente inferior */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            Portafolio de Luis Cajigas
-          </motion.h1>
+            transition={{ delay: 1.2 }}
+          />
         </motion.div>
       )}
     </AnimatePresence>

@@ -52,21 +52,21 @@ export default function Proyectos() {
       fecha: "May 2025",
       descripcion: "Aplicación de gestión de tareas colaborativa con chat en tiempo real y sistema de notificaciones.",
       tecnologias: ["Vue.js", "Socket.io", "Express", "Redis"],
-      estado: "Planeado"
+      estado: "Completado"
     },
     { 
       titulo: "Proyecto 6", 
       fecha: "Jun 2025",
       descripcion: "API REST robusta con documentación completa, autenticación JWT y rate limiting implementado.",
       tecnologias: ["Python", "FastAPI", "SQLAlchemy", "Docker"],
-      estado: "Planeado"
+      estado: "Completado"
     },
     { 
       titulo: "Proyecto 7", 
       fecha: "Jul 2025",
       descripción: "Plataforma de aprendizaje online con sistema de progreso, certificaciones y gamificación.",
       tecnologias: ["React Native", "Firebase", "Stripe", "WebRTC"],
-      estado: "Idea"
+      estado: "En desarrollo"
     },
   ];
 
@@ -75,10 +75,8 @@ export default function Proyectos() {
 
   const getStatusColor = (estado: string) => {
     switch (estado) {
-      case "Completado": return "bg-green-500/20 text-green-400 border-green-500/30";
-      case "En desarrollo": return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-      case "Planeado": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      case "Idea": return "bg-purple-500/20 text-purple-400 border-purple-500/30";
+      case "Completado": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+      case "En desarrollo": return "bg-blue-800/20 text-blue-800 border-blue-500/30";
       default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
   };
@@ -91,16 +89,17 @@ export default function Proyectos() {
   return (
     <section className="relative flex justify-end w-full min-h-screen px-10 py-20 overflow-hidden">
       
+      {/* Título de fondo */}
       <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-gray-700 opacity-10 select-none leading-none">
         PROYECTOS
       </h1>
 
-      {/* Partículas*/}
+      {/* Partículas de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-blue-400/20 rounded-full"
+            className="absolute w-3 h-3 bg-gray-400/20 rounded-full"
             animate={{
               x: [0, 120, 0],
               y: [0, -100, 0],
@@ -119,20 +118,21 @@ export default function Proyectos() {
         ))}
       </div>
 
+      {/* Filtros */}
       <motion.div 
-        className="absolute top-6 right-6 flex gap-2 z-10"
+        className="absolute top-15 right-27 flex gap-2 z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {["todos", "completado", "en desarrollo", "planeado", "idea"].map((filterOption, index) => (
+        {["todos", "completado", "en desarrollo",].map((filterOption, index) => (
           <motion.button
             key={filterOption}
             onClick={() => setFilter(filterOption)}
             className={`px-3 py-1 text-xs rounded-full border transition-all duration-300 ${
               filter === filterOption 
-                ? "bg-blue-600 text-white border-blue-500" 
-                : "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:text-blue-400"
+                ? "bg-blue-900 text-white border-blue-800" 
+                : "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:shadow-xs shadow-blue-500 hover:text-blue-400"
             }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -145,6 +145,7 @@ export default function Proyectos() {
         ))}
       </motion.div>
 
+      {/* Lista de proyectos */}
       <div className="w-100 h-180 overflow-y-auto pr-4 space-y-12 scrollbar-hide mt-16">
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
@@ -156,10 +157,12 @@ export default function Proyectos() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="absolute right-0 top-1/2 w-12 h-px bg-gradient-to-l from-blue-500/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Línea conectora */}
+            <div className="absolute right-0 top-1/2 w-12 h-px bg-gradient-to-l from-blue-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             
-            <div className="relative bg-neutral-900/40 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 hover:bg-neutral-800/60 hover:border-blue-500/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/10">
+            <div className="relative bg-neutral-900/40 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 hover:bg-neutral-800/60 hover:border-blue-900/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/10">
               
+              {/* Estado del proyecto */}
               {proyecto.estado && (
                 <motion.span 
                   className={`inline-block px-2 py-1 text-xs rounded-full border mb-3 ${getStatusColor(proyecto.estado)}`}
@@ -180,6 +183,7 @@ export default function Proyectos() {
                 <p className="text-sm text-gray-400">{proyecto.fecha}</p>
               </div>
 
+              {/* Preview de tecnologías */}
               {proyecto.tecnologias && (
                 <div className="flex justify-end gap-2 mt-3 flex-wrap">
                   {proyecto.tecnologias.slice(0, 3).map((tech, i) => (
@@ -193,6 +197,7 @@ export default function Proyectos() {
                 </div>
               )}
 
+              {/* Indicador de click */}
               <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <ExternalLink size={14} className="text-gray-500" />
               </div>
@@ -201,6 +206,7 @@ export default function Proyectos() {
         ))}
       </div>
 
+      {/* Modal mejorado */}
       <AnimatePresence>
         {selected && (
           <motion.div 
@@ -219,9 +225,10 @@ export default function Proyectos() {
               onClick={(e) => e.stopPropagation()}
             >
               
+              {/* Header del modal */}
               <div className="relative p-6 border-b border-gray-700/30">
                 <button 
-                  className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 bg-gray-800/50 rounded-full p-2"
+                  className="absolute top-4 right-35 text-gray-400 hover:text-white transition-colors duration-200 bg-gray-700/50 rounded-full p-2"
                   onClick={() => setSelected(null)}
                 >
                   <X size={20} />
@@ -243,6 +250,7 @@ export default function Proyectos() {
                   )}
                 </div>
 
+                {/* Tecnologías */}
                 {selected.tecnologias && (
                   <div className="flex flex-wrap gap-2">
                     {selected.tecnologias.map((tech: string, i: number) => (
@@ -260,7 +268,9 @@ export default function Proyectos() {
                 )}
               </div>
 
+              {/* Contenido del modal */}
               <div className="p-6">
+                {/* Imagen */}
                 {selected.imagen && (
                   <motion.img 
                     src={selected.imagen} 
@@ -272,6 +282,7 @@ export default function Proyectos() {
                   />
                 )}
 
+                {/* Descripción */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -282,6 +293,7 @@ export default function Proyectos() {
                   </p>
                 </motion.div>
 
+                {/* Enlaces */}
                 {(selected.github || selected.web) && (
                   <motion.div 
                     className="flex gap-4 justify-center pt-4 border-t border-gray-700/30"
@@ -294,7 +306,7 @@ export default function Proyectos() {
                         href={selected.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 border border-gray-600"
+                        className="flex items-center gap-2 bg-neutral-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg transition-colors duration-200 border border-gray-600"
                       >
                         <FaGithub size={18} />
                         <span className="text-sm">Código</span>
@@ -305,10 +317,10 @@ export default function Proyectos() {
                         href={selected.web} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200"
+                        className="flex items-center gap-2 bg-neutral-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg transition-colors duration-200 border border-gray-600"
                       >
                         <FaGlobe size={18} />
-                        <span className="text-sm">Demo</span>
+                        <span className="text-sm">Web</span>
                       </a>
                     )}
                   </motion.div>

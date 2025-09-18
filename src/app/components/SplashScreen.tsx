@@ -31,7 +31,7 @@ export default function SplashScreen() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-900 to-black z-50 overflow-hidden"
+          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-800 to-black z-50 overflow-hidden"
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0,
@@ -47,7 +47,7 @@ export default function SplashScreen() {
             {Array.from({ length: 50 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-neutral-400/30 rounded-full"
+                className="absolute w-1 h-1 bg-gray-400/30 rounded-full"
                 animate={{
                   x: [0, Math.random() * 200 - 100],
                   y: [0, Math.random() * 200 - 100],
@@ -69,7 +69,7 @@ export default function SplashScreen() {
           </div>
 
           <motion.div
-            className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-neutral-400/10 to-neutral-800/10 blur-3xl"
+            className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-cyan-600/10 to-gray-800/10 blur-3xl"
             animate={{
               scale: [1, 1.2, 1],
               rotate: [0, 180, 360],

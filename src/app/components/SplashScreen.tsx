@@ -9,7 +9,6 @@ export default function SplashScreen() {
   const [loadingProgress, setLoadingProgress] = useState(0);
 
   useEffect(() => {
-    // Simular progreso de carga
     const progressInterval = setInterval(() => {
       setLoadingProgress((prev) => {
         if (prev >= 100) {
@@ -20,7 +19,6 @@ export default function SplashScreen() {
       });
     }, 150);
 
-    // Ocultar splash screen después de 3 segundos
     const timer = setTimeout(() => setIsVisible(false), 3000);
     
     return () => {
@@ -45,7 +43,6 @@ export default function SplashScreen() {
           }}
         >
           
-          {/* Partículas de fondo */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {Array.from({ length: 50 }).map((_, i) => (
               <motion.div
@@ -71,7 +68,6 @@ export default function SplashScreen() {
             ))}
           </div>
 
-          {/* Círculo de fondo animado */}
           <motion.div
             className="absolute w-96 h-96 rounded-full bg-gradient-to-r from-neutral-400/10 to-neutral-800/10 blur-3xl"
             animate={{
@@ -85,10 +81,8 @@ export default function SplashScreen() {
             }}
           />
 
-          {/* Contenido principal */}
           <div className="relative z-10 text-center">
             
-            {/* Logo/Icono */}
             <motion.div
               className="mb-8 flex justify-center"
               initial={{ scale: 0, rotate: -180 }}
@@ -115,7 +109,6 @@ export default function SplashScreen() {
                   <Code className="text-white" size={32} />
                 </motion.div>
                 
-                {/* Elementos decorativos */}
                 <motion.div
                   className="absolute -top-2 -right-2 text-gray-400"
                   animate={{ 
@@ -133,7 +126,6 @@ export default function SplashScreen() {
               </div>
             </motion.div>
 
-            {/* Título principal */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -161,7 +153,6 @@ export default function SplashScreen() {
               </motion.p>
             </motion.div>
 
-            {/* Barra de progreso */}
             <motion.div
               className="w-80 mx-auto"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -185,7 +176,6 @@ export default function SplashScreen() {
               </div>
             </motion.div>
 
-            {/* Texto animado */}
             <motion.div
               className="mt-8 flex items-center justify-center gap-2 text-gray-500 text-sm"
               initial={{ opacity: 0 }}
@@ -201,7 +191,6 @@ export default function SplashScreen() {
             </motion.div>
           </div>
 
-          {/* Gradiente inferior */}
           <motion.div
             className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent"
             initial={{ opacity: 0 }}

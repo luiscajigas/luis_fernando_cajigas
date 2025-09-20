@@ -1,13 +1,32 @@
 @import "tailwindcss";
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  /* Ocultar scrollbar en todos los navegadores */
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  /* Removimos background-color y color para que Tailwind funcione */
+}
+
+/* Ocultar scrollbar */
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari y Edge */
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE y Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Transiciones suaves para elementos */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Selección de texto personalizada */
+::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: rgb(30, 58, 138);
+}
+
+.dark ::selection {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: rgb(147, 197, 253);
 }

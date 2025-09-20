@@ -1,12 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
   const [selected, setSelected] = useState("inicio");
+  const [mounted, setMounted] = useState(false);
+
+  // Hidratar tema desde localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    if (savedTheme) {
+      setDarkMode(savedTheme === "dark");
+    } else {
+      setDarkMode(prefersDark);
+    }
+    
+    setMounted(true);
+  }, []);
+
+  // Evitar hydration mismatch
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <main

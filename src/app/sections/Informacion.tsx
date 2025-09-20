@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-
   Languages,
   User,
   MapPin,
@@ -59,10 +58,27 @@ export default function Informacion() {
   const [mostrarConocerme, setMostrarConocerme] = useState(false);
   const [mostrarLogros, setMostrarLogros] = useState(false);
   const [disponible, setDisponible] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  //modo oscuro
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
 
   const frases = [
-    "Aqui podras encontrar informacion laboral",
-    "RECUERDA VISITAR TODAS LAS SECCIONES DE MI PORTAFOLIO",
+    "AYER FUNCIONABA",
+    "PRIMERO RESUELVE EL PROBLEMA, DESPUES ESCRIBE EL CÓDIGO",
     "SIEMPRE APRENDIENDO Y ADQUIRIENDO NUEVAS HABILIDADES"
   ];
   const [fraseActual, setFraseActual] = useState(0);
@@ -75,9 +91,8 @@ export default function Informacion() {
   }, [frases.length]);
 
   const logros = [
-    { titulo: "5 años de experiencia", icono: <Calendar className="text-blue-950" size={20} /> },
-    { titulo: "15+ proyectos completados", icono: <Code className="text-blue-950" size={20} /> },
-    { titulo: "∞ tazas de café", icono: <Coffee className="text-blue-950" size={20} /> },
+    { titulo: "4 años de experiencia", icono: <Calendar className="text-blue-950" size={20} /> },
+    { titulo: "7 proyectos completados", icono: <Code className="text-blue-950" size={20} /> },
     { titulo: "100% autodidacta inicialmente", icono: <Star className="text-blue-950" size={20} /> }
   ];
 
@@ -90,14 +105,28 @@ export default function Informacion() {
     })
   };
 
+  const getTextColor = (lightColor: string, darkColor: string) => {
+    return isDarkMode ? darkColor : lightColor;
+  };
+
+  const getBgColor = (lightBg: string, darkBg: string) => {
+    return isDarkMode ? darkBg : lightBg;
+  };
+
   return (
     <div className="w-full h-full relative overflow-y-auto scrollbar-hide">
       
+      {/* particulas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-neutral-300/20 rounded-full"
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              backgroundColor: isDarkMode ? 'rgba(163, 163, 163, 0.2)' : 'rgba(156, 163, 175, 0.3)'
+            }}
             animate={{
               x: [0, 100, 0],
               y: [0, -100, 0],
@@ -108,20 +137,31 @@ export default function Informacion() {
               repeat: Infinity,
               delay: i * 0.3
             }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            } as React.CSSProperties}
           />
         ))}
       </div>
 
-      <h1 className="absolute top-130 left-1/2 -translate-x-1/2 text-9xl sm:text-6xl lg:text-8xl font-extrabold bg-gradient-to-r from-neutral-200 to-neutral-400 dark:from-neutral-600 dark:to-neutral-800 bg-clip-text text-transparent opacity-20 select-none leading-none">
+      {/* texto fond */}
+      <h1 
+        className="absolute top-130 left-1/2 -translate-x-1/2 text-9xl sm:text-6xl lg:text-8xl font-extrabold bg-gradient-to-r opacity-20 select-none leading-none"
+        style={{ 
+          backgroundImage: isDarkMode 
+            ? 'linear-gradient(to right, rgb(82, 82, 82), rgb(38, 38, 38))'
+            : 'linear-gradient(to right, rgb(209, 213, 219), rgb(107, 114, 128))',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          color: 'transparent'
+        }}
+      >
         INFORMACION
       </h1>
 
       <motion.div
-        className="absolute top-4 left-4 flex items-center gap-2 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg border border-white/20"
+        className="absolute top-4 left-4 flex items-center gap-2 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg border"
+        style={{
+          backgroundColor: isDarkMode ? 'rgba(38, 38, 38, 0.8)' : 'rgba(243, 244, 246, 0.9)',
+          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(209, 213, 219, 0.7)'
+        }}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
@@ -131,14 +171,16 @@ export default function Informacion() {
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-        <span className="text-sm text-neutral-700 dark:text-gray-300 font-medium">
+        <span 
+          className="text-sm font-medium"
+          style={{ color: getTextColor('#374151', '#d1d5db') }}
+        >
           {disponible ? 'Disponible para proyectos' : 'No disponible'}
         </span>
       </motion.div>
 
-     
+      {/* botones extras */}
       <div className="absolute top-16 right-4 flex flex-col gap-2 z-20">
-        {/* Idiomas */}
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
@@ -160,6 +202,7 @@ export default function Informacion() {
         </motion.button>
       </div>
 
+      {/* cuadro idiamos */}
       <AnimatePresence>
         {mostrarIdiomas && (
           <motion.div
@@ -167,9 +210,16 @@ export default function Informacion() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.9 }}
             transition={{ duration: 0.4 }}
-            className="absolute top-32 right-4 w-72 backdrop-blur-md bg-white/90 dark:bg-neutral-900/90 border border-white/20 dark:border-gray-700/30 rounded-xl p-6 shadow-2xl z-30"
+            className="absolute top-32 right-4 w-72 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
+            style={{
+              backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
+              borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+            }}
           >
-            <h3 className="text-lg font-bold text-neutral-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+            <h3 
+              className="text-lg font-bold mb-4 flex items-center gap-2"
+              style={{ color: getTextColor('#111827', '#e5e7eb') }}
+            >
               <Languages size={20} className="text-blue-800" />
               Idiomas
             </h3>
@@ -179,11 +229,17 @@ export default function Informacion() {
                 { idioma: "Inglés (B1)", nivel: 46, color: "bg-blue-950" }
               ].map((item, index) => (
                 <div key={index}>
-                  <div className="flex justify-between text-sm text-gray-700 dark:text-gray-300 mb-2">
+                  <div 
+                    className="flex justify-between text-sm mb-2"
+                    style={{ color: getTextColor('#374151', '#d1d5db') }}
+                  >
                     <span>{item.idioma}</span>
                     <span>{item.nivel}%</span>
                   </div>
-                  <div className="bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                  <div 
+                    className="h-2 rounded-full overflow-hidden"
+                    style={{ backgroundColor: getBgColor('#e5e7eb', '#374151') }}
+                  >
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${item.nivel}%` }}
@@ -198,6 +254,7 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
+      {/* cuadro Logros */}
       <AnimatePresence>
         {mostrarLogros && (
           <motion.div
@@ -205,9 +262,16 @@ export default function Informacion() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.9 }}
             transition={{ duration: 0.4 }}
-            className="absolute top-32 right-4 w-80 backdrop-blur-md bg-white/90 dark:bg-neutral-900/90 border border-white/20 dark:border-gray-700/30 rounded-xl p-6 shadow-2xl z-30"
+            className="absolute top-32 right-4 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
+            style={{
+              backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
+              borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+            }}
           >
-            <h3 className="text-lg font-bold text-neutral-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+            <h3 
+              className="text-lg font-bold mb-4 flex items-center gap-2"
+              style={{ color: getTextColor('#111827', '#e5e7eb') }}
+            >
               <Award size={20} className="text-blue-800" />
               Logros & Estadísticas
             </h3>
@@ -218,10 +282,16 @@ export default function Informacion() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-neutral-800/50 rounded-lg"
+                  className="flex items-center gap-3 p-3 rounded-lg"
+                  style={{ backgroundColor: getBgColor('rgba(229, 231, 235, 0.8)', 'rgba(38, 38, 38, 0.5)') }}
                 >
                   {logro.icono}
-                  <span className="text-sm text-neutral-700 dark:text-gray-300">{logro.titulo}</span>
+                  <span 
+                    className="text-sm"
+                    style={{ color: getTextColor('#374151', '#d1d5db') }}
+                  >
+                    {logro.titulo}
+                  </span>
                 </motion.div>
               ))}
             </div>
@@ -229,6 +299,7 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
+      {/* conteni*/}
       <div className="relative z-10 py-20 px-6 min-h-full flex flex-col">
         <motion.div
           className="flex flex-col items-center text-center mb-8"
@@ -237,7 +308,15 @@ export default function Informacion() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{
+              backgroundImage: isDarkMode 
+                ? 'linear-gradient(to right, rgb(229, 231, 235), rgb(156, 163, 175))'
+                : 'linear-gradient(to right, rgb(17, 24, 39), rgb(55, 65, 81))',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent'
+            }}
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6 }}
@@ -250,20 +329,21 @@ export default function Informacion() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="text-lg text-blue-800 dark:text-blue-800 font-medium mb-6"
+            className="text-lg text-blue-800 font-medium mb-6"
           >
             {frases[fraseActual]}
           </motion.p>
 
           <motion.div
-            className="flex items-center gap-4 mb-6 text-sm text-gray-600 dark:text-gray-400"
+            className="flex items-center gap-4 mb-6 text-sm"
+            style={{ color: getTextColor('#374151', '#9ca3af') }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
             <div className="flex items-center gap-2">
               <Zap className="text-yellow-500" size={16} />
-              <AnimatedCounter end={5} suffix=" años" />
+              <AnimatedCounter end={4} suffix=" años" />
               <span>de experiencia</span>
             </div>
             <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
@@ -271,28 +351,21 @@ export default function Informacion() {
           </motion.div>
 
           <motion.p 
-            className="max-w-3xl text-base text-gray-600 dark:text-gray-400 mb-8 leading-relaxed"
+            className="max-w-3xl text-base mb-8 leading-relaxed"
+            style={{ color: getTextColor('#374151', '#9ca3af') }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Desde hace 5 años me he dedicado al mundo de la programación, 
-            un camino que inicié con curiosidad de forma independiente y que hoy
-            se ha convertido en mi principal proyecto de vida. Actualmente curso 
-            el quinto semestre de Ingeniería de Software en la Universidad
-            Cooperativa de Colombia, donde complemento mi experiencia práctica 
-            con una sólida formación académica.
-            <br /><br />
-            Me especializo en Desarrollo Web Fullstack, creando aplicaciones 
-            dinámicas y centradas en el usuario mediante tecnologías como React, 
-            Node.js y Django, aplicando buenas prácticas y patrones de diseño 
-            para construir soluciones escalables y de calidad.
+            Desde hace 5 años me he dedicado al mundo de la programación, un camino que inicié con curiosidad de forma independiente y que hoy se ha convertido en mi principal proyecto de vida. Actualmente curso el quinto semestre de Ingeniería de Software en la Universidad Cooperativa de Colombia, donde complemento mi experiencia práctica con una sólida formación académica.
+            Me especializo en Desarrollo Web Fullstack, creando aplicaciones dinámicas y centradas en el usuario mediante tecnologías como React, Node.js y Django, aplicando buenas prácticas y patrones de diseño para construir soluciones escalables y de calidad.
           </motion.p>
 
           <motion.img
             src="/presentacion.jpg"
             alt="Luis Fernando Cajigas"
-            className="w-36 h-36 rounded-full object-cover border-4 border-white dark:border-neutral-700 shadow-xl mb-8"
+            className="w-36 h-36 rounded-full object-cover border-4 shadow-xl mb-8"
+            style={{ borderColor: getBgColor('#d1d5db', '#4b5563') }}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -300,30 +373,46 @@ export default function Informacion() {
           />
         </motion.div>
 
+        {/* idiomas programacion */}
         <motion.div
           className="flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <h3 className="text-gray-600 dark:text-gray-400 text-sm mb-2">Mi stack tecnológico</h3>
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-8">
+          <h3 
+            className="text-sm mb-2"
+            style={{ color: getTextColor('#4b5563', '#9ca3af') }}
+          >
+            Mi stack tecnológico
+          </h3>
+          <h2 
+            className="text-2xl font-bold mb-8"
+            style={{ color: getTextColor('#111827', '#e5e7eb') }}
+          >
             Tecnologías & Herramientas
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-4xl">
             {/* Frontend */}
             <motion.div 
-              className="backdrop-blur-md bg-white/80 dark:bg-neutral-900/80 border border-white/20 dark:border-gray-700/30 rounded-2xl p-6 shadow-xl"
-              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgba(0,0,0,0.1)" }}
+              className="backdrop-blur-md rounded-2xl p-6 shadow-xl border"
+              style={{
+                backgroundColor: getBgColor('rgba(249, 250, 251, 0.9)', 'rgb(20, 20, 20)'),
+                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+              }}
+              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgb(10, 10, 10)" }}
               initial="hidden"
               animate="visible"
             >
-              <h4 className="text-neutral-800 dark:text-neutral-200 font-bold text-xl mb-6 flex items-center gap-2">
+              <h4 
+                className="font-bold text-xl mb-6 flex items-center gap-2"
+                style={{ color: getTextColor('#111827', '#e5e7eb') }}
+              >
                 <SiReact className="text-blue-900 hover:text-blue-800" size={24} />
                 Frontend Developer
               </h4>
-              <div className="grid grid-cols-2 gap-4 text-sm text-gray-800 dark:text-gray-200">
+              <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
                   { icon: SiHtml5, name: "HTML", color: "text-blue-950" },
                   { icon: SiCss3, name: "CSS", color: "text-blue-950" },
@@ -336,8 +425,15 @@ export default function Informacion() {
                     key={index}
                     custom={index}
                     variants={skillsAnimationVariants}
-                    className="flex items-center space-x-3 p-2 bg-gray-50 dark:bg-neutral-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-600/50 transition-colors"
-                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center space-x-3 p-2 rounded-lg transition-colors"
+                    style={{
+                      backgroundColor: getBgColor('rgba(229, 231, 235, 0.8)', 'rgba(38, 38, 38, 0.5)'),
+                      color: getTextColor('#111827', '#e5e7eb')
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      backgroundColor: getBgColor('rgba(209, 213, 219, 0.9)', 'rgba(55, 65, 81, 0.5)')
+                    }}
                   >
                     <skill.icon className={skill.color} size={18} />
                     <span>{skill.name}</span>
@@ -348,16 +444,23 @@ export default function Informacion() {
 
             {/* Backend */}
             <motion.div 
-              className="backdrop-blur-md bg-white/80 dark:bg-neutral-900/80 border border-white/20 dark:border-gray-700/30 rounded-2xl p-6 shadow-xl"
-              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgba(0,0,0,0.1)" }}
+              className="backdrop-blur-md rounded-2xl p-6 shadow-xl border"
+              style={{
+                backgroundColor: getBgColor('rgba(249, 250, 251, 0.9)', 'rgb(20, 20, 20'),
+                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+              }}
+              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgb(10, 10, 10)" }}
               initial="hidden"
               animate="visible"
             >
-              <h4 className="text-neutral-800 dark:text-gray-200 font-bold text-xl mb-6 flex items-center gap-2">
+              <h4 
+                className="font-bold text-xl mb-6 flex items-center gap-2"
+                style={{ color: getTextColor('#111827', '#e5e7eb') }}
+              >
                 <SiDjango className="text-blue-900 hover:text-blue-800" size={24} />
                 Backend Developer
               </h4>
-              <div className="grid grid-cols-2 gap-4 text-sm text-gray-800 dark:text-gray-200">
+              <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
                   { icon: SiNodedotjs, name: "Node.js", color: "text-blue-950" },
                   { icon: SiPython, name: "Python", color: "text-blue-950" },
@@ -370,8 +473,15 @@ export default function Informacion() {
                     key={index}
                     custom={index + 6}
                     variants={skillsAnimationVariants}
-                    className="flex items-center space-x-3 p-2 bg-gray-50 dark:bg-neutral-800/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors"
-                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center space-x-3 p-2 rounded-lg transition-colors"
+                    style={{
+                      backgroundColor: getBgColor('rgba(229, 231, 235, 0.8)', 'rgba(38, 38, 38, 0.5)'),
+                      color: getTextColor('#111827', '#e5e7eb')
+                    }}
+                    whileHover={{ 
+                      scale: 1.05,
+                      backgroundColor: getBgColor('rgba(209, 213, 219, 0.9)', 'rgba(55, 65, 81, 0.5)')
+                    }}
                   >
                     <skill.icon className={skill.color} size={18} />
                     <span>{skill.name}</span>
@@ -383,6 +493,7 @@ export default function Informacion() {
         </motion.div>
       </div>
 
+      {/* mas informacion*/}
       <div className="absolute bottom-4 right-4 z-20">
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
@@ -401,9 +512,16 @@ export default function Informacion() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
               transition={{ duration: 0.4 }}
-              className="absolute bottom-14 right-0 w-80 backdrop-blur-md bg-white/90 dark:bg-neutral-900/90 border border-white/20 dark:border-gray-700/30 rounded-xl p-6 shadow-2xl z-30"
+              className="absolute bottom-14 right-0 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
+              style={{
+                backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
+                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+              }}
             >
-              <h3 className="text-lg font-bold text-neutral-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+              <h3 
+                className="text-lg font-bold mb-4 flex items-center gap-2"
+                style={{ color: getTextColor('#111827', '#e5e7eb') }}
+              >
                 <User size={20} className="text-blue-800" />
                 Un poco más sobre mí
               </h3>
@@ -421,7 +539,12 @@ export default function Informacion() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.02, x: 5 }}
-                    className="flex items-center gap-3 bg-gray-50 dark:bg-neutral-800/50 text-gray-800 dark:text-gray-200 text-sm px-4 py-3 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700/30"
+                    className="flex items-center gap-3 text-sm px-4 py-3 rounded-xl shadow-sm border"
+                    style={{
+                      backgroundColor: getBgColor('rgba(229, 231, 235, 0.8)', 'rgba(38, 38, 38, 0.5)'),
+                      borderColor: getBgColor('rgba(209, 213, 219, 0.5)', 'rgba(75, 85, 99, 0.3)'),
+                      color: getTextColor('#111827', '#e5e7eb')
+                    }}
                   >
                     <item.icon className={item.color} size={20} />
                     <span>{item.text}</span>

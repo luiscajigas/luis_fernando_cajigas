@@ -4,12 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { 
   Code, 
-  Smartphone, 
   Database, 
   Palette, 
   Zap, 
-  Shield, 
-  Globe, 
   Settings,
   ArrowRight,
   Check,
@@ -70,7 +67,6 @@ export default function Servicios() {
         "Testing de usabilidad"
       ]
     },
-  
     {
       id: 4,
       titulo: "Consultoría Técnica",
@@ -108,7 +104,7 @@ export default function Servicios() {
     <div className="relative w-full min-h-screen px-6 py-20 overflow-hidden">
       
       {/* Título de fondo */}
-      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-neutral-700 opacity-10 select-none leading-none">
+      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-neutral-700 dark:text-neutral-700 opacity-10 select-none leading-none">
         SERVICIOS
       </h1>
 
@@ -117,7 +113,7 @@ export default function Servicios() {
         {Array.from({ length: 25 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-5 h-5 bg-gray-400/20 rounded-full"
+            className="absolute w-5 h-5 bg-gray-400/20 dark:bg-gray-400/20 rounded-full"
             animate={{
               x: [0, 120, 0],
               y: [0, -100, 0],
@@ -136,6 +132,7 @@ export default function Servicios() {
         ))}
       </div>
 
+      {/* Contenido principal */}
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
         initial={{ opacity: 0, y: 30 }}
@@ -150,10 +147,10 @@ export default function Servicios() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold text-neutral-500 mb-6">
-            Mis <span className="bg-gradient-to-r from-neutral-600 to-neutral-700 bg-clip-text text-transparent">Servicios</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-800 dark:text-neutral-500 mb-6">
+            Mis <span className="bg-gradient-to-r from-gray-900 to-gray-700 dark:from-neutral-600 dark:to-neutral-700 bg-clip-text text-transparent">Servicios</span>
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
             Transformo ideas en soluciones digitales completas, desde el concepto inicial 
             hasta el producto final listo para producción.
           </p>
@@ -161,7 +158,7 @@ export default function Servicios() {
 
         {/* Grid de servicios */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -177,22 +174,21 @@ export default function Servicios() {
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-neutral-900/60 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 h-full hover:border-gray-500/50 transition-all duration-300 group-hover:bg-neutral-800/60">
+              <div className="bg-gray-100/80 dark:bg-neutral-900/60 backdrop-blur-sm border border-gray-300/50 dark:border-gray-700/30 rounded-xl p-6 h-full hover:border-gray-400/70 dark:hover:border-gray-500/50 transition-all duration-300 group-hover:bg-gray-200/60 dark:group-hover:bg-neutral-800/60">
                 
                 {/* Icono y header */}
                 <div className="flex items-start justify-between mb-4">
                   <div className={`p-3 rounded-lg bg-gradient-to-r ${servicio.color} bg-opacity-20 group-hover:scale-110 transition-transform duration-300`}>
-                    <servicio.icono className="text-white" size={24} />
+                    <servicio.icono className="text-gray-800 dark:text-white" size={24} />
                   </div>
-                  
                 </div>
 
                 {/* Contenido */}
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-800 transition-colors">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-800 dark:group-hover:text-blue-800 transition-colors">
                   {servicio.titulo}
                 </h3>
                 
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
                   {servicio.descripcion}
                 </p>
 
@@ -201,7 +197,7 @@ export default function Servicios() {
                   {servicio.tecnologias.slice(0, 3).map((tech, i) => (
                     <span 
                       key={i} 
-                      className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded-md"
+                      className="text-xs bg-gray-300/70 dark:bg-gray-700/50 text-gray-800 dark:text-gray-300 px-2 py-1 rounded-md"
                     >
                       {tech}
                     </span>
@@ -212,10 +208,10 @@ export default function Servicios() {
                 </div>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-700/30">
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-300/50 dark:border-gray-700/30">
                   <div className="flex items-center gap-1">
                     <Star className="text-yellow-400" size={14} />
-                    <span className="text-xs text-gray-400">Calidad garantizada</span>
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Calidad garantizada</span>
                   </div>
                   <ArrowRight 
                     className={`text-gray-500 group-hover:text-blue-400 transition-all duration-300 ${
@@ -227,15 +223,6 @@ export default function Servicios() {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Call to action */}
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
         </motion.div>
       </motion.div>
 
@@ -250,7 +237,7 @@ export default function Servicios() {
             onClick={() => setSelectedService(null)}
           >
             <motion.div 
-              className="bg-neutral-900 text-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-hide relative border border-gray-700/50 shadow-2xl"
+              className="bg-gray-100 dark:bg-neutral-900 text-gray-900 dark:text-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-hide relative border border-gray-300/50 dark:border-gray-700/50 shadow-2xl"
               initial={{ scale: 0.8, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 30 }}
@@ -259,9 +246,9 @@ export default function Servicios() {
             >
               
               {/* Header del modal */}
-              <div className={`relative p-8 bg-gradient-to-r ${selectedService.color} bg-opacity-20 border-b border-gray-700/30`}>
+              <div className={`relative p-8 bg-gradient-to-r ${selectedService.color} bg-opacity-20 border-b border-gray-300/50 dark:border-gray-700/30`}>
                 <button 
-                  className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200 bg-gray-800/50 rounded-full p-2"
+                  className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 bg-gray-200/50 dark:bg-gray-800/50 rounded-full p-2"
                   onClick={() => setSelectedService(null)}
                 >
                   ✕
@@ -269,18 +256,17 @@ export default function Servicios() {
 
                 <div className="flex items-start gap-6">
                   <div className={`p-4 rounded-lg bg-gradient-to-r ${selectedService.color} bg-opacity-30`}>
-                    <selectedService.icono size={32} className="text-white" />
+                    <selectedService.icono size={32} className="text-gray-800 dark:text-white" />
                   </div>
                   
                   <div className="flex-1">
-                    <h2 className="text-3xl font-bold text-white mb-2">{selectedService.titulo}</h2>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{selectedService.titulo}</h2>
+                    <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-4">
                       {selectedService.descripcionCompleta}
                     </p>
                     
                     <div className="flex flex-wrap gap-4 text-sm">
-                      
-                      <div className="flex items-center gap-2 bg-neutral-800/50 px-3 py-1 rounded-full">
+                      <div className="flex items-center gap-2 bg-gray-200/70 dark:bg-neutral-800/50 px-3 py-1 rounded-full">
                         <Sparkles className="text-yellow-400" size={16} />
                         <span>Calidad premium</span>
                       </div>
@@ -295,7 +281,7 @@ export default function Servicios() {
                   
                   {/* Características */}
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                       <Check className="text-blue-700" size={20} />
                       Lo que incluye
                     </h3>
@@ -303,13 +289,13 @@ export default function Servicios() {
                       {selectedService.caracteristicas.map((caracteristica: string, index: number) => (
                         <motion.div
                           key={index}
-                          className="flex items-center gap-3 p-3 bg-neutral-800/30 rounded-lg"
+                          className="flex items-center gap-3 p-3 bg-gray-200/70 dark:bg-neutral-800/30 rounded-lg"
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
                           <Check className="text-blue-700 flex-shrink-0" size={16} />
-                          <span className="text-gray-300">{caracteristica}</span>
+                          <span className="text-gray-800 dark:text-gray-300">{caracteristica}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -317,7 +303,7 @@ export default function Servicios() {
 
                   {/* Tecnologías */}
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                       <Zap className="text-blue-700" size={20} />
                       Tecnologías utilizadas
                     </h3>
@@ -325,20 +311,20 @@ export default function Servicios() {
                       {selectedService.tecnologias.map((tech: string, index: number) => (
                         <motion.div
                           key={index}
-                          className="bg-neutral-800/50 border border-gray-700/50 rounded-lg p-3 text-center hover:border-blue-500/10 transition-all duration-200"
+                          className="bg-gray-200/70 dark:bg-neutral-800/50 border border-gray-300/50 dark:border-gray-700/50 rounded-lg p-3 text-center hover:border-blue-500/30 transition-all duration-200"
                           initial={{ opacity: 0, scale: 0.9 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: index * 0.05 }}
                           whileHover={{ scale: 1.02 }}
                         >
-                          <span className="text-gray-300 font-medium">{tech}</span>
+                          <span className="text-gray-800 dark:text-gray-300 font-medium">{tech}</span>
                         </motion.div>
                       ))}
                     </div>
 
                     {/* Proceso de trabajo */}
                     <div className="mt-8">
-                      <h4 className="text-lg font-semibold text-white mb-4">Proceso de trabajo</h4>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Proceso de trabajo</h4>
                       <div className="space-y-3 text-sm">
                         {[
                           "Análisis de requerimientos y planificación",
@@ -351,7 +337,7 @@ export default function Servicios() {
                             <div className="w-6 h-6 bg-blue-700 text-white rounded-full flex items-center justify-center text-xs font-bold">
                               {index + 1}
                             </div>
-                            <span className="text-gray-300">{paso}</span>
+                            <span className="text-gray-800 dark:text-gray-300">{paso}</span>
                           </div>
                         ))}
                       </div>

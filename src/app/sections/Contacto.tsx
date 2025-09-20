@@ -22,6 +22,23 @@ export default function Contactame() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    };
+
+    checkDarkMode();
+
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const repeatCount = 100;
   const textArray = Array.from({ length: repeatCount }, (_, i) => i);
@@ -33,6 +50,14 @@ export default function Contactame() {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
+
+  const getTextColor = (lightColor: string, darkColor: string) => {
+    return isDarkMode ? darkColor : lightColor;
+  };
+
+  const getBgColor = (lightBg: string, darkBg: string) => {
+    return isDarkMode ? darkBg : lightBg;
+  };
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,8 +112,13 @@ export default function Contactame() {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen px-4 py-20 overflow-hidden">
-    
-      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-neutral-700 opacity-10 select-none leading-none">
+     
+      <h1
+        className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold opacity-10 select-none leading-none"
+        style={{
+          color: isDarkMode ? "rgb(55, 65, 81)" : "rgb(107, 114, 128)",
+        }}
+      >
         CONTACTO
       </h1>
 
@@ -96,7 +126,14 @@ export default function Contactame() {
         {Array.from({ length: 50 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-gray-400/30 rounded-full"
+            className="absolute w-2 h-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              backgroundColor: isDarkMode
+                ? "rgba(156, 163, 175, 0.3)"
+                : "rgba(107, 114, 128, 0.3)",
+            }}
             animate={{
               x: [0, 100, 0],
               y: [0, -80, 0],
@@ -106,10 +143,6 @@ export default function Contactame() {
               duration: 20 + i * 0.5,
               repeat: Infinity,
               delay: i * 0.4,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
             }}
           />
         ))}
@@ -125,16 +158,23 @@ export default function Contactame() {
             transition={{ duration: 0.5 }}
             className="flex flex-col items-center gap-8 text-center relative z-10 max-w-4xl"
           >
+        
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="text-center"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+              <h2
+                className="text-3xl md:text-5xl font-bold mb-4"
+                style={{ color: getTextColor("#111827", "white") }}
+              >
                 ¿Tienes un proyecto en mente?
               </h2>
-              <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              <p
+                className="text-lg max-w-2xl mx-auto leading-relaxed"
+                style={{ color: getTextColor("#4b5563", "#9ca3af") }}
+              >
                 Estoy siempre abierto a nuevas oportunidades y colaboraciones.
                 Hablemos sobre cómo podemos hacer realidad tu idea.
               </p>
@@ -149,20 +189,39 @@ export default function Contactame() {
               {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
-                  className="bg-neutral-900/60 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 text-center hover:border-blue-500/30 transition-all duration-300 hover:bg-neutral-800/60"
+                  className="backdrop-blur-sm border rounded-xl p-6 text-center transition-all duration-300"
+                  style={{
+                    backgroundColor: getBgColor(
+                      "rgb(243, 244, 246)",
+                      "rgba(20, 20, 20)"
+                    ),
+                    borderColor: getBgColor(
+                      "rgba(209, 213, 219, 0.5)",
+                      "rgba(75, 85, 99, 0.3)"
+                    ),
+                  }}
                   whileHover={{ scale: 1.02, y: -5 }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.1 }}
                 >
                   <info.icon
-                    className={`${info.color} mx-auto mb-3`}
+                    className={info.color}
                     size={24}
+                    style={{ margin: "0 auto 12px" }}
                   />
-                  <h3 className="text-white font-semibold mb-2">
+                  <h3
+                    className="font-semibold mb-2"
+                    style={{ color: getTextColor("#111827", "white") }}
+                  >
                     {info.label}
                   </h3>
-                  <p className="text-gray-400 text-sm">{info.value}</p>
+                  <p
+                    className="text-sm"
+                    style={{ color: getTextColor("#4b5563", "#9ca3af") }}
+                  >
+                    {info.value}
+                  </p>
                 </motion.div>
               ))}
             </motion.div>
@@ -177,7 +236,7 @@ export default function Contactame() {
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 whileTap={{ scale: 0.95 }}
-                className="relative overflow-hidden bg-gradient-to-r from-blue-800 to-cyan-900 hover:from-blue-500 hover:to-blue-800 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
+                className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
                 onClick={() => setShowForm(true)}
               >
                 <div className="relative flex overflow-hidden w-full justify-center items-center gap-2">
@@ -206,7 +265,8 @@ export default function Contactame() {
               </motion.button>
 
               <motion.p
-                className="text-gray-500 text-sm"
+                className="text-sm"
+                style={{ color: getTextColor("#6b7280", "#9ca3af") }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -228,50 +288,112 @@ export default function Contactame() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5 }}
-            className="w-130 h-120 max-w-lg bg-neutral-900/60 backdrop-blur-sm border border-gray-700/30 rounded-xl p-8 relative z-10"
+            className="w-130 h-120 max-w-lg backdrop-blur-sm border rounded-xl p-8 relative z-10"
+          
+            style={{
+              backgroundColor: getBgColor(
+                "rgb(209, 213, 219)",
+                "rgba(20, 20, 20)"
+              ),
+              borderColor: getBgColor(
+                "rgba(209, 213, 219, 0.5)",
+                "rgba(75, 85, 99, 0.3)"
+              ),
+            }}
           >
             <button
               onClick={() => setShowForm(false)}
-              className="absolute top-4 left-4 text-gray-400 hover:text-blue-800 transition-colors"
+              className="absolute top-4 left-4 transition-colors"
+              style={{ color: getTextColor("#6b7280", "#9ca3af") }}
             >
               <ArrowLeft size={20} />
             </button>
 
-            <h3 className="text-2xl font-bold text-white mb-6">
+            <h3
+              className="text-2xl font-bold mb-6"
+              style={{ color: getTextColor("#111827", "white") }}
+            >
               Envíame un mensaje
             </h3>
 
             <form onSubmit={sendEmail} className="flex flex-col gap-4">
-              <div className="flex items-center gap-3 bg-neutral-800/50 p-3 rounded-lg">
-                <User size={18} className="text-gray-400" />
+              
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg"
+                style={{
+                  backgroundColor: getBgColor(
+                    "rgba(243, 244, 246, 0.6)",
+                    "rgba(31, 41, 55, 0.5)"
+                  ),
+                }}
+              >
+                <User
+                  size={18}
+                  style={{ color: getTextColor("#6b7280", "#9ca3af") }}
+                />
                 <input
                   type="text"
                   name="user_name"
                   required
                   placeholder="Tu nombre"
-                  className="bg-transparent outline-none flex-1 text-white"
+                  className="bg-transparent outline-none flex-1 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  style={{
+                    color: getTextColor("#111827", "white"),
+                  }}
                 />
               </div>
 
-              <div className="flex items-center gap-3 bg-neutral-800/50 p-3 rounded-lg">
-                <Mail size={18} className="text-gray-400" />
+             
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg"
+                style={{
+                  backgroundColor: getBgColor(
+                    "rgba(243, 244, 246, 0.6)",
+                    "rgba(31, 41, 55, 0.5)"
+                  ),
+                }}
+              >
+                <Mail
+                  size={18}
+                  style={{ color: getTextColor("#6b7280", "#9ca3af") }}
+                />
                 <input
                   type="email"
                   name="user_email"
                   required
                   placeholder="Tu correo"
-                  className="bg-transparent outline-none flex-1 text-white"
+                  className="bg-transparent outline-none flex-1 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  style={{
+                    color: getTextColor("#111827", "white"),
+                  }}
                 />
               </div>
 
-              <div className="flex items-center gap-3 bg-neutral-800/50 p-3 rounded-lg">
-                <div className="text-gray-400" />
+              <div
+                className="flex items-start gap-3 p-3 rounded-lg"
+                style={{
+                  backgroundColor: getBgColor(
+                    "rgba(243, 244, 246, 0.6)",
+                    "rgba(31, 41, 55, 0.5)"
+                  ),
+                }}
+              >
+                <MessageCircle
+                  size={18}
+                  style={{
+                    color: getTextColor("#6b7280", "#9ca3af"),
+                    marginTop: "2px",
+                  }}
+                />
                 <textarea
                   name="message"
                   required
                   placeholder="Tu mensaje"
                   rows={4}
-                  className="bg-transparent outline-none flex-1 text-white resize-none"
+                  className="bg-transparent outline-none flex-1 resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                  style={{
+                    color: getTextColor("#111827", "white"),
+                  }}
                 />
               </div>
 
@@ -279,7 +401,7 @@ export default function Contactame() {
                 type="submit"
                 whileTap={{ scale: 0.95 }}
                 disabled={loading}
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 border border-blue-500/30 disabled:opacity-50"
+                className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 border border-blue-500/30 disabled:opacity-50"
               >
                 {loading ? "Enviando..." : "Enviar"}
                 {!loading && <Send size={18} />}

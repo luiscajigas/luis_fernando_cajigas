@@ -141,7 +141,6 @@ export default function Informacion() {
         ))}
       </div>
 
-      {/* texto fond */}
       <h1 
         className="absolute top-130 left-1/2 -translate-x-1/2 text-9xl sm:text-6xl lg:text-8xl font-extrabold bg-gradient-to-r opacity-20 select-none leading-none"
         style={{ 
@@ -179,13 +178,12 @@ export default function Informacion() {
         </span>
       </motion.div>
 
-      {/* botones extras */}
       <div className="absolute top-16 right-4 flex flex-col gap-2 z-20">
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarIdiomas(!mostrarIdiomas)}
-          className="flex items-center gap-2 bg-gradient-to-r from-neutral-600 to-neutral-700 hover:from-blue-900 hover:to-blue-950 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
+          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <Languages size={16} />
           Idiomas
@@ -195,14 +193,13 @@ export default function Informacion() {
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarLogros(!mostrarLogros)}
-          className="flex items-center gap-2 bg-gradient-to-r from-neutral-700 to-neutral-500 hover:from-blue-900 hover:to-blue-950 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
+          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <Award size={16} />
           Logros
         </motion.button>
       </div>
 
-      {/* cuadro idiamos */}
       <AnimatePresence>
         {mostrarIdiomas && (
           <motion.div
@@ -212,8 +209,8 @@ export default function Informacion() {
             transition={{ duration: 0.4 }}
             className="absolute top-32 right-4 w-72 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
             style={{
-              backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
-              borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+              backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
+              borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
             }}
           >
             <h3 
@@ -254,7 +251,6 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
-      {/* cuadro Logros */}
       <AnimatePresence>
         {mostrarLogros && (
           <motion.div
@@ -264,8 +260,8 @@ export default function Informacion() {
             transition={{ duration: 0.4 }}
             className="absolute top-32 right-4 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
             style={{
-              backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
-              borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+              backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
+              borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
             }}
           >
             <h3 
@@ -299,7 +295,6 @@ export default function Informacion() {
         )}
       </AnimatePresence>
 
-      {/* conteni*/}
       <div className="relative z-10 py-20 px-6 min-h-full flex flex-col">
         <motion.div
           className="flex flex-col items-center text-center mb-8"
@@ -373,7 +368,6 @@ export default function Informacion() {
           />
         </motion.div>
 
-        {/* idiomas programacion */}
         <motion.div
           className="flex flex-col items-center text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -394,14 +388,14 @@ export default function Informacion() {
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-4xl">
-            {/* Frontend */}
+
             <motion.div 
               className="backdrop-blur-md rounded-2xl p-6 shadow-xl border"
               style={{
-                backgroundColor: getBgColor('rgba(249, 250, 251, 0.9)', 'rgb(20, 20, 20)'),
-                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+                backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
+                borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
-              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgb(10, 10, 10)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(147, 51, 234)" }}
               initial="hidden"
               animate="visible"
             >
@@ -409,8 +403,8 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiReact className="text-blue-900 hover:text-blue-800" size={24} />
-                Frontend Developer
+                <SiReact className="text-blue-900 hover:text-blue-500" size={24} />
+                Frontend 
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
@@ -442,14 +436,13 @@ export default function Informacion() {
               </div>
             </motion.div>
 
-            {/* Backend */}
             <motion.div 
               className="backdrop-blur-md rounded-2xl p-6 shadow-xl border"
               style={{
-                backgroundColor: getBgColor('rgba(249, 250, 251, 0.9)', 'rgb(20, 20, 20'),
-                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+                backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20'),
+                borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
-              whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgb(10, 10, 10)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(6, 182, 212)" }}
               initial="hidden"
               animate="visible"
             >
@@ -457,8 +450,8 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiDjango className="text-blue-900 hover:text-blue-800" size={24} />
-                Backend Developer
+                <SiDjango className="text-blue-900 hover:text-blue-500" size={24} />
+                Backend 
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
@@ -493,13 +486,12 @@ export default function Informacion() {
         </motion.div>
       </div>
 
-      {/* mas informacion*/}
       <div className="absolute bottom-4 right-4 z-20">
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarConocerme(!mostrarConocerme)}
-          className="flex items-center gap-2 bg-gradient-to-r from-neutral-600 to-neutral-800 hover:from-blue-700 hover:to-blue-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
+          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <User size={16} />
           Conocerme mejor
@@ -514,8 +506,8 @@ export default function Informacion() {
               transition={{ duration: 0.4 }}
               className="absolute bottom-14 right-0 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
               style={{
-                backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgb(20, 20, 20)'),
-                borderColor: getBgColor('rgba(209, 213, 219, 0.7)', 'rgba(75, 85, 99, 0.3)')
+                backgroundColor: getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)'),
+                borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
             >
               <h3 

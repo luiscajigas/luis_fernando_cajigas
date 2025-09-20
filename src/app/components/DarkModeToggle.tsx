@@ -28,7 +28,7 @@ export default function DarkModeToggle({ darkMode, setDarkMode }: Props) {
         whileHover={{ scale: 1.02 }}
       >
         <motion.div
-          className="absolute top-1 w-10 h-8 bg-gradient-to-r from-blue-900 to-neutral-600 rounded-full shadow-lg"
+          className="absolute top-1 w-10 h-8 bg-gradient-to-r from-cyan-500 to-purple-800 rounded-full shadow-lg"
           animate={{
             x: darkMode ? 52 : 4,
           }}

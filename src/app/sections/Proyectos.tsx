@@ -1,11 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaGlobe } from "react-icons/fa";
 import { Calendar, Code, ExternalLink, X, Star, Zap } from "lucide-react";
 
 export default function Proyectos() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDarkMode(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    return () => observer.disconnect();
+  }, []);
+
   const proyectos = [
     { 
       titulo: "Proyecto 1", 
@@ -64,7 +82,7 @@ export default function Proyectos() {
     { 
       titulo: "Proyecto 7", 
       fecha: "Jul 2025",
-      descripción: "Plataforma de aprendizaje online con sistema de progreso, certificaciones y gamificación.",
+      descripcion: "Plataforma de aprendizaje online con sistema de progreso, certificaciones y gamificación.",
       tecnologias: ["React Native", "Firebase", "Stripe", "WebRTC"],
       estado: "En desarrollo"
     },
@@ -73,11 +91,27 @@ export default function Proyectos() {
   const [selected, setSelected] = useState<any>(null);
   const [filter, setFilter] = useState("todos");
 
+  const getTextColor = (lightColor: string, darkColor: string) => {
+    return isDarkMode ? darkColor : lightColor;
+  };
+
+  const getBgColor = (lightBg: string, darkBg: string) => {
+    return isDarkMode ? darkBg : lightBg;
+  };
+
   const getStatusColor = (estado: string) => {
-    switch (estado) {
-      case "Completado": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      case "En desarrollo": return "bg-blue-800/20 text-blue-800 border-blue-500/30";
-      default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+    if (isDarkMode) {
+      switch (estado) {
+        case "Completado": return "bg-cyan-500/20 text-blue-400 border-blue-500/30";
+        case "En desarrollo": return "bg-blue-800/20 text-blue-800 border-blue-500/30";
+        default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+      }
+    } else {
+      switch (estado) {
+        case "Completado": return "bg-cyan-500/20 text-blue-600 border-blue-500/30";
+        case "En desarrollo": return "bg-purple-800/20 text-purple-800 border-purple-500/30";
+        default: return "bg-gray-500 text-gray-700 border-gray-300";
+      }
     }
   };
 
@@ -88,18 +122,24 @@ export default function Proyectos() {
 
   return (
     <section className="relative flex justify-end w-full min-h-screen px-10 py-20 overflow-hidden">
-      
-      {/* Título de fondo */}
-      <h1 className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold text-gray-700 opacity-10 select-none leading-none">
+
+      <h1 
+        className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold opacity-10 select-none leading-none"
+        style={{ color: isDarkMode ? 'rgb(55, 65, 81)' : 'rgb(107, 114, 128)' }}
+      >
         PROYECTOS
       </h1>
 
-      {/* Partículas de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-3 h-3 bg-gray-400/20 rounded-full"
+            className="absolute w-3 h-3 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              backgroundColor: isDarkMode ? 'rgba(156, 163, 175, 0.2)' : 'rgba(107, 114, 128, 0.3)'
+            }}
             animate={{
               x: [0, 120, 0],
               y: [0, -100, 0],
@@ -110,29 +150,28 @@ export default function Proyectos() {
               repeat: Infinity,
               delay: i * 0.6
             }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
-            }}
           />
         ))}
       </div>
-
-      {/* Filtros */}
+      
       <motion.div 
         className="absolute top-15 right-27 flex gap-2 z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {["todos", "completado", "en desarrollo",].map((filterOption, index) => (
+        {["todos", "completado", "en desarrollo"].map((filterOption, index) => (
           <motion.button
             key={filterOption}
             onClick={() => setFilter(filterOption)}
             className={`px-3 py-1 text-xs rounded-full border transition-all duration-300 ${
               filter === filterOption 
-                ? "bg-blue-900 text-white border-blue-800" 
-                : "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:shadow-xs shadow-blue-500 hover:text-blue-400"
+                ? isDarkMode 
+                  ? "bg-blue-900 text-white border-blue-800" 
+                  : "bg-blue-600 text-white border-blue-500"
+                : isDarkMode
+                  ? "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:text-blue-400"
+                  : "bg-gray-200 text-black border-gray-300 hover:border-blue-400 hover:text-blue-600"
             }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -145,7 +184,6 @@ export default function Proyectos() {
         ))}
       </motion.div>
 
-      {/* Lista de proyectos */}
       <div className="w-100 h-180 overflow-y-auto pr-4 space-y-12 scrollbar-hide mt-16">
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
@@ -157,12 +195,38 @@ export default function Proyectos() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             whileHover={{ scale: 1.02 }}
           >
-            {/* Línea conectora */}
-            <div className="absolute right-0 top-1/2 w-12 h-px bg-gradient-to-l from-blue-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div 
+              className="absolute right-0 top-1/2 w-12 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                backgroundImage: isDarkMode 
+                  ? 'linear-gradient(to left, rgba(30, 58, 138, 0.6), transparent)'
+                  : 'linear-gradient(to left, rgba(37, 99, 235, 0.6), transparent)'
+              }}
+            />
             
-            <div className="relative bg-neutral-900/40 backdrop-blur-sm border border-gray-700/30 rounded-xl p-6 hover:bg-neutral-800/60 hover:border-blue-900/30 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-blue-500/10">
+            <div 
+              className="relative backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 group-hover:shadow-lg"
+              style={{
+                backgroundColor: getBgColor('rgb(243, 244, 246)', 'rgba(20, 20, 20)'), 
+                borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)'),
+                boxShadow: isDarkMode 
+                  ? '0 0 0 0 rgba(59, 130, 246, 0)'
+                  : '0 0 0 0 rgba(37, 99, 235, 0)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = getBgColor('rgb(209, 213, 219)', 'rgba(31, 41, 55, 0.6)');
+                e.currentTarget.style.borderColor = getBgColor('rgba(37, 99, 235, 0.3)', 'rgba(30, 58, 138, 0.3)');
+                e.currentTarget.style.boxShadow = isDarkMode 
+                  ? '0 10px 25px rgba(37, 99, 235, 0.1 )'
+                  : '0 20px 40px rgb(233, 213, 255)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = getBgColor('rgb(243, 244, 246)', 'rgba(20, 20, 20)');
+                e.currentTarget.style.borderColor = getBgColor('rgba(75, 85, 99, 0.3', 'rgba(75, 85, 99, 0.3)');
+                e.currentTarget.style.boxShadow = '0 0 0 0 transparent';
+              }}
+            >
               
-              {/* Estado del proyecto */}
               {proyecto.estado && (
                 <motion.span 
                   className={`inline-block px-2 py-1 text-xs rounded-full border mb-3 ${getStatusColor(proyecto.estado)}`}
@@ -174,39 +238,59 @@ export default function Proyectos() {
                 </motion.span>
               )}
 
-              <h2 className="text-2xl md:text-4xl font-light tracking-wide text-white group-hover:text-blue-400 transition-colors duration-300">
-                {proyecto.titulo}
-              </h2>
+       <h2 
+  className="text-2xl md:text-4xl font-light tracking-wide transition-colors duration-300"
+  style={{ 
+    color: getTextColor('#111827', 'white')
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.color = isDarkMode ? '#60a5fa' : '#2563eb';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.color = getTextColor('#111827', 'white');
+  }}
+>
+  {proyecto.titulo}
+</h2>
               
               <div className="flex items-center justify-end gap-2 mt-2">
-                <Calendar size={14} className="text-gray-500" />
-                <p className="text-sm text-gray-400">{proyecto.fecha}</p>
+                <Calendar size={14} style={{ color: getTextColor('#6b7280', '#9ca3af') }} />
+                <p className="text-sm" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>{proyecto.fecha}</p>
               </div>
 
-              {/* Preview de tecnologías */}
               {proyecto.tecnologias && (
                 <div className="flex justify-end gap-2 mt-3 flex-wrap">
                   {proyecto.tecnologias.slice(0, 3).map((tech, i) => (
-                    <span key={i} className="text-xs bg-gray-700/50 text-gray-300 px-2 py-1 rounded-md">
+                    <span 
+                      key={i} 
+                      className="text-xs px-2 py-1 rounded-md"
+                      style={{
+                        backgroundColor: getBgColor('rgba(229, 231, 235)', 'rgba(75, 85, 99, 0.5)'),
+                        color: getTextColor('#374151', '#d1d5db')
+                      }}
+                    >
                       {tech}
                     </span>
                   ))}
                   {proyecto.tecnologias.length > 3 && (
-                    <span className="text-xs text-gray-500">+{proyecto.tecnologias.length - 3}</span>
+                    <span 
+                      className="text-xs"
+                      style={{ color: getTextColor('#6b7280', '#9ca3af') }}
+                    >
+                      +{proyecto.tecnologias.length - 3}
+                    </span>
                   )}
                 </div>
               )}
 
-              {/* Indicador de click */}
               <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ExternalLink size={14} className="text-gray-500" />
+                <ExternalLink size={14} style={{ color: getTextColor('#6b7280', '#9ca3af') }} />
               </div>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Modal mejorado */}
       <AnimatePresence>
         {selected && (
           <motion.div 
@@ -217,7 +301,12 @@ export default function Proyectos() {
             onClick={() => setSelected(null)}
           >
             <motion.div 
-              className="bg-neutral-900 text-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-hide relative border border-gray-700/50 shadow-2xl"
+              className="rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-hide relative border shadow-2xl"
+              style={{
+                backgroundColor: getBgColor('rgba(255, 255, 255, 0.95)', 'rgb(20,20,20)'),
+                borderColor: getBgColor('rgba(209, 213, 219, 0.5)', 'rgba(75, 85, 99, 0.5)'),
+                color: getTextColor('#111827', 'white')
+              }}
               initial={{ scale: 0.8, opacity: 0, y: 30 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: 30 }}
@@ -225,19 +314,30 @@ export default function Proyectos() {
               onClick={(e) => e.stopPropagation()}
             >
               
-              {/* Header del modal */}
-              <div className="relative p-6 border-b border-gray-700/30">
+              <div className="relative p-6 border-b" style={{ borderColor: getBgColor('rgba(209, 213, 219 )', 'rgba(75, 85, 99, 0.3)') }}>
                 <button 
-                  className="absolute top-4 right-35 text-gray-400 hover:text-white transition-colors duration-200 bg-gray-700/50 rounded-full p-2"
+                  className="absolute top-4 right-36 transition-colors duration-200 rounded-full p-2"
+                  style={{
+                    color: getTextColor('#000000', '#9ca3af'),
+                    backgroundColor: getBgColor('rgba(107, 114, 128, 0.5)', 'rgba(75, 85, 99, 0.5)')
+                  }}
                   onClick={() => setSelected(null)}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = getTextColor('#111827', 'white');
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = getTextColor('#000000', '#9ca3af');
+                  }}
                 >
                   <X size={20} />
                 </button>
 
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-2xl font-bold text-white mb-2">{selected.titulo}</h2>
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <h2 className="text-2xl font-bold mb-2" style={{ color: getTextColor('#111827', 'white') }}>
+                      {selected.titulo}
+                    </h2>
+                    <div className="flex items-center gap-2 text-sm" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>
                       <Calendar size={14} />
                       <span>{selected.fecha}</span>
                     </div>
@@ -250,13 +350,17 @@ export default function Proyectos() {
                   )}
                 </div>
 
-                {/* Tecnologías */}
                 {selected.tecnologias && (
                   <div className="flex flex-wrap gap-2">
                     {selected.tecnologias.map((tech: string, i: number) => (
                       <motion.span 
                         key={i}
-                        className="text-xs bg-gray-700/70 text-gray-300 px-3 py-1 rounded-full border border-gray-600/50"
+                        className="text-xs px-3 py-1 rounded-full border"
+                        style={{
+                          backgroundColor: getBgColor('rgb(209, 213, 219)', 'rgba(38, 38, 38 )'),
+                          color: getTextColor('#374151', '#d1d5db'),
+                          borderColor: getBgColor('rgba(107, 114, 128, 0.5)', 'rgba(107, 114, 128, 0.5)')
+                        }}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.05 }}
@@ -268,35 +372,37 @@ export default function Proyectos() {
                 )}
               </div>
 
-              {/* Contenido del modal */}
               <div className="p-6">
-                {/* Imagen */}
+              
                 {selected.imagen && (
                   <motion.img 
                     src={selected.imagen} 
                     alt={selected.titulo} 
-                    className="w-full rounded-xl mb-6 border border-gray-700/30 shadow-lg"
+                    className="w-full rounded-xl mb-6 border shadow-lg"
+                    style={{ borderColor: getBgColor('rgba(209, 213, 219, 0.3)', 'rgba(75, 85, 99, 0.3)') }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                   />
                 )}
 
-                {/* Descripción */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <p className="text-gray-300 leading-relaxed mb-6">
+                  <p 
+                    className="leading-relaxed mb-6"
+                    style={{ color: getTextColor('#374151', '#d1d5db') }}
+                  >
                     {selected.descripcion}
                   </p>
                 </motion.div>
 
-                {/* Enlaces */}
                 {(selected.github || selected.web) && (
                   <motion.div 
-                    className="flex gap-4 justify-center pt-4 border-t border-gray-700/30"
+                    className="flex gap-4 justify-center pt-4 border-t"
+                    style={{ borderColor: getBgColor('rgba(209, 213, 219)', 'rgba(75, 85, 99, 0.3)') }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
@@ -306,7 +412,18 @@ export default function Proyectos() {
                         href={selected.github} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-neutral-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg transition-colors duration-200 border border-gray-600"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 border"
+                        style={{
+                          backgroundColor: getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)'),
+                          borderColor: getBgColor('rgba(209, 213, 219, 0.6)', 'rgb(107, 114, 128)'),
+                          color: getTextColor('#111827', 'white')
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = getBgColor('rgb(168, 85, 247, 0.3)', 'rgb(59, 130, 246, 0.3)');
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)');
+                        }}
                       >
                         <FaGithub size={18} />
                         <span className="text-sm">Código</span>
@@ -317,7 +434,18 @@ export default function Proyectos() {
                         href={selected.web} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-neutral-800 hover:bg-blue-900 text-white px-4 py-2 rounded-lg transition-colors duration-200 border border-gray-600"
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg transition-colors duration-200 border"
+                        style={{
+                          backgroundColor: getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)'),
+                          borderColor: getBgColor('rgba(209, 213, 219, 0.6)', 'rgb(107, 114, 128)'),
+                          color: getTextColor('#111827', 'white')
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = getBgColor('rgb(168, 85, 247, 0.3)', 'rgb(59, 130, 246, 0.3)');
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)');
+                        }}
                       >
                         <FaGlobe size={18} />
                         <span className="text-sm">Web</span>

@@ -26,8 +26,8 @@ export default function Proyectos() {
 
   const proyectos = [
     { 
-      titulo: "Proyecto 1", 
-      fecha: "Ene 2025",
+      titulo: "Practica inicio sesion en tailwind", 
+      fecha: "Agosto 26",
       descripcion: "Proyecto frontend sobre un inicio de sesión realizado con Tailwind CSS y sus propiedades avanzadas, implementado en Next.js con animaciones fluidas y diseño responsive.",
       imagen: "/images/proyecto1.png",
       github: "https://github.com/luiscajigas/trabajos-diseno.git",
@@ -36,28 +36,28 @@ export default function Proyectos() {
       estado: "Completado"
     },
     { 
-      titulo: "Proyecto 2",
-      fecha: "Feb 2025",
-      descripcion: "Dashboard administrativo moderno con autenticación, gestión de usuarios y visualización de datos en tiempo real. Interfaz intuitiva y responsive.",
-      imagen: "/images/proyecto1.png",
-      github: "https://github.com/luiscajigas/trabajos-diseno.git",
-      web: "https://trabajos-diseno.vercel.app/",
-      tecnologias: ["React", "Node.js", "MongoDB", "Chart.js"],
-      estado: "En desarrollo"
+      titulo: "Star Session modern",
+      fecha: "Septiembre 21",
+      descripcion: "Página de autenticación premium con diseño tipo glassmorphism, animaciones garantizando buena experiencia al usuario. Cuenta con una interfaz moderna con efectos visuales y transiciones fluidas",
+      imagen: "/images/proyecto2.png",
+      github: "https://github.com/luiscajigas/start-session.git",
+      web: "https://inico-sesion.vercel.app/",
+      tecnologias: ["Next.js", "TypeScript", "Tailwind CSS", "React 18"],
+      estado: "Completado"
     },
     { 
-      titulo: "Proyecto 3", 
-      fecha: "Mar 2025",
-      descripcion: "E-commerce completo con carrito de compras, pasarela de pagos, gestión de inventario y panel de administración integrado.",
-      imagen: "/images/proyecto1.png",
-      github: "https://github.com/luiscajigas/trabajos-diseno.git",
-      web: "https://trabajos-diseno.vercel.app/",
-      tecnologias: ["Django", "PostgreSQL", "Stripe API", "CSS3"],
+      titulo: "Practica Pasaporte en tailwind", 
+      fecha: "Septiembre 3",
+      descripcion: "Pase de abordar digital interactivo con diseño realista tipo ticket físico. Replica la experiencia visual de un boarding pass de aerolínea con QR code funcional, detalles de vuelo y estética profesional de aviación",
+      imagen: "/images/proyecto3.png",
+      github: "https://github.com/luiscajigas/pasa.git",
+      web: "https://pasa-alpha.vercel.app/",
+      tecnologias: ["Next.JS", "Tailwind CSS", "React 18"],
       estado: "Completado"
     },
     { 
       titulo: "Proyecto 4", 
-      fecha: "Abr 2025",
+      fecha: "Septiembre 3",
       descripcion: "Landing page empresarial completamente responsive con animaciones avanzadas, optimizada para SEO y rendimiento.",
       imagen: "/images/proyecto1.png",
       github: "https://github.com/luiscajigas/trabajos-diseno.git",

@@ -11,7 +11,7 @@ export default function Inicio() {
   const quotes = [
     "BIENVENIDO A MI PORTAFOLIO",
     "ESPERO TE GUSTE MI TRABAJO",
-    ";)"
+    "david gay"
   ];
 
   useEffect(() => {

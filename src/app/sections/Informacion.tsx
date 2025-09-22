@@ -77,7 +77,7 @@ export default function Informacion() {
   }, []);
 
   const frases = [
-    "AYER FUNCIONABA",
+    "LA ÚNICA FORMA DE APRENDER UN NUEVO LENJUAGUE ES ESCRÍBIENDO PROGRAMAS EN ÉL",
     "PRIMERO RESUELVE EL PROBLEMA, DESPUES ESCRIBE EL CÓDIGO",
     "SIEMPRE APRENDIENDO Y ADQUIRIENDO NUEVAS HABILIDADES"
   ];
@@ -395,7 +395,7 @@ export default function Informacion() {
                 backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
                 borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(147, 51, 234)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(147, 51, 234, 0.3)" }}
               initial="hidden"
               animate="visible"
             >
@@ -442,7 +442,7 @@ export default function Informacion() {
                 backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20'),
                 borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
-              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(6, 182, 212)" }}
+              whileHover={{ scale: 1.05, boxShadow: "0 8px 16px rgb(6, 182, 212, 0.3)" }}
               initial="hidden"
               animate="visible"
             >

@@ -56,14 +56,14 @@ export default function Proyectos() {
       estado: "Completado"
     },
     { 
-      titulo: "Proyecto 4", 
-      fecha: "Septiembre 3",
-      descripcion: "Landing page empresarial completamente responsive con animaciones avanzadas, optimizada para SEO y rendimiento.",
-      imagen: "/images/proyecto1.png",
-      github: "https://github.com/luiscajigas/trabajos-diseno.git",
-      web: "https://trabajos-diseno.vercel.app/",
-      tecnologias: ["HTML5", "SCSS", "JavaScript", "GSAP"],
-      estado: "Completado"
+      titulo: "Mascotas", 
+      fecha: "Mayo 30",
+      descripcion: "Plataforma interactiva de rastreo de collares para mascotas con mapa en tiempo real, donde puedes marcar zonas seguras, registrar nuevas mascotas, comprar productos y consultar noticias relevantes, como reportes de mascotas perdidas.",
+      imagen: "/images/julianpets.png",
+      github: "https://github.com/JulianMoreno627/proyecto-mascotas.git",
+      web: "https://proyecto-mascotas-six.vercel.app/",
+      tecnologias: ["ANGULAR", "SCSS", "TypeScript", "HTML", "JavaScript"],
+      estado: "En desarrollo"
     },
     { 
       titulo: "Proyecto 5", 

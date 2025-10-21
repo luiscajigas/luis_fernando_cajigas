@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram, Menu, X } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
 
@@ -19,35 +19,19 @@ export default function Sidebar({
   setSelected,
 }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const checkDarkMode = () => {
-      setIsDarkMode(document.documentElement.classList.contains('dark'));
-    };
-    
-    checkDarkMode();
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
+  const getTextColor = useMemo(() => (lightColor: string, darkColor: string) => {
+    return darkMode ? darkColor : lightColor;
+  }, [darkMode]);
 
-  const getTextColor = (lightColor: string, darkColor: string) => {
-    return isDarkMode ? darkColor : lightColor;
-  };
+  const getBgColor = useMemo(() => (lightBg: string, darkBg: string) => {
+    return darkMode ? darkBg : lightBg;
+  }, [darkMode]);
 
-  const getBgColor = (lightBg: string, darkBg: string) => {
-    return isDarkMode ? darkBg : lightBg;
-  };
-
-  const getBorderColor = (lightBorder: string, darkBorder: string) => {
-    return isDarkMode ? darkBorder : lightBorder;
-  };
+  const getBorderColor = useMemo(() => (lightBorder: string, darkBorder: string) => {
+    return darkMode ? darkBorder : lightBorder;
+  }, [darkMode]);
 
   const menuItems = [
     { id: "inicio", label: "Inicio", icon: Home },
@@ -86,24 +70,16 @@ export default function Sidebar({
   const SidebarContent = () => (
     <>
       {/* Header con gradiente */}
-      <motion.div 
-        className="mb-8"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
+      <div className="mb-8">
         <h1 
           className="text-3xl md:text-4xl font-bold leading-tight"
           style={{ color: getTextColor('#000000', 'white') }}
         >
           Luis Fernando Cajigas
         </h1>
-        <motion.p 
+        <p 
           className="text-sm mt-2 leading-relaxed"
           style={{ color: getTextColor('#000000', '#FFFFFF') }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
         >
           Diseño y desarrollo web <br />
           <span 
@@ -112,17 +88,17 @@ export default function Sidebar({
           >
             fullstack
           </span>
-        </motion.p>
-      </motion.div>
+        </p>
+      </div>
 
       <nav className="flex flex-col space-y-1 mb-8">
-        {menuItems.map((item, index) => (
-          <motion.button
+        {menuItems.map((item) => (
+          <button
             key={item.id}
             onClick={() => handleMenuItemClick(item.id)}
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
-            className="relative flex items-center gap-3 text-sm py-3 px-4 rounded-lg text-left transition-all duration-300 group"
+            className="relative flex items-center gap-3 text-sm py-3 px-4 rounded-lg text-left transition-all duration-200 group"
             style={{
               backgroundColor: selected === item.id 
                 ? getBgColor('rgb(168, 85, 247, 0.3)', 'rgba(37, 99, 235, 0.3)')
@@ -132,20 +108,13 @@ export default function Sidebar({
               color: selected === item.id 
                 ? getTextColor('#9333EA', '#60a5fa')
                 : getTextColor('#000000', '#FFFFFF'),
-              borderLeft: selected === item.id ? `2px solid ${getTextColor('#2563eb', '#60a5fa')}` : 'none'
+              borderLeft: selected === item.id ? `2px solid ${getTextColor('#2563eb', '#60a5fa')}` : 'none',
+              transform: hoveredItem === item.id ? 'translateX(5px)' : 'translateX(0)'
             }}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 * index + 0.1 }}
-            whileHover={{ 
-              x: 5,
-              color: getTextColor('#9333EA', 'white')
-            }}
-            whileTap={{ scale: 0.98 }}
           >
             <item.icon 
               size={18} 
-              className="transition-colors duration-300"
+              className="transition-colors duration-200"
               style={{ 
                 color: selected === item.id 
                   ? getTextColor('#7E22CE', '#60a5fa')
@@ -158,38 +127,27 @@ export default function Sidebar({
             </span>
 
             {selected === item.id && (
-              <motion.div
+              <div
                 className="absolute right-3 w-2 h-2 rounded-full"
                 style={{ backgroundColor: getTextColor('#7E22CE', '#60a5fa') }}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.1 }}
               />
             )}
 
             {hoveredItem === item.id && selected !== item.id && (
-              <motion.div
+              <div
                 className="absolute left-0 w-1 rounded-r h-8"
                 style={{
-                  background: isDarkMode 
+                  background: darkMode 
                     ? 'linear-gradient(to bottom, rgb(96, 165, 250), rgb(168, 85, 247))' 
                     : 'linear-gradient(to bottom, rgb(59, 130, 246), rgb(147, 51, 234))'
                 }}
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 0.1 }}
               />
             )}
-          </motion.button>
+          </button>
         ))}
       </nav>
 
-      <motion.div 
-        className="mb-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
+      <div className="mb-6">
         <h3 
           className="text-xs mb-3 font-medium tracking-wider uppercase"
           style={{ color: getTextColor('#000000', '#FFFFFF') }}
@@ -198,48 +156,42 @@ export default function Sidebar({
         </h3>
         <div className="flex gap-3">
           {socialLinks.map((social, index) => (
-            <motion.a
+            <a
               key={index}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-all duration-300 p-2 backdrop-blur-sm rounded-lg border"
+              className="transition-all duration-300 p-2 backdrop-blur-sm rounded-lg border hover:scale-110 hover:-translate-y-0.5 active:scale-95"
               style={{
                 color: getTextColor('#000000', '#FFFFFF'),
                 backgroundColor: getBgColor('rgba(229, 231, 235, 1)', 'rgba(20,20,20)'),
                 borderColor: getBorderColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
               }}
-              whileHover={{ 
-                scale: 1.1, 
-                y: -2,
-                boxShadow: "0 8px 25px rgba(0,0,0,0.15)",
-                color: social.hoverColor,
-                borderColor: getBorderColor('rgba(156, 163, 175, 1)', 'rgba(107, 114, 128, 0.5)')
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = social.hoverColor;
+                e.currentTarget.style.borderColor = getBorderColor('rgba(156, 163, 175, 1)', 'rgba(107, 114, 128, 0.5)');
+                e.currentTarget.style.boxShadow = "0 8px 25px rgba(0,0,0,0.15)";
               }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + index * 0.1 }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = getTextColor('#000000', '#FFFFFF');
+                e.currentTarget.style.borderColor = getBorderColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)');
+                e.currentTarget.style.boxShadow = "none";
+              }}
               title={social.label}
             >
               <social.icon size={16} />
-            </motion.a>
+            </a>
           ))}
         </div>
-      </motion.div>
+      </div>
 
       <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <motion.div
-        className="text-xs text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
+      <div className="text-xs text-center mt-6">
         <div 
           className="h-px mb-3"
           style={{
-            background: isDarkMode 
+            background: darkMode 
               ? 'linear-gradient(to right, transparent, rgb(75, 85, 99), transparent)'
               : 'linear-gradient(to right, transparent, rgb(156, 163, 175), transparent)'
           }}
@@ -247,7 +199,7 @@ export default function Sidebar({
         <p style={{ color: getTextColor('#1f2937', '#d1d5db') }}>
           © 2025 Luis Cajigas
         </p>
-      </motion.div>
+      </div>
     </>
   );
 

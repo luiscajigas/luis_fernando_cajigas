@@ -3,16 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Code, Zap, User, MapPin, Calendar } from "lucide-react";
-import dynamic from "next/dynamic";
-
-const Model3D = dynamic(() => import("../components/Models3D"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-full flex items-center justify-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
-    </div>
-  ),
-});
+import TiltedCard from "../components/TiltedCard";
 
 export default function Inicio() {
   const [currentQuote, setCurrentQuote] = useState(0);
@@ -61,7 +52,7 @@ export default function Inicio() {
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div className="w-full h-full flex items-center justify-between px-8">
-        {/* Modelo 3D - Lado izquierdo */}
+        {/* TiltedCard - Lado izquierdo */}
         <motion.div 
           className="flex-1 h-full flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.5 }}
@@ -73,8 +64,21 @@ export default function Inicio() {
             stiffness: 100
           }}
         >
-          <div className="w-full h-full max-w-[600px]">
-            <Model3D darkMode={isDarkMode} />
+          <div className="w-full h-full max-w-[600px] flex items-center justify-center">
+            <TiltedCard
+              imageSrc="/anim.jpg"
+              altText="Imagen de portafolio"
+              captionText="Luis Fernando Cajigas"
+              containerHeight="400px"
+              containerWidth="400px"
+              imageHeight="400px"
+              imageWidth="400px"
+              rotateAmplitude={14}
+              scaleOnHover={1.15}
+              showMobileWarning={true}
+              showTooltip={true}
+              displayOverlayContent={false}
+            />
           </div>
         </motion.div>
 

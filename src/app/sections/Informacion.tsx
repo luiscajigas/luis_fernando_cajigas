@@ -3,12 +3,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Languages,
   User,
   MapPin,
   Cake,
   Award,
-  Coffee,
   Code,
   Calendar,
   Star,
@@ -54,7 +52,6 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }: {
 };
 
 export default function Informacion() {
-  const [mostrarIdiomas, setMostrarIdiomas] = useState(false);
   const [mostrarConocerme, setMostrarConocerme] = useState(false);
   const [mostrarLogros, setMostrarLogros] = useState(false);
   const [disponible, setDisponible] = useState(true);
@@ -182,16 +179,6 @@ export default function Informacion() {
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => setMostrarIdiomas(!mostrarIdiomas)}
-          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
-        >
-          <Languages size={16} />
-          Idiomas
-        </motion.button>
-
-        <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
-          whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarLogros(!mostrarLogros)}
           className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
@@ -199,57 +186,6 @@ export default function Informacion() {
           Logros
         </motion.button>
       </div>
-
-      <AnimatePresence>
-        {mostrarIdiomas && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.9 }}
-            transition={{ duration: 0.4 }}
-            className="absolute top-32 right-4 w-72 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
-            style={{
-              backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
-              borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
-            }}
-          >
-            <h3 
-              className="text-lg font-bold mb-4 flex items-center gap-2"
-              style={{ color: getTextColor('#111827', '#e5e7eb') }}
-            >
-              <Languages size={20} className="text-blue-800" />
-              Idiomas
-            </h3>
-            <div className="space-y-4">
-              {[
-                { idioma: "Español (Nativo)", nivel: 100, color: "bg-blue-900" },
-                { idioma: "Inglés (B1)", nivel: 46, color: "bg-blue-950" }
-              ].map((item, index) => (
-                <div key={index}>
-                  <div 
-                    className="flex justify-between text-sm mb-2"
-                    style={{ color: getTextColor('#374151', '#d1d5db') }}
-                  >
-                    <span>{item.idioma}</span>
-                    <span>{item.nivel}%</span>
-                  </div>
-                  <div 
-                    className="h-2 rounded-full overflow-hidden"
-                    style={{ backgroundColor: getBgColor('#e5e7eb', '#374151') }}
-                  >
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${item.nivel}%` }}
-                      transition={{ duration: 1, delay: index * 0.2 }}
-                      className={`${item.color} h-full rounded-full`}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <AnimatePresence>
         {mostrarLogros && (
@@ -355,17 +291,6 @@ export default function Informacion() {
             Desde hace 5 años me he dedicado al mundo de la programación, un camino que inicié con curiosidad de forma independiente y que hoy se ha convertido en mi principal proyecto de vida. Actualmente curso el quinto semestre de Ingeniería de Software en la Universidad Cooperativa de Colombia, donde complemento mi experiencia práctica con una sólida formación académica.
             Me especializo en Desarrollo Web Fullstack, creando aplicaciones dinámicas y centradas en el usuario mediante tecnologías como React, Node.js y Django, aplicando buenas prácticas y patrones de diseño para construir soluciones escalables y de calidad.
           </motion.p>
-
-          <motion.img
-            src="/presentacion.jpg"
-            alt="Luis Fernando Cajigas"
-            className="w-36 h-36 rounded-full object-cover border-4 shadow-xl mb-8"
-            style={{ borderColor: getBgColor('#d1d5db', '#4b5563') }}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}
-          />
         </motion.div>
 
         <motion.div

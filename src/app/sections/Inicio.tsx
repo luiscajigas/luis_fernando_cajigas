@@ -69,9 +69,9 @@ export default function Inicio() {
               imageSrc="/anim.jpg"
               altText="Imagen"
               captionText="Luis Fernando Cajigas"
-              containerHeight="300px"
-              containerWidth="300px"
-              imageHeight="300px"
+              containerHeight="400px"
+              containerWidth="400px"
+              imageHeight="400px"
               imageWidth="400px"
               rotateAmplitude={14}
               scaleOnHover={1.15}

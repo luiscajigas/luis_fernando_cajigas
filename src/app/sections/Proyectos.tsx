@@ -24,6 +24,14 @@ export default function Proyectos() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    // Inicializamos las partículas sólo en el cliente para evitar mismatch
+    setParticles(Array.from({ length: 12 }).map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+    })));
+  }, []);
+
   const proyectos = [
     { 
       titulo: "Practica inicio sesion en tailwind", 
@@ -90,6 +98,7 @@ export default function Proyectos() {
 
   const [selected, setSelected] = useState<any>(null);
   const [filter, setFilter] = useState("todos");
+  const [particles, setParticles] = useState<{ left: number; top: number }[]>([]);
 
   const getTextColor = (lightColor: string, darkColor: string) => {
     return isDarkMode ? darkColor : lightColor;
@@ -123,21 +132,14 @@ export default function Proyectos() {
   return (
     <section className="relative flex justify-end w-full min-h-screen px-10 py-20 overflow-hidden">
 
-      <h1 
-        className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold opacity-10 select-none leading-none"
-        style={{ color: isDarkMode ? 'rgb(55, 65, 81)' : 'rgb(107, 114, 128)' }}
-      >
-        PROYECTOS
-      </h1>
-
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 12 }).map((_, i) => (
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
+        {particles.map((p, i) => (
           <motion.div
             key={i}
             className="absolute w-3 h-3 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${p.left}%`,
+              top: `${p.top}%`,
               backgroundColor: isDarkMode ? 'rgba(156, 163, 175, 0.2)' : 'rgba(107, 114, 128, 0.3)'
             }}
             animate={{
@@ -155,7 +157,7 @@ export default function Proyectos() {
       </div>
       
       <motion.div 
-        className="absolute top-15 right-27 flex gap-2 z-10"
+        className="absolute top-32 right-27 flex gap-2 z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -184,108 +186,35 @@ export default function Proyectos() {
         ))}
       </motion.div>
 
-      <div className="w-100 h-180 overflow-y-auto pr-4 space-y-12 scrollbar-hide mt-16">
+      <div className="w-full flex flex-col gap-24 mt-28 md:mt-32 h-[75vh] md:h-[78vh] overflow-y-auto pr-4 scrollbar-hide">
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
-            key={index} 
-            className="text-right cursor-pointer group relative"
+            key={index}
+            className="relative cursor-pointer text-right"
             onClick={() => setSelected(proyecto)}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.02 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1 }}
           >
-            <div 
-              className="absolute right-0 top-1/2 w-12 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{
-                backgroundImage: isDarkMode 
-                  ? 'linear-gradient(to left, rgba(30, 58, 138, 0.6), transparent)'
-                  : 'linear-gradient(to left, rgba(37, 99, 235, 0.6), transparent)'
-              }}
-            />
-            
-            <div 
-              className="relative backdrop-blur-sm border rounded-xl p-6 transition-all duration-300 group-hover:shadow-lg"
-              style={{
-                backgroundColor: getBgColor('rgb(243, 244, 246)', 'rgba(20, 20, 20)'), 
-                borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)'),
-                boxShadow: isDarkMode 
-                  ? '0 0 0 0 rgba(59, 130, 246, 0)'
-                  : '0 0 0 0 rgba(37, 99, 235, 0)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = getBgColor('rgb(209, 213, 219)', 'rgba(31, 41, 55, 0.6)');
-                e.currentTarget.style.borderColor = getBgColor('rgba(37, 99, 235, 0.3)', 'rgba(30, 58, 138, 0.3)');
-                e.currentTarget.style.boxShadow = isDarkMode 
-                  ? '0 10px 25px rgba(37, 99, 235, 0.1 )'
-                  : '0 20px 40px rgb(233, 213, 255)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = getBgColor('rgb(243, 244, 246)', 'rgba(20, 20, 20)');
-                e.currentTarget.style.borderColor = getBgColor('rgba(75, 85, 99, 0.3', 'rgba(75, 85, 99, 0.3)');
-                e.currentTarget.style.boxShadow = '0 0 0 0 transparent';
-              }}
-            >
+            <div className="flex flex-col items-end pt-4 md:pt-6">
+              <h2 
+                className="text-4xl md:text-5xl font-light tracking-wide transition-colors duration-300"
+                style={{ 
+                  color: getTextColor('#111827', 'white')
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = isDarkMode ? '#3b82f6' : '#a855f7';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = getTextColor('#111827', 'white');
+                }}
+              >
+                {proyecto.titulo}
+              </h2>
               
-              {proyecto.estado && (
-                <motion.span 
-                  className={`inline-block px-2 py-1 text-xs rounded-full border mb-3 ${getStatusColor(proyecto.estado)}`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                >
-                  {proyecto.estado}
-                </motion.span>
-              )}
-
-       <h2 
-  className="text-2xl md:text-4xl font-light tracking-wide transition-colors duration-300"
-  style={{ 
-    color: getTextColor('#111827', 'white')
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.color = isDarkMode ? '#60a5fa' : '#2563eb';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.color = getTextColor('#111827', 'white');
-  }}
->
-  {proyecto.titulo}
-</h2>
-              
-              <div className="flex items-center justify-end gap-2 mt-2">
-                <Calendar size={14} style={{ color: getTextColor('#6b7280', '#9ca3af') }} />
-                <p className="text-sm" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>{proyecto.fecha}</p>
-              </div>
-
-              {proyecto.tecnologias && (
-                <div className="flex justify-end gap-2 mt-3 flex-wrap">
-                  {proyecto.tecnologias.slice(0, 3).map((tech, i) => (
-                    <span 
-                      key={i} 
-                      className="text-xs px-2 py-1 rounded-md"
-                      style={{
-                        backgroundColor: getBgColor('rgba(229, 231, 235)', 'rgba(75, 85, 99, 0.5)'),
-                        color: getTextColor('#374151', '#d1d5db')
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {proyecto.tecnologias.length > 3 && (
-                    <span 
-                      className="text-xs"
-                      style={{ color: getTextColor('#6b7280', '#9ca3af') }}
-                    >
-                      +{proyecto.tecnologias.length - 3}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ExternalLink size={14} style={{ color: getTextColor('#6b7280', '#9ca3af') }} />
-              </div>
+              <p className="text-xs" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>
+                {proyecto.fecha} / Dev / Design: Hiroaki Nakano
+              </p>
             </div>
           </motion.div>
         ))}

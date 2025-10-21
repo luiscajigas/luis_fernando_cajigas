@@ -7,6 +7,8 @@ import { Code, Sparkles } from "lucide-react";
 export default function SplashScreen() {
   const [isVisible, setIsVisible] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  // Partículas inicializadas sólo en el cliente para evitar errores de hidratación
+  const [particles, setParticles] = useState<{ left: number; top: number; dx: number; dy: number }[]>([]);
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -27,6 +29,18 @@ export default function SplashScreen() {
     };
   }, []);
 
+  // Inicializar posiciones de partículas en el cliente
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 50 }).map(() => ({
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        dx: Math.random() * 200 - 100,
+        dy: Math.random() * 200 - 100,
+      }))
+    );
+  }, []);
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -43,14 +57,14 @@ export default function SplashScreen() {
           }}
         >
           
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 50 }).map((_, i) => (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
+            {particles.map((p, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-gray-400/30 rounded-full"
                 animate={{
-                  x: [0, Math.random() * 200 - 100],
-                  y: [0, Math.random() * 200 - 100],
+                  x: [0, p.dx],
+                  y: [0, p.dy],
                   opacity: [0, 1, 0],
                   scale: [0, 1, 0]
                 }}
@@ -61,8 +75,8 @@ export default function SplashScreen() {
                   ease: "easeInOut"
                 }}
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`
+                  left: `${p.left}%`,
+                  top: `${p.top}%`
                 }}
               />
             ))}

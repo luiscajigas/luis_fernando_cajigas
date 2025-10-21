@@ -67,11 +67,11 @@ export default function Inicio() {
           <div className="w-full h-full max-w-[600px] flex items-center justify-center">
             <TiltedCard
               imageSrc="/anim.jpg"
-              altText="Imagen de portafolio"
+              altText="Imagen"
               captionText="Luis Fernando Cajigas"
-              containerHeight="400px"
-              containerWidth="400px"
-              imageHeight="400px"
+              containerHeight="300px"
+              containerWidth="300px"
+              imageHeight="300px"
               imageWidth="400px"
               rotateAmplitude={14}
               scaleOnHover={1.15}

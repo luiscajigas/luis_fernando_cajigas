@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram } from "lucide-react";
+import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram, Menu, X } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
 
 interface SidebarProps {
@@ -20,6 +20,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -77,14 +78,13 @@ export default function Sidebar({
     },
   ];
 
-  return (
-    <motion.div
-      className="flex flex-col w-1/4 relative z-10"
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      
+  const handleMenuItemClick = (itemId: string) => {
+    setSelected(itemId);
+    setIsMenuOpen(false);
+  };
+
+  const SidebarContent = () => (
+    <>
       {/* Header con gradiente */}
       <motion.div 
         className="mb-8"
@@ -119,7 +119,7 @@ export default function Sidebar({
         {menuItems.map((item, index) => (
           <motion.button
             key={item.id}
-            onClick={() => setSelected(item.id)}
+            onClick={() => handleMenuItemClick(item.id)}
             onMouseEnter={() => setHoveredItem(item.id)}
             onMouseLeave={() => setHoveredItem(null)}
             className="relative flex items-center gap-3 text-sm py-3 px-4 rounded-lg text-left transition-all duration-300 group"
@@ -248,6 +248,69 @@ export default function Sidebar({
           © 2025 Luis Cajigas
         </p>
       </motion.div>
-    </motion.div>
+    </>
+  );
+
+  return (
+    <>
+      {/* Botón Hamburguesa - Solo visible en móvil */}
+      <motion.button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="fixed top-4 left-4 z-50 p-3 rounded-lg backdrop-blur-md border lg:hidden"
+        style={{
+          backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgba(20, 20, 20, 0.95)'),
+          borderColor: getBorderColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)'),
+          color: getTextColor('#000000', '#FFFFFF')
+        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </motion.button>
+
+      {/* Sidebar Desktop - Siempre visible en pantallas grandes */}
+      <motion.div
+        className="hidden lg:flex flex-col w-1/4 relative z-10 p-6"
+        initial={{ opacity: 0, x: -30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <SidebarContent />
+      </motion.div>
+
+      {/* Sidebar Mobile - Menú deslizante */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMenuOpen(false)}
+            />
+
+            {/* Menú deslizante */}
+            <motion.div
+              className="fixed top-0 left-0 h-full w-80 z-40 p-6 overflow-y-auto lg:hidden"
+              style={{
+                backgroundColor: getBgColor('rgba(243, 244, 246, 0.98)', 'rgba(17, 24, 39, 0.98)'),
+                backdropFilter: 'blur(12px)'
+              }}
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            >
+              <SidebarContent />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

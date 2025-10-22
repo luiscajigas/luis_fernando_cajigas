@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 
@@ -9,7 +9,7 @@ interface Props {
   setDarkMode: (value: boolean) => void;
 }
 
-export default function DarkModeToggle({ darkMode, setDarkMode }: Props) {
+function DarkModeToggle({ darkMode, setDarkMode }: Props) {
   useEffect(() => {
 
     if (darkMode) {
@@ -82,3 +82,7 @@ export default function DarkModeToggle({ darkMode, setDarkMode }: Props) {
     </div>
   );
 }
+
+export default memo(DarkModeToggle, (prev, next) => (
+  prev.darkMode === next.darkMode && prev.setDarkMode === next.setDarkMode
+));

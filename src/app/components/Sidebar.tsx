@@ -18,7 +18,7 @@ export default function Sidebar({
   selected,
   setSelected,
 }: SidebarProps) {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  // Eliminamos hoveredItem para evitar re-renders innecesarios
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getTextColor = useMemo(() => (lightColor: string, darkColor: string) => {
@@ -96,30 +96,19 @@ export default function Sidebar({
           <button
             key={item.id}
             onClick={() => handleMenuItemClick(item.id)}
-            onMouseEnter={() => setHoveredItem(item.id)}
-            onMouseLeave={() => setHoveredItem(null)}
-            className="relative flex items-center gap-3 text-sm py-3 px-4 rounded-lg text-left transition-all duration-200 group"
+            className={`relative group flex items-center gap-3 text-sm py-3 px-4 rounded-lg text-left transition-all duration-200 ${
+              selected === item.id
+                ? (darkMode ? "bg-blue-900/30 text-blue-400" : "bg-purple-200/50 text-purple-700")
+                : (darkMode ? "text-white hover:bg-neutral-800/60" : "text-black hover:bg-gray-200")
+            }`}
             style={{
-              backgroundColor: selected === item.id 
-                ? getBgColor('rgb(168, 85, 247, 0.3)', 'rgba(37, 99, 235, 0.3)')
-                : hoveredItem === item.id 
-                  ? getBgColor('rgba(243, 244, 246)', 'rgba(31, 41, 55, 0.5)')
-                  : 'transparent',
-              color: selected === item.id 
-                ? getTextColor('#9333EA', '#60a5fa')
-                : getTextColor('#000000', '#FFFFFF'),
               borderLeft: selected === item.id ? `2px solid ${getTextColor('#2563eb', '#60a5fa')}` : 'none',
-              transform: hoveredItem === item.id ? 'translateX(5px)' : 'translateX(0)'
             }}
           >
             <item.icon 
               size={18} 
-              className="transition-colors duration-200"
-              style={{ 
-                color: selected === item.id 
-                  ? getTextColor('#7E22CE', '#60a5fa')
-                  : 'inherit'
-              }}
+              className={`transition-colors duration-200 ${selected === item.id ? '' : 'group-hover:text-blue-500'}`}
+              style={{ color: selected === item.id ? getTextColor('#7E22CE', '#60a5fa') : 'inherit' }}
             />
             
             <span className="font-medium">
@@ -133,16 +122,15 @@ export default function Sidebar({
               />
             )}
 
-            {hoveredItem === item.id && selected !== item.id && (
-              <div
-                className="absolute left-0 w-1 rounded-r h-8"
-                style={{
-                  background: darkMode 
-                    ? 'linear-gradient(to bottom, rgb(96, 165, 250), rgb(168, 85, 247))' 
-                    : 'linear-gradient(to bottom, rgb(59, 130, 246), rgb(147, 51, 234))'
-                }}
-              />
-            )}
+            {/* Indicador izquierdo en hover usando group-hover */}
+            <div
+              className="absolute left-0 w-1 rounded-r h-8 opacity-0 group-hover:opacity-100"
+              style={{
+                background: darkMode 
+                  ? 'linear-gradient(to bottom, rgb(96, 165, 250), rgb(168, 85, 247))' 
+                  : 'linear-gradient(to bottom, rgb(59, 130, 246), rgb(147, 51, 234))'
+              }}
+            />
           </button>
         ))}
       </nav>
@@ -248,15 +236,15 @@ export default function Sidebar({
 
             {/* Menú deslizante */}
             <motion.div
-              className="fixed top-0 left-0 h-full w-80 z-40 p-6 overflow-y-auto lg:hidden"
+              className="fixed top-0 left-0 h-full w-72 z-50 p-6 lg:hidden"
               style={{
-                backgroundColor: getBgColor('rgba(243, 244, 246, 0.98)', 'rgba(17, 24, 39, 0.98)'),
-                backdropFilter: 'blur(12px)'
+                backgroundColor: getBgColor('rgba(243, 244, 246, 0.95)', 'rgba(20, 20, 20, 0.95)'),
+                borderRight: `1px solid ${getBorderColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')}`
               }}
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              initial={{ x: -280, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -280, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 25 }}
             >
               <SidebarContent />
             </motion.div>

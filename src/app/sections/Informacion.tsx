@@ -189,12 +189,14 @@ export default function Informacion() {
 
       <AnimatePresence>
         {mostrarLogros && (
-          <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.9 }}
-            transition={{ duration: 0.4 }}
-            className="absolute top-32 right-4 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
+          <>
+            <div className="fixed inset-0 z-20" onClick={() => setMostrarLogros(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: -10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.9 }}
+              transition={{ duration: 0.4 }}
+              className="absolute top-32 right-4 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
             style={{
               backgroundColor: getBgColor('rgba(209, 213, 219)', 'rgb(20, 20, 20)'),
               borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
@@ -228,6 +230,7 @@ export default function Informacion() {
               ))}
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
 
@@ -282,7 +285,7 @@ export default function Informacion() {
           </motion.div>
 
           <motion.p 
-            className="max-w-3xl text-base mb-8 leading-relaxed"
+            className="max-w-3xl text-lg mb-8 leading-relaxed"
             style={{ color: getTextColor('#374151', '#9ca3af') }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -300,7 +303,7 @@ export default function Informacion() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <h3 
-            className="text-sm mb-2"
+            className="text-base mb-2"
             style={{ color: getTextColor('#4b5563', '#9ca3af') }}
           >
             Mi stack tecnológico
@@ -333,12 +336,12 @@ export default function Informacion() {
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
-                  { icon: SiHtml5, name: "HTML", color: "text-blue-950" },
-                  { icon: SiCss3, name: "CSS", color: "text-blue-950" },
-                  { icon: SiSass, name: "SCSS", color: "text-blue-950" },
-                  { icon: SiJavascript, name: "JavaScript", color: "text-blue-950" },
-                  { icon: SiTypescript, name: "TypeScript", color: "text-blue-950" },
-                  { icon: SiTailwindcss, name: "Tailwind", color: "text-blue-950" }
+                  { icon: SiHtml5, name: "HTML", color: "text-blue-500" },
+                  { icon: SiCss3, name: "CSS", color: "text-blue-500" },
+                  { icon: SiSass, name: "SCSS", color: "text-blue-500" },
+                  { icon: SiJavascript, name: "JavaScript", color: "text-blue-500" },
+                  { icon: SiTypescript, name: "TypeScript", color: "text-blue-500" },
+                  { icon: SiTailwindcss, name: "Tailwind", color: "text-blue-500" }
                 ].map((skill, index) => (
                   <motion.span
                     key={index}
@@ -380,12 +383,12 @@ export default function Informacion() {
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
-                  { icon: SiNodedotjs, name: "Node.js", color: "text-blue-950" },
-                  { icon: SiPython, name: "Python", color: "text-blue-950" },
-                  { icon: FaJava, name: "Java", color: "text-blue-950" },
-                  { icon: SiMongodb, name: "MongoDB", color: "text-blue-950" },
-                  { icon: SiMysql, name: "MySQL", color: "text-blue-950" },
-                  { icon: VscJson, name: "APIs", color: "text-blue-950" }
+                  { icon: SiNodedotjs, name: "Node.js", color: "text-blue-500" },
+                  { icon: SiPython, name: "Python", color: "text-blue-500" },
+                  { icon: FaJava, name: "Java", color: "text-blue-500" },
+                  { icon: SiMongodb, name: "MongoDB", color: "text-blue-500" },
+                  { icon: SiMysql, name: "MySQL", color: "text-blue-500" },
+                  { icon: VscJson, name: "APIs", color: "text-blue-500" }
                 ].map((skill, index) => (
                   <motion.span
                     key={index}
@@ -424,12 +427,14 @@ export default function Informacion() {
 
         <AnimatePresence>
           {mostrarConocerme && (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-              className="absolute bottom-14 right-0 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
+            <>
+              <div className="fixed inset-0 z-20" onClick={() => setMostrarConocerme(false)} />
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="absolute bottom-14 right-0 w-80 backdrop-blur-md rounded-xl p-6 shadow-2xl z-30 border"
               style={{
                 backgroundColor: getBgColor('rgb(209, 213, 219)', 'rgb(20, 20, 20)'),
                 borderColor: getBgColor('rgba(75, 85, 99, 0.3)', 'rgba(75, 85, 99, 0.3)')
@@ -469,8 +474,9 @@ export default function Informacion() {
                 ))}
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
+             </>
+           )}
+         </AnimatePresence>
       </div>
     </div>
   );

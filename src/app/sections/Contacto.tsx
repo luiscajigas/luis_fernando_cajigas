@@ -266,23 +266,13 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                 className="flex flex-col md:flex-row items-center gap-4"
               >
                 <motion.button
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
                   whileTap={{ scale: 0.95 }}
                   className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
                   onClick={() => setShowForm(true)}
                 >
                   <div className="relative flex overflow-hidden w-full justify-center items-center gap-2">
                     <MessageCircle size={20} />
-                    <motion.div
-                      className="flex whitespace-nowrap"
-                      animate={hovered ? { x: ["0%", "-100%"] } : { x: "0%" }}
-                      transition={hovered ? { repeat: Infinity, repeatType: "loop", duration: 170, ease: "linear" } : { duration: 0 }}
-                    >
-                      {textArray.map((i) => (
-                        <span key={i} className="px-2">Empezar conversación</span>
-                      ))}
-                    </motion.div>
+                    <span className="px-2">empezar conversacion</span>
                   </div>
                 </motion.button>
 
@@ -407,13 +397,15 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
 
           <AnimatePresence>
             {showReviews && (
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                transition={{ duration: 0.3 }}
-                className="absolute bottom-full mb-4 right-0 w-96 backdrop-blur-md border rounded-xl shadow-xl"
-                style={{
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowReviews(false)} />
+                <motion.div
+                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute bottom-full mb-4 right-0 w-96 backdrop-blur-md border rounded-xl shadow-xl z-50"
+                  style={{
                   backgroundColor: getBgColor("rgba(243, 244, 246, 0.95)", "rgba(20, 20, 20, 0.95)"),
                   borderColor: getBgColor("rgba(209, 213, 219, 0.5)", "rgba(75, 85, 99, 0.3)")
                 }}
@@ -473,6 +465,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   </div>
                 </div>
               </motion.div>
+              </>
             )}
           </AnimatePresence>
         </motion.div>

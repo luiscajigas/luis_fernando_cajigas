@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo } from "react";
-import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram, Menu, X } from "lucide-react";
+import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram, Menu, X, Linkedin } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
 
 interface SidebarProps {
@@ -18,7 +18,7 @@ export default function Sidebar({
   selected,
   setSelected,
 }: SidebarProps) {
-  // Eliminamos hoveredItem para evitar re-renders innecesarios
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getTextColor = useMemo(() => (lightColor: string, darkColor: string) => {
@@ -45,14 +45,14 @@ export default function Sidebar({
     { 
       icon: Github, 
       href: "https://github.com/luiscajigas",
-      hoverColor: "white",
+      hoverColor: "#9CA3AF",
       label: "GitHub"
     },
     { 
-      icon: Mail, 
-      href: "mailto:cajigasluis51@gmail.com",
-      hoverColor: "#ef4444",
-      label: "Email"
+      icon: Linkedin, 
+      href: "https://www.linkedin.com/in/luis-cajigas-034559393/",
+      hoverColor: "#0077b5",
+      label: "LinkedIn"
     },
     { 
       icon: Instagram, 
@@ -69,7 +69,7 @@ export default function Sidebar({
 
   const SidebarContent = () => (
     <>
-      {/* Header con gradiente */}
+      
       <div className="mb-8">
         <h1 
           className="text-3xl md:text-4xl font-bold leading-tight"
@@ -122,7 +122,6 @@ export default function Sidebar({
               />
             )}
 
-            {/* Indicador izquierdo en hover usando group-hover */}
             <div
               className="absolute left-0 w-1 rounded-r h-8 opacity-0 group-hover:opacity-100"
               style={{

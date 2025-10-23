@@ -24,14 +24,13 @@ function DarkModeToggle({ darkMode, setDarkMode }: Props) {
   return (
     <div className="mt-auto mb-4">
       <motion.div
-        className="relative bg-gray-200/40 dark:bg-neutral-800/40 backdrop-blur-sm border border-gray-300/50 dark:border-gray-700/30 rounded-full p-1 w-24"
+        className="relative bg-gray-200/40 dark:bg-neutral-800/40 backdrop-blur-sm border border-gray-300/50 dark:border-gray-700/30 rounded-full p-1 w-24 h-10"
         whileHover={{ scale: 1.02 }}
       >
         <motion.div
-          className="absolute top-1 w-10 h-8 bg-gradient-to-r from-cyan-500 to-purple-800 rounded-full shadow-lg"
-          animate={{
-            x: darkMode ? 52 : 4,
-          }}
+          className="absolute top-1/2 -translate-y-1/2 left-1 w-10 h-8 bg-gradient-to-r from-cyan-500 to-purple-800 rounded-full shadow-lg"
+          initial={false}
+          animate={darkMode ? { x: 48 } : { x: 0 }}
           transition={{ 
             type: "spring", 
             stiffness: 500, 

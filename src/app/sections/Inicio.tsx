@@ -51,10 +51,10 @@ export default function Inicio() {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-      <div className="w-full h-full flex items-center justify-between px-8">
+      <div className="w-full h-full flex flex-col md:flex-row items-center justify-between px-4 md:px-8 gap-6">
         {/* TiltedCard - Lado izquierdo */}
         <motion.div 
-          className="flex-1 h-full flex items-center justify-center"
+          className="flex-1 w-full flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ 
@@ -64,18 +64,19 @@ export default function Inicio() {
             stiffness: 100
           }}
         >
-          <div className="w-full h-full max-w-[600px] flex items-center justify-center">
+          <div className="w-full max-w-[90vw] md:max-w-[600px] flex items-center justify-center">
             <TiltedCard
-              imageSrc="/anim.jpg"
+              imageSrc={isDarkMode ? "/anim2.jpg" : "/anim.jpg"}
+              fallbackSrc="/anim.jpg"
               altText="Imagen"
               captionText="Luis Fernando Cajigas"
-              containerHeight="400px"
-              containerWidth="400px"
-              imageHeight="400px"
-              imageWidth="400px"
+              containerHeight="auto"
+              containerWidth="100%"
+              imageHeight="clamp(220px, 70vw, 400px)"
+              imageWidth="clamp(220px, 70vw, 400px)"
               rotateAmplitude={14}
               scaleOnHover={1.15}
-              showMobileWarning={true}
+              showMobileWarning={false}
               showTooltip={true}
               displayOverlayContent={false}
             />
@@ -84,7 +85,7 @@ export default function Inicio() {
 
         {/* Contenido - Lado derecho */}
         <motion.div 
-          className="flex-1 max-w-md pr-8"
+          className="w-full md:flex-1 md:max-w-md md:pr-8"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}

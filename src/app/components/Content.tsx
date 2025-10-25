@@ -29,8 +29,8 @@ export default function Content({ selected }: Props) {
   };
 
   return (
-    <div id="main-content" className="flex-1 relative flex items-center justify-center">
-      <div key={selected} className="absolute inset-0 w-full h-full flex items-center justify-center">
+    <div id="main-content" className="flex-1 relative flex items-center justify-center overflow-y-auto p-4 sm:p-6">
+      <div key={selected} className="w-full h-full flex items-center justify-center">
         {getComponent()}
       </div>
     </div>

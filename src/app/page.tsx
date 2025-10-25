@@ -35,7 +35,7 @@ export default function Home() {
       }`}
     >
       <div
-        className={`w-[95%] h-[95vh] relative border p-6 flex transition-colors duration-500 ${
+        className={`w-[95%] h-auto lg:h-[95vh] relative border p-4 sm:p-6 flex flex-col lg:flex-row gap-4 transition-colors duration-500 ${
           darkMode
             ? "bg-neutral-900 border-gray-700"
             : "bg-white border-gray-300"

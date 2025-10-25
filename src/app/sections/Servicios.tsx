@@ -421,7 +421,7 @@ export default function Servicios() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 }}
                         >
-                          <Check className="text-blue-700 flex-shrink-0" size={16} />
+                          <Check className="text-purple-700 flex-shrink-0" size={16} />
                           <span style={{ color: getTextColor('#000000', '#FFFFFF') }}>
                             {caracteristica}
                           </span>

@@ -111,19 +111,19 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
       icon: Mail,
       label: "Email",
       value: "cajigasluis51@gmail.com",
-      color: "text-blue-700",
+      color: "text-purple-700 dark:text-blue-700",
     },
     {
       icon: MapPin,
       label: "Ubicación",
       value: "Pasto, Nariño - Colombia",
-      color: "text-blue-700",
+      color: "text-purple-700 dark:text-blue-700",
     },
     {
       icon: Clock,
       label: "Horario de respuesta",
       value: "24-48 horas",
-      color: "text-blue-700",
+      color: "text-purple-700 dark:text-blue-700",
     },
   ];
 
@@ -154,7 +154,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
   };
 
   return (
-    <div className="relative min-h-screen px-6 md:px-10 lg:px-20 pt-16 md:pt-20 pb-24 flex justify-center overflow-hidden">
+    <div className="relative min-h-screen px-4 sm:px-6 md:px-10 lg:px-20 pt-16 md:pt-20 pb-24 flex justify-center overflow-hidden">
       
       <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
         {particles.map((p, i) => (
@@ -267,11 +267,11 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
               >
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-blue-500/30"
+                  className="relative overflow-hidden bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-blue-500 dark:to-blue-900 hover:from-cyan-600 hover:to-purple-600 dark:hover:from-blue-600 dark:hover:to-blue-900 text-white font-semibold py-4 px-8 rounded-xl shadow-lg transition-all duration-300 w-60 border border-purple-500/30 dark:border-blue-500/30"
                   onClick={() => setShowForm(true)}
                 >
                   <div className="relative flex overflow-hidden w-full justify-center items-center gap-2">
-                    <MessageCircle size={20} />
+                    <MessageCircle size={20} className="text-purple-100 dark:text-white" />
                     <span className="px-2">empezar conversacion</span>
                   </div>
                 </motion.button>
@@ -284,7 +284,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   transition={{ delay: 1 }}
                 >
                   o envíame un correo directamente a {" "}
-                  <a href="mailto:cajigasluis51@gmail.com" className="text-blue-700 hover:text-blue-900 underline transition-colors">cajigasluis51@gmail.com</a>
+                  <a href="mailto:cajigasluis51@gmail.com" className="text-purple-700 hover:text-purple-900 dark:text-blue-700 dark:hover:text-blue-900 underline transition-colors">cajigasluis51@gmail.com</a>
                 </motion.p>
               </motion.div>
             </motion.div>
@@ -391,7 +391,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <User size={20} style={{ color: getTextColor("#4b5563", "#9ca3af") }} />
+            <MessageCircle size={20} style={{ color: getTextColor("#4b5563", "#9ca3af") }} />
             <span className="font-medium" style={{ color: getTextColor("#111827", "white") }}>Reseñas</span>
           </motion.button>
 
@@ -404,16 +404,16 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 20, scale: 0.9 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute bottom-full mb-4 right-0 w-96 backdrop-blur-md border rounded-xl shadow-xl z-50"
+                  className="absolute bottom-full mb-4 right-0 w-80 sm:w-96 max-w-[90vw] backdrop-blur-md border rounded-xl shadow-xl z-50"
                   style={{
                   backgroundColor: getBgColor("rgba(243, 244, 246, 0.95)", "rgba(20, 20, 20, 0.95)"),
                   borderColor: getBgColor("rgba(209, 213, 219, 0.5)", "rgba(75, 85, 99, 0.3)")
                 }}
               >
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-bold flex items-center gap-2" style={{ color: getTextColor("#111827", "white") }}>
-                      <Star size={20} className="text-yellow-500" />
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <h3 className="text-base sm:text-lg font-bold flex items-center gap-2" style={{ color: getTextColor("#111827", "white") }}>
+                      <Star size={18} className="text-yellow-500" />
                       Reseñas de Clientes
                     </h3>
                     <div className="flex items-center gap-2">
@@ -436,18 +436,18 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -50 }}
                       transition={{ duration: 0.3 }}
-                      className="relative p-5 rounded-lg min-h-[120px] flex flex-col justify-between"
+                      className="relative p-3 sm:p-5 rounded-lg min-h-[100px] sm:min-h-[120px] flex flex-col justify-between"
                       style={{ backgroundColor: getBgColor("rgba(255, 255, 255, 0.8)", "rgba(64, 64, 64, 0.10)") }}
                     >
                       <div className="flex items-start gap-3">
-                        <Quote size={20} className="text-blue-500 mt-1 flex-shrink-0" />
+                        <Quote size={16} className="text-blue-500 mt-1 flex-shrink-0" />
                         <div className="flex-1">
-                          <p className="text-sm italic mb-4 leading-relaxed" style={{ color: getTextColor("#374151", "#d1d5db") }}>
+                          <p className="text-xs sm:text-sm italic mb-3 sm:mb-4 leading-relaxed" style={{ color: getTextColor("#374151", "#d1d5db") }}>
                             "Reseña {reviews[currentReview].id}: {reviews[currentReview].text}"
                           </p>
                           <div className="flex items-center justify-between">
                             <p className="text-xs font-medium" style={{ color: getTextColor("#6b7280", "#9ca3af") }}>- {reviews[currentReview].author}</p>
-                            <div className="flex">{[...Array(5)].map((_, i) => (<Star key={i} size={14} className="text-yellow-400 fill-current" />))}</div>
+                            <div className="flex">{[...Array(5)].map((_, i) => (<Star key={i} size={12} className="text-yellow-400 fill-current" />))}</div>
                           </div>
                         </div>
                       </div>

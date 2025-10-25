@@ -88,9 +88,9 @@ export default function Informacion() {
   }, [frases.length]);
 
   const logros = [
-    { titulo: "4 años de experiencia", icono: <Calendar className="text-blue-950" size={20} /> },
-    { titulo: "7 proyectos completados", icono: <Code className="text-blue-950" size={20} /> },
-    { titulo: "100% autodidacta inicialmente", icono: <Star className="text-blue-950" size={20} /> }
+    { titulo: "4 años de experiencia", icono: <Calendar className="text-purple-950 dark:text-blue-950" size={20} /> },
+    { titulo: "7 proyectos completados", icono: <Code className="text-purple-950 dark:text-blue-950" size={20} /> },
+    { titulo: "100% autodidacta inicialmente", icono: <Star className="text-purple-950 dark:text-blue-950" size={20} /> }
   ];
 
   const skillsAnimationVariants = {
@@ -180,7 +180,7 @@ export default function Informacion() {
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarLogros(!mostrarLogros)}
-          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
+          className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-blue-500 dark:to-blue-900 dark:hover:from-blue-600 dark:hover:to-blue-900 hover:from-cyan-500 hover:to-purple-700 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <Award size={16} />
           Logros
@@ -206,7 +206,7 @@ export default function Informacion() {
               className="text-lg font-bold mb-4 flex items-center gap-2"
               style={{ color: getTextColor('#111827', '#e5e7eb') }}
             >
-              <Award size={20} className="text-blue-800" />
+              <Award size={20} className="text-purple-800 dark:text-blue-800" />
               Logros & Estadísticas
             </h3>
             <div className="space-y-3">
@@ -263,7 +263,7 @@ export default function Informacion() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="text-lg text-blue-800 font-medium mb-6"
+            className="text-lg text-purple-800 dark:text-blue-800 font-medium mb-6"
           >
             {frases[fraseActual]}
           </motion.p>
@@ -331,17 +331,17 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiReact className="text-blue-900 hover:text-blue-500" size={24} />
+                <SiReact className="text-purple-900 dark:text-blue-900 hover:text-purple-600 dark:hover:text-blue-500" size={24} />
                 Frontend 
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
-                  { icon: SiHtml5, name: "HTML", color: "text-blue-500" },
-                  { icon: SiCss3, name: "CSS", color: "text-blue-500" },
-                  { icon: SiSass, name: "SCSS", color: "text-blue-500" },
-                  { icon: SiJavascript, name: "JavaScript", color: "text-blue-500" },
-                  { icon: SiTypescript, name: "TypeScript", color: "text-blue-500" },
-                  { icon: SiTailwindcss, name: "Tailwind", color: "text-blue-500" }
+                  { icon: SiHtml5, name: "HTML", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiCss3, name: "CSS", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiSass, name: "SCSS", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiJavascript, name: "JavaScript", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiTypescript, name: "TypeScript", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiTailwindcss, name: "Tailwind", color: "text-purple-600 dark:text-blue-500" }
                 ].map((skill, index) => (
                   <motion.span
                     key={index}
@@ -378,17 +378,17 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiDjango className="text-blue-900 hover:text-blue-500" size={24} />
+                <SiDjango className="text-purple-900 dark:text-blue-900 hover:text-purple-600 dark:hover:text-blue-500" size={24} />
                 Backend 
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
-                  { icon: SiNodedotjs, name: "Node.js", color: "text-blue-500" },
-                  { icon: SiPython, name: "Python", color: "text-blue-500" },
-                  { icon: FaJava, name: "Java", color: "text-blue-500" },
-                  { icon: SiMongodb, name: "MongoDB", color: "text-blue-500" },
-                  { icon: SiMysql, name: "MySQL", color: "text-blue-500" },
-                  { icon: VscJson, name: "APIs", color: "text-blue-500" }
+                  { icon: SiNodedotjs, name: "Node.js", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiPython, name: "Python", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: FaJava, name: "Java", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiMongodb, name: "MongoDB", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: SiMysql, name: "MySQL", color: "text-purple-600 dark:text-blue-500" },
+                  { icon: VscJson, name: "APIs", color: "text-purple-600 dark:text-blue-500" }
                 ].map((skill, index) => (
                   <motion.span
                     key={index}
@@ -449,11 +449,11 @@ export default function Informacion() {
               </h3>
               <div className="flex flex-col gap-3">
                 {[
-                  { icon: FaGamepad, text: "Me gusta leer y jugar videojuegos en mis tiempos libres", color: "text-blue-950" },
-                  { icon: MapPin, text: "Ubicación actual: Pasto - Nariño, Colombia", color: "text-blue-950" },
-                  { icon: FaBurger, text: "Mi comida favorita es la hamburguesa", color: "text-blue-950" },
-                  { icon: Activity, text: "Mi deporte favorito es el voleibol", color: "text-blue-950" },
-                  { icon: Cake, text: "Tengo 20 años de edad", color: "text-blue-950" }
+                  { icon: FaGamepad, text: "Me gusta leer y jugar videojuegos en mis tiempos libres", color: "text-purple-950 dark:text-blue-950" },
+                  { icon: MapPin, text: "Ubicación actual: Pasto - Nariño, Colombia", color: "text-purple-950 dark:text-blue-950" },
+                  { icon: FaBurger, text: "Mi comida favorita es la hamburguesa", color: "text-purple-950 dark:text-blue-950" },
+                  { icon: Activity, text: "Mi deporte favorito es el voleibol", color: "text-purple-950 dark:text-blue-950" },
+                  { icon: Cake, text: "Tengo 20 años de edad", color: "text-purple-950 dark:text-blue-950" }
                 ].map((item, index) => (
                   <motion.div
                     key={index}

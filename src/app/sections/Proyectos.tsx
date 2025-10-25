@@ -130,7 +130,7 @@ export default function Proyectos() {
   });
 
   return (
-    <section className="relative flex justify-end w-full min-h-screen px-10 py-20 overflow-hidden">
+    <section className="relative flex justify-end w-full min-h-screen px-4 sm:px-10 py-20 overflow-hidden">
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none" suppressHydrationWarning>
         {particles.map((p, i) => (
@@ -157,7 +157,7 @@ export default function Proyectos() {
       </div>
       
       <motion.div 
-        className="absolute top-32 right-27 flex gap-2 z-10"
+        className="absolute top-32 right-4 sm:right-27 flex flex-wrap gap-2 z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -166,14 +166,14 @@ export default function Proyectos() {
           <motion.button
             key={filterOption}
             onClick={() => setFilter(filterOption)}
-            className={`px-3 py-1 text-xs rounded-full border transition-all duration-300 ${
+            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border transition-all duration-300 whitespace-nowrap ${
               filter === filterOption 
                 ? isDarkMode 
                   ? "bg-blue-900 text-white border-blue-800" 
-                  : "bg-blue-600 text-white border-blue-500"
+                  : "bg-purple-600 text-white border-purple-500"
                 : isDarkMode
                   ? "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:text-blue-400"
-                  : "bg-gray-200 text-black border-gray-300 hover:border-blue-400 hover:text-blue-600"
+                  : "bg-gray-200 text-black border-gray-300 hover:border-purple-400 hover:text-purple-600"
             }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -186,7 +186,7 @@ export default function Proyectos() {
         ))}
       </motion.div>
 
-      <div className="w-full flex flex-col gap-24 mt-28 md:mt-32 h-[75vh] md:h-[78vh] overflow-y-auto pr-4 scrollbar-hide">
+      <div className="w-full flex flex-col gap-12 sm:gap-24 mt-28 md:mt-32 h-auto md:h-[78vh] overflow-y-auto md:overflow-hidden pr-2 sm:pr-4 scrollbar-hide">
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
             key={index}
@@ -198,7 +198,7 @@ export default function Proyectos() {
           >
             <div className="flex flex-col items-end pt-4 md:pt-6">
               <h2 
-                className="text-4xl md:text-5xl font-light tracking-wide transition-colors duration-300"
+                className="text-2xl sm:text-4xl md:text-5xl font-light tracking-wide transition-colors duration-300"
                 style={{ 
                   color: getTextColor('#111827', 'white')
                 }}
@@ -230,7 +230,7 @@ export default function Proyectos() {
             onClick={() => setSelected(null)}
           >
             <motion.div 
-              className="rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-hide relative border shadow-2xl"
+              className="rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto md:overflow-hidden scrollbar-hide relative border shadow-2xl mx-4"
               style={{
                 backgroundColor: getBgColor('rgba(255, 255, 255, 0.95)', 'rgb(20,20,20)'),
                 borderColor: getBgColor('rgba(209, 213, 219, 0.5)', 'rgba(75, 85, 99, 0.5)'),
@@ -243,9 +243,9 @@ export default function Proyectos() {
               onClick={(e) => e.stopPropagation()}
             >
               
-              <div className="relative p-6 border-b" style={{ borderColor: getBgColor('rgba(209, 213, 219 )', 'rgba(75, 85, 99, 0.3)') }}>
+              <div className="relative p-4 sm:p-6 border-b" style={{ borderColor: getBgColor('rgba(209, 213, 219 )', 'rgba(75, 85, 99, 0.3)') }}>
                 <button 
-                  className="absolute top-4 right-36 transition-colors duration-200 rounded-full p-2"
+                    className="absolute top-2 sm:top-4 right-2 sm:right-4 transition-colors duration-200 rounded-full p-2"
                   style={{
                     color: getTextColor('#000000', '#9ca3af'),
                     backgroundColor: getBgColor('rgba(107, 114, 128, 0.5)', 'rgba(75, 85, 99, 0.5)')
@@ -263,7 +263,7 @@ export default function Proyectos() {
 
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-2xl font-bold mb-2" style={{ color: getTextColor('#111827', 'white') }}>
+                    <h2 className="text-xl sm:text-2xl font-bold mb-2" style={{ color: getTextColor('#111827', 'white') }}>
                       {selected.titulo}
                     </h2>
                     <div className="flex items-center gap-2 text-sm" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>
@@ -301,7 +301,7 @@ export default function Proyectos() {
                 )}
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
               
                 {selected.imagen && (
                   <motion.img 

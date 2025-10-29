@@ -194,8 +194,8 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         {t("contacto_banner_title", lang)}
       </h1>
 
-      {/* Contenedor principal centrado vertical y horizontalmente */}
-      <div className="relative z-10 w-full max-w-6xl min-h-[70vh] mx-auto flex items-center justify-center">
+      {/* Contenedor principal alineado al tope */}
+      <div className="relative z-10 w-full max-w-6xl min-h-[70vh] mx-auto flex items-start justify-center">
         <AnimatePresence mode="wait">
           {!showForm ? (
             <motion.div
@@ -204,7 +204,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center gap-10 text-center mt-6"
+              className="flex flex-col items-center gap-10 text-center mt-2"
             >
               {/* Títulos */}
               <motion.div
@@ -297,7 +297,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.5 }}
-              className="w-full max-w-3xl backdrop-blur-sm border rounded-2xl p-8 md:p-12 relative z-10 shadow-xl md:max-h-[80vh] overflow-y-auto"
+              className="w-full max-w-4xl lg:max-w-5xl backdrop-blur-sm border rounded-2xl p-8 md:p-12 relative z-10 shadow-xl md:max-h-[80vh] overflow-y-auto"
               style={{
                 backgroundColor: getBgColor("rgb(209, 213, 219)", "rgba(20, 20, 20)"),
                 borderColor: getBgColor("rgba(209, 213, 219, 0.5)", "rgba(75, 85, 99, 0.3)"),

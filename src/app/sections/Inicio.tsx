@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Code, Zap, User, MapPin, Calendar } from "lucide-react";
+import { Code, Zap, User, MapPin, Calendar, Download } from "lucide-react";
 import TiltedCard from "../components/TiltedCard";
 import useLang from "../hooks/useLang";
 import { t, frasesInicio } from "../i18n";
@@ -81,6 +81,7 @@ export default function Inicio() {
           </div>
         </motion.div>
 
+       
         <motion.div 
           className="w-full md:flex-1 md:max-w-md md:pr-8"
           initial={{ opacity: 0, x: 50 }}
@@ -151,6 +152,28 @@ export default function Inicio() {
               </motion.div>
             ))}
           </motion.div>
+
+          <motion.a
+            href="https://drive.google.com/drive/folders/1VNlybjH-g6VpxgSuZ-BGgRJfn2TqZVM7?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-sm shadow-lg transition-all duration-300 mb-6"
+            style={{
+              backgroundColor: isDarkMode ? 'rgb(29, 78, 216)' : 'rgb(147, 51, 234)',
+              color: 'white'
+            }}
+            whileHover={{ 
+              scale: 1.05,
+              backgroundColor: isDarkMode ? 'rgb(59, 130, 246)' : 'rgb(126, 34, 206)',
+            }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <Download size={18} />
+            <span>Descargar CV</span>
+          </motion.a>
 
           <motion.div 
             className="text-sm leading-relaxed backdrop-blur-sm p-6 rounded-xl border shadow-xl"
@@ -259,12 +282,7 @@ export default function Inicio() {
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <div className="flex items-center gap-2 font-bold text-xs">
-              <Zap size={12} className="text-yellow-400" />
-              <span style={{ color: getTextColor('#000000', '#FFFFFF') }}>
-                {t("inicio_portfolio_cta", lang)}
-              </span>
-            </div>
+           
           </motion.div>
         </motion.div>
       </div>

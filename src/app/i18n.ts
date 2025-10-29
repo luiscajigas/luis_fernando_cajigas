@@ -84,7 +84,7 @@ export const dict: Dict = {
   inicio_years_exp_label: { es: "Años Exp", en: "Years Exp" },
   inicio_projects_label: { es: "Proyectos", en: "Projects" },
   inicio_location: { es: "Pasto, Nariño - Colombia", en: "Pasto, Nariño - Colombia" },
-  inicio_portfolio_cta: { es: "Explora mi portafolio", en: "Explore my portfolio" },
+  inicio_cv_download: { es: "Descargar CV", en: "Download CV" },
   inicio_bio_p1_a: { es: "Soy estudiante de quinto semestre de", en: "I am a fifth-semester student of" },
   inicio_bio_software_engineering: { es: "Ingeniería de Software", en: "Software Engineering" },
   inicio_bio_p1_b: { es: "en la Universidad Cooperativa de Colombia, con formación especializada en", en: "at the Universidad Cooperativa de Colombia, with specialized training in" },

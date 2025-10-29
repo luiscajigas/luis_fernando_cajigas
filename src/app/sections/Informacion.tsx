@@ -87,9 +87,9 @@ export default function Informacion() {
   }, [frases.length]);
 
   const logros = [
-    { titulo: t("achv_experience_years", lang), icono: <Calendar className="text-purple-500 dark:text-blue-950" size={20} /> },
-    { titulo: t("achv_projects_completed", lang), icono: <Code className="text-purple-500 dark:text-blue-950" size={20} /> },
-    { titulo: t("achv_self_taught", lang), icono: <Star className="text-purple-500 dark:text-blue-950" size={20} /> }
+    { titulo: t("achv_experience_years", lang), icono: <Calendar className="text-purple-500 dark:text-blue-500" size={20} /> },
+    { titulo: t("achv_projects_completed", lang), icono: <Code className="text-purple-500 dark:text-blue-500" size={20} /> },
+    { titulo: t("achv_self_taught", lang), icono: <Star className="text-purple-500 dark:text-blue-500" size={20} /> }
   ];
 
   const skillsAnimationVariants = {
@@ -456,11 +456,11 @@ export default function Informacion() {
               </h3>
               <div className="flex flex-col gap-3">
                 {[
-                  { icon: FaGamepad, text: t("like_read_games", lang), color: "text-purple-950 dark:text-blue-950" },
-                  { icon: MapPin, text: t("location_current", lang), color: "text-purple-950 dark:text-blue-950" },
-                  { icon: FaBurger, text: t("fav_food_burger", lang), color: "text-purple-950 dark:text-blue-950" },
-                  { icon: Activity, text: t("fav_sport_volleyball", lang), color: "text-purple-950 dark:text-blue-950" },
-                  { icon: Cake, text: t("age_20", lang), color: "text-purple-950 dark:text-blue-950" }
+                  { icon: FaGamepad, text: t("like_read_games", lang), color: "text-purple-600 dark:text-blue-500" },
+                  { icon: MapPin, text: t("location_current", lang), color: "text-purple-600 dark:text-blue-500" },
+                  { icon: FaBurger, text: t("fav_food_burger", lang), color: "text-purple-600 dark:text-blue-500" },
+                  { icon: Activity, text: t("fav_sport_volleyball", lang), color: "text-purple-600 dark:text-blue-500" },
+                  { icon: Cake, text: t("age_20", lang), color: "text-purple-600 dark:text-blue-500" }
                 ].map((item, index) => (
                   <motion.div
                     key={index}

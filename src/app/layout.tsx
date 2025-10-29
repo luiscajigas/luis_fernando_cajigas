@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://luiscajigas.dev"),
   title: "Luis Fernando Cajigas | Desarrollador Full Stack",
   description: "Portfolio de Luis Fernando Cajigas - Desarrollador Full Stack especializado en React, Next.js, Node.js y tecnologías modernas. Diseño y desarrollo web profesional.",
   keywords: [
@@ -80,17 +81,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1f2937" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      <link rel="manifest" href="/manifest.json" />
+      <meta name="theme-color" content="#1f2937" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         
-        <link
-          rel="preload"
-          href="/fonts/geist-sans.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
         
         <script
           type="application/ld+json"

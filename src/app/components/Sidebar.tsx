@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Home, User, Briefcase, Settings, MessageCircle, Github, Mail, Instagram, Menu, X, Linkedin } from "lucide-react";
 import DarkModeToggle from "./DarkModeToggle";
+import LanguageToggle from "./LanguageToggle";
 
 interface SidebarProps {
   darkMode: boolean;
@@ -20,6 +21,27 @@ export default function Sidebar({
 }: SidebarProps) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lang, setLang] = useState<"es" | "en">("es");
+
+  // init language from localStorage and document
+  useEffect(() => {
+    const stored = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
+    const initial = stored === "en" ? "en" : "es";
+    setLang(initial);
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = initial;
+    }
+  }, []);
+
+  // listen for global language change
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail as "es" | "en" | undefined;
+      if (detail === "es" || detail === "en") setLang(detail);
+    };
+    window.addEventListener("app:language", handler as EventListener);
+    return () => window.removeEventListener("app:language", handler as EventListener);
+  }, []);
 
   const getTextColor = useMemo(() => (lightColor: string, darkColor: string) => {
     return darkMode ? darkColor : lightColor;
@@ -33,12 +55,26 @@ export default function Sidebar({
     return darkMode ? darkBorder : lightBorder;
   }, [darkMode]);
 
+  const t = (key: string) => {
+    const dict: Record<string, { es: string; en: string }> = {
+      inicio: { es: "Inicio", en: "Home" },
+      informacion: { es: "Información", en: "Information" },
+      proyectos: { es: "Proyectos", en: "Projects" },
+      servicios: { es: "Servicios", en: "Services" },
+      contacto: { es: "Contáctame", en: "Contact Me" },
+      conecta: { es: "Conecta conmigo", en: "Connect with me" },
+      jobline: { es: "Diseño y desarrollo web", en: "Web design and development" },
+      fullstack: { es: "fullstack", en: "fullstack" },
+    };
+    return dict[key]?.[lang] ?? key;
+  };
+
   const menuItems = [
-    { id: "inicio", label: "Inicio", icon: Home },
-    { id: "informacion", label: "Información", icon: User },
-    { id: "proyectos", label: "Proyectos", icon: Briefcase },
-    { id: "servicios", label: "Servicios", icon: Settings },
-    { id: "contacto", label: "Contáctame", icon: MessageCircle },
+    { id: "inicio", label: t("inicio"), icon: Home },
+    { id: "informacion", label: t("informacion"), icon: User },
+    { id: "proyectos", label: t("proyectos"), icon: Briefcase },
+    { id: "servicios", label: t("servicios"), icon: Settings },
+    { id: "contacto", label: t("contacto"), icon: MessageCircle },
   ];
 
   const socialLinks = [
@@ -81,12 +117,12 @@ export default function Sidebar({
           className="text-sm mt-2 leading-relaxed"
           style={{ color: getTextColor('#000000', '#FFFFFF') }}
         >
-          Diseño y desarrollo web <br />
+          {t("jobline")} <br />
           <span 
             className="font-medium"
             style={{ color: getTextColor('#A855F7', '#60a5fa') }}
           >
-            fullstack
+            {t("fullstack")}
           </span>
         </p>
       </div>
@@ -139,7 +175,7 @@ export default function Sidebar({
           className="text-xs mb-3 font-medium tracking-wider uppercase"
           style={{ color: getTextColor('#000000', '#FFFFFF') }}
         >
-          Conecta conmigo
+          {t("conecta")}
         </h3>
         <div className="flex gap-3">
           {socialLinks.map((social, index) => (
@@ -173,6 +209,7 @@ export default function Sidebar({
       </div>
 
       <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+      <LanguageToggle />
 
       <div className="text-xs text-center mt-6">
         <div 

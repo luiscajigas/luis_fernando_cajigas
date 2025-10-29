@@ -1,0 +1,16 @@
+{
+  "name": "Luis Fernando Cajigas",
+  "short_name": "LFC",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#1f2937",
+  "background_color": "#111827",
+  "icons": [
+    {
+      "src": "/simbolo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

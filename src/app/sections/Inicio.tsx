@@ -4,16 +4,15 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Code, Zap, User, MapPin, Calendar } from "lucide-react";
 import TiltedCard from "../components/TiltedCard";
+import useLang from "../hooks/useLang";
+import { t, frasesInicio } from "../i18n";
 
 export default function Inicio() {
   const [currentQuote, setCurrentQuote] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const lang = useLang();
   
-  const quotes = [
-    "BIENVENIDO A MI PORTAFOLIO",
-    "ESPERO TE GUSTE MI TRABAJO",
-    "AYER FUNCIONABA"
-  ];
+  const quotes = frasesInicio[lang];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -116,8 +115,8 @@ export default function Inicio() {
             transition={{ delay: 0.2 }}
           >
             {[
-              { icon: Calendar, value: "4", label: "Años Exp" },
-              { icon: Code, value: "7", label: "Proyectos" },
+              { icon: Calendar, value: "4", label: t("inicio_years_exp_label", lang) },
+              { icon: Code, value: "7", label: t("inicio_projects_label", lang) },
             ].map((stat, index) => (
               <motion.div 
                 key={index}
@@ -198,7 +197,7 @@ export default function Inicio() {
                 className="font-semibold"
                 style={{ color: getTextColor('#000000', '#FFFFFF') }}
               >
-                Pasto, Nariño - Colombia
+                {t("inicio_location", lang)}
               </span>
             </motion.div>
 
@@ -208,58 +207,51 @@ export default function Inicio() {
               transition={{ delay: 0.8 }}
               style={{ color: getTextColor('#1f2937', '#d1d5db') }}
             >
-              Soy estudiante de quinto semestre de{" "}
+              {t("inicio_bio_p1_a", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                Ingeniería de Software
+                {t("inicio_bio_software_engineering", lang)}
               </span>{" "}
-              en la Universidad Cooperativa de Colombia, con formación especializada en{" "}
+              {t("inicio_bio_p1_b", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                frontend y backend
+                {t("inicio_bio_frontend_backend", lang)}
               </span>.
               <br /><br />
-              Nacido en 2005 en Pasto, Nariño, descubrí mi pasión por la programación desde temprana edad.
-              A lo largo de mi formación he realizado diversos cursos en{" "}
+              {t("inicio_bio_p2_a", lang)}
+              {" "}
+              {t("inicio_bio_p2_b", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                desarrollo de software
+                {t("inicio_bio_software_dev", lang)}
               </span>{" "}
-              y{" "}
+              {t("inicio_bio_and", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                creación de interfaces digitales
+                {t("inicio_bio_digital_interfaces", lang)}
               </span>, fortaleciendo mis habilidades técnicas y creativas.
               <br /><br />
-              Mi propósito es explorar las infinitas posibilidades que ofrece la programación y el diseño digital,
-              buscando constantemente nuevas formas de expresión a través de la{" "}
+              {t("inicio_bio_p3_a", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                innovación
+                {t("inicio_bio_innovation", lang)}
               </span>,
-              la{" "}
+              {t("inicio_bio_comma", lang)} {t("inicio_bio_experimentation", lang)} {t("inicio_bio_and2", lang)}{" "}
               <span 
                 className="font-bold"
                 style={{ color: getTextColor('#111827', 'white') }}
               >
-                experimentación
-              </span>{" "}
-              y el{" "}
-              <span 
-                className="font-bold"
-                style={{ color: getTextColor('#111827', 'white') }}
-              >
-                pensamiento crítico
+                {t("inicio_bio_critical_thinking", lang)}
               </span>.
             </motion.p>
           </motion.div>
@@ -272,7 +264,7 @@ export default function Inicio() {
             <div className="flex items-center gap-2 font-bold text-xs">
               <Zap size={12} className="text-yellow-400" />
               <span style={{ color: getTextColor('#000000', '#FFFFFF') }}>
-                Explora mi portafolio
+                {t("inicio_portfolio_cta", lang)}
               </span>
             </div>
           </motion.div>

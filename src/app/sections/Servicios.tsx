@@ -13,11 +13,14 @@ import {
   Star,
   Sparkles
 } from "lucide-react";
+import useLang from "../hooks/useLang";
+import { t } from "../i18n";
 
 export default function Servicios() {
   const [selectedService, setSelectedService] = useState<any>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const lang = useLang();
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -37,70 +40,70 @@ export default function Servicios() {
   const servicios = [
     {
       id: 1,
-      titulo: "Desarrollo Frontend",
-      descripcion: "Interfaces modernas y responsivas con las últimas tecnologías",
-      descripcionCompleta: "Desarrollo de aplicaciones web frontend utilizando React, Next.js, TypeScript y Tailwind CSS. Enfoque en UX/UI, rendimiento optimizado y diseño responsive que funciona perfectamente en todos los dispositivos.",
+      titulo: t("service_frontend_title", lang),
+      descripcion: t("service_frontend_desc", lang),
+      descripcionCompleta: t("service_frontend_desc_full", lang),
       icono: Code,
       colorLight: "from-cyan-500 to-purple-600", 
       colorDark: "from-blue-500 to-blue-950", 
       tecnologias: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
       caracteristicas: [
-        "Diseño responsive",
-        "Optimización SEO",
-        "Animaciones fluidas",
-        "Performance optimizado",
-        "Accesibilidad web"
+        t("service_frontend_feat_responsive", lang),
+        t("service_frontend_feat_seo", lang),
+        t("service_frontend_feat_animations", lang),
+        t("service_frontend_feat_performance", lang),
+        t("service_frontend_feat_accessibility", lang),
       ]
     },
     {
       id: 2,
-      titulo: "Desarrollo Backend",
-      descripcion: "APIs robustas y bases de datos escalables",
-      descripcionCompleta: "Desarrollo de sistemas backend completos con Node.js, Python/Django, bases de datos relacionales y no relacionales. Implementación de APIs REST, autenticación segura y arquitecturas escalables.",
+      titulo: t("service_backend_title", lang),
+      descripcion: t("service_backend_desc", lang),
+      descripcionCompleta: t("service_backend_desc_full", lang),
       icono: Database,
       colorLight: "from-cyan-500 to-purple-600", 
       colorDark: "from-blue-500 to-blue-950", 
       tecnologias: ["Node.js", "Python", "Django", "PostgreSQL", "MongoDB"],
       caracteristicas: [
-        "APIs REST/GraphQL",
-        "Autenticación JWT",
-        "Base de datos optimizada",
-        "Documentación completa",
-        "Testing automatizado"
+        t("service_backend_feat_apis", lang),
+        t("service_backend_feat_auth_jwt", lang),
+        t("service_backend_feat_db_optimized", lang),
+        t("service_backend_feat_docs", lang),
+        t("service_backend_feat_testing", lang),
       ]
     },
     {
       id: 3,
-      titulo: "Diseño UI/UX",
-      descripcion: "Experiencias de usuario intuitivas y atractivas",
-      descripcionCompleta: "Diseño de interfaces centradas en el usuario utilizando principios de UX/UI modernos. Prototipado, testing de usabilidad y sistemas de design consistentes.",
+      titulo: t("service_uiux_title", lang),
+      descripcion: t("service_uiux_desc", lang),
+      descripcionCompleta: t("service_uiux_desc_full", lang),
       icono: Palette,
       colorLight: "from-cyan-500 to-purple-600", 
       colorDark: "from-blue-500 to-blue-950", 
       tecnologias: ["Figma", "Adobe XD", "Principle", "InVision"],
       caracteristicas: [
-        "Research de usuarios",
-        "Wireframes y mockups",
-        "Prototipado interactivo",
-        "Design system",
-        "Testing de usabilidad"
+        t("service_uiux_feat_user_research", lang),
+        t("service_uiux_feat_wireframes", lang),
+        t("service_uiux_feat_prototyping", lang),
+        t("service_uiux_feat_design_system", lang),
+        t("service_uiux_feat_usability", lang),
       ]
     },
     {
       id: 4,
-      titulo: "Consultoría Técnica",
-      descripcion: "Asesoramiento y optimización de proyectos existentes",
-      descripcionCompleta: "Auditoría de código, optimización de performance, arquitectura de software y consultoría técnica para mejorar proyectos existentes o planificar nuevos desarrollos.",
+      titulo: t("service_consulting_title", lang),
+      descripcion: t("service_consulting_desc", lang),
+      descripcionCompleta: t("service_consulting_desc_full", lang),
       icono: Settings,
       colorLight: "from-cyan-500 to-purple-600", 
       colorDark: "from-blue-500 to-blue-950", 
       tecnologias: ["Code Review", "Performance", "Security", "Architecture"],
       caracteristicas: [
-        "Auditoría de código",
-        "Optimización performance",
-        "Security assessment",
-        "Arquitectura de software",
-        "Mentoring técnico"
+        t("service_consulting_feat_code_audit", lang),
+        t("service_consulting_feat_performance", lang),
+        t("service_consulting_feat_security_assessment", lang),
+        t("service_consulting_feat_architecture", lang),
+        t("service_consulting_feat_mentoring", lang),
       ]
     }
   ];
@@ -139,7 +142,7 @@ export default function Servicios() {
         className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold opacity-10 select-none leading-none"
         style={{ color: isDarkMode ? 'rgb(55, 65, 81)' : 'rgb(107, 114, 128)' }}
       >
-        SERVICIOS
+        {t("services_title", lang)}
       </h1>
 
 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -185,7 +188,7 @@ export default function Servicios() {
             className="text-4xl md:text-6xl font-bold mb-6"
             style={{ color: getTextColor('#9333EA', '#06B6D4') }}
           >
-            Mis{" "}
+            {t("services_my", lang)}{" "}
             <span 
               style={{
                 backgroundImage: isDarkMode 
@@ -196,15 +199,16 @@ export default function Servicios() {
                 color: 'transparent'
               }}
             >
-              Servicios
+              {t("services_title", lang)}
             </span>
           </h2>
           <p 
             className="text-lg max-w-2xl mx-auto leading-relaxed"
             style={{ color: getTextColor('#000000', '#d1d5db') }}
           >
-            Transformo ideas en soluciones digitales completas, desde el concepto inicial 
-            hasta el producto final listo para producción.
+            {lang === 'es'
+              ? 'Transformo ideas en soluciones digitales completas, desde el concepto inicial hasta el producto final listo para producción.'
+              : 'I transform ideas into complete digital solutions, from initial concept to a production-ready final product.'}
           </p>
         </motion.div>
 
@@ -305,7 +309,7 @@ export default function Servicios() {
                       className="text-xs"
                       style={{ color: getTextColor('#000000', '#FFFFFF') }}
                     >
-                      Calidad garantizada
+                      {t("guaranteed_quality", lang)}
                     </span>
                   </div>
                   <ArrowRight 
@@ -393,7 +397,7 @@ export default function Servicios() {
                         style={{ backgroundColor: getBgColor('rgba(243, 244, 246, 0.5)', 'rgba(31, 41, 55, 0.5)') }}
                       >
                         <Sparkles className="text-yellow-400" size={16} />
-                        <span style={{ color: getTextColor('#000000', '#FFFFFF') }}>Calidad premium</span>
+                        <span style={{ color: getTextColor('#000000', '#FFFFFF') }}>{t("premium_quality", lang)}</span>
                       </div>
                     </div>
                   </div>
@@ -409,7 +413,7 @@ export default function Servicios() {
                       style={{ color: getTextColor('#000000', 'white') }}
                     >
                       <Check className="text-blue-600" size={20} />
-                      Lo que incluye
+                      {t("includes", lang)}
                     </h3>
                     <div className="space-y-3">
                       {selectedService.caracteristicas.map((caracteristica: string, index: number) => (
@@ -436,7 +440,7 @@ export default function Servicios() {
                       style={{ color: getTextColor('#000000', 'white') }}
                     >
                       <Zap className="text-blue-600" size={20} />
-                      Tecnologías utilizadas
+                      {t("used_tech", lang)}
                     </h3>
                     <div className="grid grid-cols-2 gap-3">
                       {selectedService.tecnologias.map((tech: string, index: number) => (
@@ -467,15 +471,15 @@ export default function Servicios() {
                         className="text-lg font-semibold mb-4"
                         style={{ color: getTextColor('#111827', 'white') }}
                       >
-                        Proceso de trabajo
+                        {t("work_process", lang)}
                       </h4>
                       <div className="space-y-3 text-sm">
                         {[
-                          "Análisis de requerimientos y planificación",
-                          "Desarrollo iterativo con feedback continuo",
-                          "Testing y optimización",
-                          "Deploy y documentación",
-                          "Soporte post-lanzamiento"
+                          t("step_1", lang),
+                          t("step_2", lang),
+                          t("step_3", lang),
+                          t("step_4", lang),
+                          t("step_5", lang),
                         ].map((paso, index) => (
                           <div key={index} className="flex items-center gap-3">
                             <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">

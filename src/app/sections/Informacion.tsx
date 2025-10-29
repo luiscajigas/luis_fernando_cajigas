@@ -29,6 +29,8 @@ import {
 } from "react-icons/si";
 import { VscJson } from "react-icons/vsc";
 import { FaJava, FaGamepad, FaBurger } from "react-icons/fa6";
+import useLang from "../hooks/useLang";
+import { t, frases as frasesDict } from "../i18n";
 
 const AnimatedCounter = ({ end, duration = 2, suffix = "" }: {
   end: number;
@@ -56,6 +58,7 @@ export default function Informacion() {
   const [mostrarLogros, setMostrarLogros] = useState(false);
   const [disponible, setDisponible] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const lang = useLang();
 
   //modo oscuro
   useEffect(() => {
@@ -73,11 +76,7 @@ export default function Informacion() {
     return () => observer.disconnect();
   }, []);
 
-  const frases = [
-    "LA ÚNICA FORMA DE APRENDER UN NUEVO LENJUAGUE ES ESCRÍBIENDO PROGRAMAS EN ÉL",
-    "PRIMERO RESUELVE EL PROBLEMA, DESPUES ESCRIBE EL CÓDIGO",
-    "SIEMPRE APRENDIENDO Y ADQUIRIENDO NUEVAS HABILIDADES"
-  ];
+  const frases = frasesDict[lang];
   const [fraseActual, setFraseActual] = useState(0);
 
   useEffect(() => {
@@ -88,9 +87,9 @@ export default function Informacion() {
   }, [frases.length]);
 
   const logros = [
-    { titulo: "4 años de experiencia", icono: <Calendar className="text-purple-950 dark:text-blue-950" size={20} /> },
-    { titulo: "7 proyectos completados", icono: <Code className="text-purple-950 dark:text-blue-950" size={20} /> },
-    { titulo: "100% autodidacta inicialmente", icono: <Star className="text-purple-950 dark:text-blue-950" size={20} /> }
+    { titulo: t("achv_experience_years", lang), icono: <Calendar className="text-purple-500 dark:text-blue-950" size={20} /> },
+    { titulo: t("achv_projects_completed", lang), icono: <Code className="text-purple-500 dark:text-blue-950" size={20} /> },
+    { titulo: t("achv_self_taught", lang), icono: <Star className="text-purple-500 dark:text-blue-950" size={20} /> }
   ];
 
   const skillsAnimationVariants = {
@@ -149,7 +148,7 @@ export default function Informacion() {
           color: 'transparent'
         }}
       >
-        INFORMACION
+        {t("informacion_title", lang)}
       </h1>
 
       <motion.div
@@ -171,7 +170,7 @@ export default function Informacion() {
           className="text-sm font-medium"
           style={{ color: getTextColor('#374151', '#d1d5db') }}
         >
-          {disponible ? 'Disponible para proyectos' : 'No disponible'}
+          {disponible ? t("available_true", lang) : t("available_false", lang)}
         </span>
       </motion.div>
 
@@ -183,7 +182,7 @@ export default function Informacion() {
           className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-blue-500 dark:to-blue-900 dark:hover:from-blue-600 dark:hover:to-blue-900 hover:from-cyan-500 hover:to-purple-700 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <Award size={16} />
-          Logros
+          {t("achievements", lang)}
         </motion.button>
       </div>
 
@@ -206,8 +205,8 @@ export default function Informacion() {
               className="text-lg font-bold mb-4 flex items-center gap-2"
               style={{ color: getTextColor('#111827', '#e5e7eb') }}
             >
-              <Award size={20} className="text-purple-800 dark:text-blue-800" />
-              Logros & Estadísticas
+              <Award size={20} className="text-purple-500 dark:text-blue-800" />
+              {t("achievements_stats", lang)}
             </h3>
             <div className="space-y-3">
               {logros.map((logro, index) => (
@@ -255,7 +254,7 @@ export default function Informacion() {
             animate={{ scale: 1 }}
             transition={{ duration: 0.6 }}
           >
-            Hola, soy Luis Fernando Cajigas
+            {t("intro_name", lang)}
           </motion.h2>
           
           <motion.p 
@@ -263,7 +262,7 @@ export default function Informacion() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="text-lg text-purple-800 dark:text-blue-800 font-medium mb-6"
+            className="text-lg text-purple-600 dark:text-blue-800 font-medium mb-6"
           >
             {frases[fraseActual]}
           </motion.p>
@@ -277,22 +276,30 @@ export default function Informacion() {
           >
             <div className="flex items-center gap-2">
               <Zap className="text-yellow-500" size={16} />
-              <AnimatedCounter end={4} suffix=" años" />
-              <span>de experiencia</span>
+              <AnimatedCounter end={4} suffix={t("years_suffix", lang)} />
+              <span>{t("of_experience", lang)}</span>
             </div>
             <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <span>Ingeniería de Software - 5to Semestre</span>
+            <span>{t("software_engineering_semester_5", lang)}</span>
           </motion.div>
 
           <motion.p 
-            className="max-w-3xl text-lg mb-8 leading-relaxed"
+            className="max-w-3xl text-lg mb-4 leading-relaxed"
             style={{ color: getTextColor('#374151', '#9ca3af') }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Desde hace 5 años me he dedicado al mundo de la programación, un camino que inicié con curiosidad de forma independiente y que hoy se ha convertido en mi principal proyecto de vida. Actualmente curso el quinto semestre de Ingeniería de Software en la Universidad Cooperativa de Colombia, donde complemento mi experiencia práctica con una sólida formación académica.
-            Me especializo en Desarrollo Web Fullstack, creando aplicaciones dinámicas y centradas en el usuario mediante tecnologías como React, Node.js y Django, aplicando buenas prácticas y patrones de diseño para construir soluciones escalables y de calidad.
+            {t("informacion_bio_p1", lang)}
+          </motion.p>
+          <motion.p 
+            className="max-w-3xl text-lg mb-8 leading-relaxed"
+            style={{ color: getTextColor('#374151', '#9ca3af') }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.35 }}
+          >
+            {t("informacion_bio_p2", lang)}
           </motion.p>
         </motion.div>
 
@@ -306,13 +313,13 @@ export default function Informacion() {
             className="text-base mb-2"
             style={{ color: getTextColor('#4b5563', '#9ca3af') }}
           >
-            Mi stack tecnológico
+            {t("tech_stack", lang)}
           </h3>
           <h2 
             className="text-2xl font-bold mb-8"
             style={{ color: getTextColor('#111827', '#e5e7eb') }}
           >
-            Tecnologías & Herramientas
+            {t("tech_tools", lang)}
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-4xl">
@@ -331,8 +338,8 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiReact className="text-purple-900 dark:text-blue-900 hover:text-purple-600 dark:hover:text-blue-500" size={24} />
-                Frontend 
+                <SiReact className="text-purple-600 dark:text-blue-900 hover:text-purple-500 dark:hover:text-blue-500" size={24} />
+                {t("frontend", lang)}
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 {[
@@ -378,7 +385,7 @@ export default function Informacion() {
                 className="font-bold text-xl mb-6 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <SiDjango className="text-purple-900 dark:text-blue-900 hover:text-purple-600 dark:hover:text-blue-500" size={24} />
+                <SiDjango className="text-purple-600 dark:text-blue-900 hover:text-purple-500 dark:hover:text-blue-500" size={24} />
                 Backend 
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
@@ -419,10 +426,10 @@ export default function Informacion() {
           whileHover={{ scale: 1.05, boxShadow: "0 8px 25px rgba(0,0,0,0.15)" }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setMostrarConocerme(!mostrarConocerme)}
-          className="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-500 hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
+          className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-cyan-500 dark:from-blue-500 dark:to-blue-900 hover:from-cyan-500 hover:to-purple-800 dark:hover:from-cyan-500 dark:hover:to-purple-800 text-white text-sm px-4 py-2 rounded-full shadow-lg transition-all duration-300"
         >
           <User size={16} />
-          Conocerme mejor
+          {t("know_me_better", lang)}
         </motion.button>
 
         <AnimatePresence>
@@ -444,16 +451,16 @@ export default function Informacion() {
                 className="text-lg font-bold mb-4 flex items-center gap-2"
                 style={{ color: getTextColor('#111827', '#e5e7eb') }}
               >
-                <User size={20} className="text-blue-800" />
-                Un poco más sobre mí
+                <User size={20} className="text-purple-600 dark:text-blue-800" />
+                {t("know_more_about_me", lang)}
               </h3>
               <div className="flex flex-col gap-3">
                 {[
-                  { icon: FaGamepad, text: "Me gusta leer y jugar videojuegos en mis tiempos libres", color: "text-purple-950 dark:text-blue-950" },
-                  { icon: MapPin, text: "Ubicación actual: Pasto - Nariño, Colombia", color: "text-purple-950 dark:text-blue-950" },
-                  { icon: FaBurger, text: "Mi comida favorita es la hamburguesa", color: "text-purple-950 dark:text-blue-950" },
-                  { icon: Activity, text: "Mi deporte favorito es el voleibol", color: "text-purple-950 dark:text-blue-950" },
-                  { icon: Cake, text: "Tengo 20 años de edad", color: "text-purple-950 dark:text-blue-950" }
+                  { icon: FaGamepad, text: t("like_read_games", lang), color: "text-purple-950 dark:text-blue-950" },
+                  { icon: MapPin, text: t("location_current", lang), color: "text-purple-950 dark:text-blue-950" },
+                  { icon: FaBurger, text: t("fav_food_burger", lang), color: "text-purple-950 dark:text-blue-950" },
+                  { icon: Activity, text: t("fav_sport_volleyball", lang), color: "text-purple-950 dark:text-blue-950" },
+                  { icon: Cake, text: t("age_20", lang), color: "text-purple-950 dark:text-blue-950" }
                 ].map((item, index) => (
                   <motion.div
                     key={index}

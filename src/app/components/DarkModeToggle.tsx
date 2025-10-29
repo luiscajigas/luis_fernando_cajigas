@@ -3,6 +3,8 @@
 import { useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import useLang from "../hooks/useLang";
+import { t } from "../i18n";
 
 interface Props {
   darkMode: boolean;
@@ -10,6 +12,7 @@ interface Props {
 }
 
 function DarkModeToggle({ darkMode, setDarkMode }: Props) {
+  const lang = useLang();
   useEffect(() => {
 
     if (darkMode) {
@@ -49,7 +52,7 @@ function DarkModeToggle({ darkMode, setDarkMode }: Props) {
             }`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            title="Modo claro"
+            title={t("sidebar_light_mode", lang)}
           >
             <Sun size={16} />
           </motion.button>
@@ -63,21 +66,12 @@ function DarkModeToggle({ darkMode, setDarkMode }: Props) {
             }`}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            title="Modo oscuro"
+            title={t("sidebar_dark_mode", lang)}
           >
             <Moon size={16} />
           </motion.button>
         </div>
       </motion.div>
-      
-      <motion.p 
-        className="text-xs text-gray-600 dark:text-gray-500 mt-2 text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        {darkMode ? "Modo oscuro" : "Modo claro"}
-      </motion.p>
     </div>
   );
 }

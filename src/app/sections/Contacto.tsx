@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import useLang from "../hooks/useLang";
+import { t, contactoResenasTextos } from "../i18n";
 import emailjs from "@emailjs/browser";
 import {
   Mail,
@@ -29,6 +31,7 @@ export default function Contactame() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [showReviews, setShowReviews] = useState(false);
   const [currentReview, setCurrentReview] = useState(0);
+  const lang = useLang();
   
   useEffect(() => {
     const checkDarkMode = () => {
@@ -109,19 +112,19 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
   const contactInfo = [
     {
       icon: Mail,
-      label: "Email",
+      label: t("contacto_card_email", lang),
       value: "cajigasluis51@gmail.com",
       color: "text-purple-700 dark:text-blue-700",
     },
     {
       icon: MapPin,
-      label: "Ubicación",
+      label: t("contacto_card_location", lang),
       value: "Pasto, Nariño - Colombia",
       color: "text-purple-700 dark:text-blue-700",
     },
     {
       icon: Clock,
-      label: "Horario de respuesta",
+      label: t("contacto_card_response_time", lang),
       value: "24-48 horas",
       color: "text-purple-700 dark:text-blue-700",
     },
@@ -188,7 +191,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
           color: isDarkMode ? "rgb(55, 65, 81)" : "rgb(107, 114, 128)",
         }}
       >
-        CONTACTO
+        {t("contacto_banner_title", lang)}
       </h1>
 
       {/* Contenedor principal centrado vertical y horizontalmente */}
@@ -214,14 +217,13 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   className="text-4xl md:text-5xl font-bold mb-5 text-center"
                   style={{ color: getTextColor("#111827", "white") }}
                 >
-                  ¿Tienes un proyecto en mente?
+                  {t("contacto_have_project_question", lang)}
                 </h2>
                 <p
                   className="text-base md:text-lg leading-relaxed"
                   style={{ color: getTextColor("#4b5563", "#9ca3af") }}
                 >
-                  Estoy siempre abierto a nuevas oportunidades y colaboraciones.
-                  Hablemos sobre cómo podemos hacer realidad tu idea.
+                  {t("contacto_intro_paragraph", lang)}
                 </p>
               </motion.div>
 
@@ -272,7 +274,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                 >
                   <div className="relative flex overflow-hidden w-full justify-center items-center gap-2">
                     <MessageCircle size={20} className="text-purple-100 dark:text-white" />
-                    <span className="px-2">empezar conversacion</span>
+                    <span className="px-2">{t("contacto_cta_start_conversation", lang)}</span>
                   </div>
                 </motion.button>
 
@@ -283,7 +285,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 >
-                  o envíame un correo directamente a {" "}
+                  {t("contacto_or_send_email", lang)} {" "}
                   <a href="mailto:cajigasluis51@gmail.com" className="text-purple-700 hover:text-purple-900 dark:text-blue-700 dark:hover:text-blue-900 underline transition-colors">cajigasluis51@gmail.com</a>
                 </motion.p>
               </motion.div>
@@ -305,7 +307,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                 <ArrowLeft size={20} />
               </button>
 
-              <h3 className="text-2xl font-bold mb-6" style={{ color: getTextColor("#111827", "white") }}>Envíame un mensaje</h3>
+              <h3 className="text-2xl font-bold mb-6" style={{ color: getTextColor("#111827", "white") }}>{t("contacto_form_title", lang)}</h3>
 
               <form onSubmit={sendEmail} className="space-y-5">
                 <div
@@ -317,7 +319,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                     type="text"
                     name="user_name"
                     required
-                    placeholder="Tu nombre"
+                    placeholder={t("contacto_placeholder_name", lang)}
                     className="bg-transparent outline-none flex-1 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm md:text-base"
                     style={{ color: getTextColor("#111827", "white") }}
                   />
@@ -332,7 +334,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                     type="email"
                     name="user_email"
                     required
-                    placeholder="Tu correo"
+                    placeholder={t("contacto_placeholder_email", lang)}
                     className="bg-transparent outline-none flex-1 placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm md:text-base"
                     style={{ color: getTextColor("#111827", "white") }}
                   />
@@ -346,7 +348,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   <textarea
                     name="message"
                     required
-                    placeholder="Tu mensaje"
+                    placeholder={t("contacto_placeholder_message", lang)}
                     rows={4}
                     className="bg-transparent outline-none flex-1 resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm md:text-base"
                     style={{ color: getTextColor("#111827", "white") }}
@@ -359,15 +361,15 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   disabled={loading}
                   className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-900 hover:from-cyan-600 hover:to-purple-600 text-white font-semibold py-3.5 px-7 rounded-lg shadow-lg transition-all duration-300 border border-blue-500/30 disabled:opacity-50"
                 >
-                  {loading ? "Enviando..." : "Enviar"}
+                  {loading ? t("contacto_sending", lang) : t("contacto_send", lang)}
                   {!loading && <Send size={18} />}
                 </motion.button>
 
                 {status === "success" && (
-                  <p className="flex items-center gap-2 text-green-400"><CheckCircle size={18} /> Mensaje enviado con éxito.</p>
+                  <p className="flex items-center gap-2 text-green-400"><CheckCircle size={18} /> {t("contacto_success", lang)}</p>
                 )}
                 {status === "error" && (
-                  <p className="flex items-center gap-2 text-red-400"><AlertCircle size={18} /> Error al enviar el mensaje.</p>
+                  <p className="flex items-center gap-2 text-red-400"><AlertCircle size={18} /> {t("contacto_error", lang)}</p>
                 )}
               </form>
             </motion.div>
@@ -392,7 +394,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
             whileTap={{ scale: 0.95 }}
           >
             <MessageCircle size={20} style={{ color: getTextColor("#4b5563", "#9ca3af") }} />
-            <span className="font-medium" style={{ color: getTextColor("#111827", "white") }}>Reseñas</span>
+            <span className="font-medium" style={{ color: getTextColor("#111827", "white") }}>{t("contacto_reviews_button", lang)}</span>
           </motion.button>
 
           <AnimatePresence>
@@ -414,7 +416,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                   <div className="flex items-center justify-between mb-4 sm:mb-6">
                     <h3 className="text-base sm:text-lg font-bold flex items-center gap-2" style={{ color: getTextColor("#111827", "white") }}>
                       <Star size={18} className="text-yellow-500" />
-                      Reseñas de Clientes
+                      {t("contacto_reviews_title", lang)}
                     </h3>
                     <div className="flex items-center gap-2">
                       <button onClick={prevReview} className="p-1.5 rounded-full transition-colors hover:bg-gray-200 dark:hover:bg-gray-700" style={{ color: getTextColor("#6b7280", "#9ca3af") }}>
@@ -443,7 +445,7 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                         <Quote size={16} className="text-blue-500 mt-1 flex-shrink-0" />
                         <div className="flex-1">
                           <p className="text-xs sm:text-sm italic mb-3 sm:mb-4 leading-relaxed" style={{ color: getTextColor("#374151", "#d1d5db") }}>
-                            "Reseña {reviews[currentReview].id}: {reviews[currentReview].text}"
+                            "{t("contacto_review_label", lang)} {reviews[currentReview].id}: {contactoResenasTextos[lang][currentReview]}"
                           </p>
                           <div className="flex items-center justify-between">
                             <p className="text-xs font-medium" style={{ color: getTextColor("#6b7280", "#9ca3af") }}>- {reviews[currentReview].author}</p>

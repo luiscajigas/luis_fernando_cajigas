@@ -4,9 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaGlobe } from "react-icons/fa";
 import { Calendar, Code, ExternalLink, X, Star, Zap } from "lucide-react";
+import useLang from "../hooks/useLang";
+import { t, getProjects } from "../i18n";
 
 export default function Proyectos() {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const lang = useLang();
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -32,72 +35,10 @@ export default function Proyectos() {
     })));
   }, []);
 
-  const proyectos = [
-    { 
-      titulo: "Practica inicio sesion en tailwind", 
-      fecha: "Agosto 26",
-      descripcion: "Proyecto frontend sobre un inicio de sesión realizado con Tailwind CSS y sus propiedades avanzadas, implementado en Next.js con animaciones fluidas y diseño responsive.",
-      imagen: "/images/proyecto1.png",
-      github: "https://github.com/luiscajigas/trabajos-diseno.git",
-      web: "https://trabajos-diseno.vercel.app/",
-      tecnologias: ["Next.js", "Tailwind CSS", "TypeScript", "Framer Motion"],
-      estado: "Completado"
-    },
-    { 
-      titulo: "Star Session modern",
-      fecha: "Septiembre 21",
-      descripcion: "Página de autenticación premium con diseño tipo glassmorphism, animaciones garantizando buena experiencia al usuario. Cuenta con una interfaz moderna con efectos visuales y transiciones fluidas",
-      imagen: "/images/proyecto2.png",
-      github: "https://github.com/luiscajigas/start-session.git",
-      web: "https://inico-sesion.vercel.app/",
-      tecnologias: ["Next.js", "TypeScript", "Tailwind CSS", "React 18"],
-      estado: "Completado"
-    },
-    { 
-      titulo: "Practica Pasaporte en tailwind", 
-      fecha: "Septiembre 3",
-      descripcion: "Pase de abordar digital interactivo con diseño realista tipo ticket físico. Replica la experiencia visual de un boarding pass de aerolínea con QR code funcional, detalles de vuelo y estética profesional de aviación",
-      imagen: "/images/proyecto3.png",
-      github: "https://github.com/luiscajigas/pasa.git",
-      web: "https://pasa-alpha.vercel.app/",
-      tecnologias: ["Next.JS", "Tailwind CSS", "React 18"],
-      estado: "Completado"
-    },
-    { 
-      titulo: "Mascotas", 
-      fecha: "Mayo 30",
-      descripcion: "Plataforma interactiva de rastreo de collares para mascotas con mapa en tiempo real, donde puedes marcar zonas seguras, registrar nuevas mascotas, comprar productos y consultar noticias relevantes, como reportes de mascotas perdidas.",
-      imagen: "/images/julianpets.png",
-      github: "https://github.com/JulianMoreno627/proyecto-mascotas.git",
-      web: "https://proyecto-mascotas-six.vercel.app/",
-      tecnologias: ["ANGULAR", "SCSS", "TypeScript", "HTML", "JavaScript"],
-      estado: "En desarrollo"
-    },
-    { 
-      titulo: "Proyecto 5", 
-      fecha: "May 2025",
-      descripcion: "Aplicación de gestión de tareas colaborativa con chat en tiempo real y sistema de notificaciones.",
-      tecnologias: ["Vue.js", "Socket.io", "Express", "Redis"],
-      estado: "Completado"
-    },
-    { 
-      titulo: "Proyecto 6", 
-      fecha: "Jun 2025",
-      descripcion: "API REST robusta con documentación completa, autenticación JWT y rate limiting implementado.",
-      tecnologias: ["Python", "FastAPI", "SQLAlchemy", "Docker"],
-      estado: "Completado"
-    },
-    { 
-      titulo: "Proyecto 7", 
-      fecha: "Jul 2025",
-      descripcion: "Plataforma de aprendizaje online con sistema de progreso, certificaciones y gamificación.",
-      tecnologias: ["React Native", "Firebase", "Stripe", "WebRTC"],
-      estado: "En desarrollo"
-    },
-  ];
+  const proyectos = getProjects(lang);
 
   const [selected, setSelected] = useState<any>(null);
-  const [filter, setFilter] = useState("todos");
+  const [filter, setFilter] = useState<"all" | "completed" | "in_progress">("all");
   const [particles, setParticles] = useState<{ left: number; top: number }[]>([]);
 
   const getTextColor = (lightColor: string, darkColor: string) => {
@@ -111,22 +52,22 @@ export default function Proyectos() {
   const getStatusColor = (estado: string) => {
     if (isDarkMode) {
       switch (estado) {
-        case "Completado": return "bg-cyan-500/20 text-blue-400 border-blue-500/30";
-        case "En desarrollo": return "bg-blue-800/20 text-blue-800 border-blue-500/30";
+        case t("proyectos_status_completed", lang): return "bg-cyan-500/20 text-blue-400 border-blue-500/30";
+        case t("proyectos_status_in_progress", lang): return "bg-blue-800/20 text-blue-800 border-blue-500/30";
         default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
       }
     } else {
       switch (estado) {
-        case "Completado": return "bg-cyan-500/20 text-blue-600 border-blue-500/30";
-        case "En desarrollo": return "bg-purple-800/20 text-purple-800 border-purple-500/30";
+        case t("proyectos_status_completed", lang): return "bg-cyan-500/20 text-blue-600 border-blue-500/30";
+        case t("proyectos_status_in_progress", lang): return "bg-purple-800/20 text-purple-800 border-purple-500/30";
         default: return "bg-gray-500 text-gray-700 border-gray-300";
       }
     }
   };
 
   const filteredProjects = proyectos.filter(proyecto => {
-    if (filter === "todos") return true;
-    return proyecto.estado?.toLowerCase() === filter;
+    if (filter === "all") return true;
+    return proyecto.estadoKey === filter;
   });
 
   return (
@@ -162,12 +103,16 @@ export default function Proyectos() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {["todos", "completado", "en desarrollo"].map((filterOption, index) => (
+        {[
+          { value: "all", label: t("proyectos_filter_all", lang) },
+          { value: "completed", label: t("proyectos_filter_completed", lang) },
+          { value: "in_progress", label: t("proyectos_filter_in_progress", lang) },
+        ].map((opt, index) => (
           <motion.button
-            key={filterOption}
-            onClick={() => setFilter(filterOption)}
+            key={opt.value}
+            onClick={() => setFilter(opt.value)}
             className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border transition-all duration-300 whitespace-nowrap ${
-              filter === filterOption 
+              filter === opt.value 
                 ? isDarkMode 
                   ? "bg-blue-900 text-white border-blue-800" 
                   : "bg-purple-600 text-white border-purple-500"
@@ -181,7 +126,7 @@ export default function Proyectos() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
+            {opt.label}
           </motion.button>
         ))}
       </motion.div>
@@ -213,7 +158,7 @@ export default function Proyectos() {
               </h2>
               
               <p className="text-xs" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>
-                {proyecto.fecha} / Dev / Design: Hiroaki Nakano
+                {proyecto.fecha} / {t("proyectos_dev_design_by", lang)} Hiroaki Nakano
               </p>
             </div>
           </motion.div>
@@ -272,9 +217,9 @@ export default function Proyectos() {
                     </div>
                   </div>
                   
-                  {selected.estado && (
-                    <span className={`px-3 py-1 text-xs rounded-full border ${getStatusColor(selected.estado)}`}>
-                      {selected.estado}
+                  {selected.estadoLabel && (
+                    <span className={`px-3 py-1 text-xs rounded-full border ${getStatusColor(selected.estadoLabel)}`}>
+                      {selected.estadoLabel}
                     </span>
                   )}
                 </div>
@@ -355,7 +300,7 @@ export default function Proyectos() {
                         }}
                       >
                         <FaGithub size={18} />
-                        <span className="text-sm">Código</span>
+                        <span className="text-sm">{t("proyectos_code", lang)}</span>
                       </a>
                     )}
                     {selected.web && (
@@ -377,7 +322,7 @@ export default function Proyectos() {
                         }}
                       >
                         <FaGlobe size={18} />
-                        <span className="text-sm">Web</span>
+                        <span className="text-sm">{t("proyectos_website", lang)}</span>
                       </a>
                     )}
                   </motion.div>

@@ -99,43 +99,42 @@ export default function Proyectos() {
         ))}
       </div>
       
-      <motion.div 
-        className="absolute top-32 right-4 sm:right-27 flex flex-wrap gap-2 z-10"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        {(
-          [
-            { value: "all", label: t("proyectos_filter_all", lang) },
-            { value: "completed", label: t("proyectos_filter_completed", lang) },
-            { value: "in_progress", label: t("proyectos_filter_in_progress", lang) },
-          ] as Array<{ value: FilterType; label: string }>
-        ).map((opt, index) => (
-          <motion.button
-            key={opt.value}
-            onClick={() => setFilter(opt.value)}
-            className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border transition-all duration-300 whitespace-nowrap ${
-              filter === opt.value 
-                ? isDarkMode 
-                  ? "bg-blue-900 text-white border-blue-800" 
-                  : "bg-purple-600 text-white border-purple-500"
-                : isDarkMode
-                  ? "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:text-blue-400"
-                  : "bg-gray-200 text-black border-gray-300 hover:border-purple-400 hover:text-purple-600"
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-          >
-            {opt.label}
-          </motion.button>
-        ))}
-      </motion.div>
-
-      <div className="w-full flex flex-col gap-12 sm:gap-24 mt-28 md:mt-32 h-auto md:h-[78vh] overflow-y-auto md:overflow-hidden pr-2 sm:pr-4 scrollbar-hide">
+      <div className="w-full flex flex-col gap-12 sm:gap-24 mt-6 md:mt-8 h-auto md:h-[78vh] overflow-y-auto md:overflow-y-auto pr-2 sm:pr-4 scrollbar-hide">
+        <motion.div 
+          className="sticky top-0 z-20 flex flex-wrap gap-2 py-2 bg-transparent"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          {(
+            [
+              { value: "all", label: t("proyectos_filter_all", lang) },
+              { value: "completed", label: t("proyectos_filter_completed", lang) },
+              { value: "in_progress", label: t("proyectos_filter_in_progress", lang) },
+            ] as Array<{ value: FilterType; label: string }>
+          ).map((opt, index) => (
+            <motion.button
+              key={opt.value}
+              onClick={() => setFilter(opt.value)}
+              className={`px-2 sm:px-3 py-1 text-xs sm:text-sm rounded-full border transition-all duration-300 whitespace-nowrap ${
+                filter === opt.value 
+                  ? isDarkMode 
+                    ? "bg-blue-900 text-white border-blue-800" 
+                    : "bg-purple-600 text-white border-purple-500"
+                  : isDarkMode
+                    ? "bg-neutral-800/60 text-gray-400 border-gray-600 hover:border-blue-500 hover:text-blue-400"
+                    : "bg-gray-200 text-black border-gray-300 hover:border-purple-400 hover:text-purple-600"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              {opt.label}
+            </motion.button>
+          ))}
+        </motion.div>
         {filteredProjects.map((proyecto, index) => (
           <motion.div 
             key={index}
@@ -162,7 +161,7 @@ export default function Proyectos() {
               </h2>
               
               <p className="text-xs" style={{ color: getTextColor('#6b7280', '#9ca3af') }}>
-                {proyecto.fecha} / {t("proyectos_dev_design_by", lang)} Hiroaki Nakano
+                {proyecto.fecha} / {t("proyectos_dev_design_by", lang)} Luis Cajigas
               </p>
             </div>
           </motion.div>

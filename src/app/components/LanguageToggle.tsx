@@ -4,21 +4,28 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function LanguageToggle() {
-  const [lang, setLang] = useState<"es" | "en">("es");
+  // Inicializar con el valor del localStorage si está disponible
+  const [lang, setLang] = useState<"es" | "en">(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("lang");
+      return stored === "en" ? "en" : "es";
+    }
+    return "es";
+  });
 
+  // Solo ejecutar una vez al montar el componente
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
-    const initial = stored === "en" ? "en" : "es";
-    setLang(initial);
     if (typeof document !== "undefined") {
-      document.documentElement.lang = initial;
+      document.documentElement.lang = lang;
     }
   }, []);
 
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent).detail as "es" | "en" | undefined;
-      if (detail === "es" || detail === "en") setLang(detail);
+      if (detail === "es" || detail === "en") {
+        setLang(detail);
+      }
     };
     window.addEventListener("app:language", handler as EventListener);
     return () => window.removeEventListener("app:language", handler as EventListener);

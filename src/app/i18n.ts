@@ -155,7 +155,7 @@ export const dict: Dict = {
   contacto_reviews_button: { es: "Reseñas", en: "Reviews" },
   contacto_reviews_title: { es: "Reseñas de Clientes", en: "Client Reviews" },
   contacto_reviews_item_prefix: { es: "Reseña", en: "Review" },
-  contacto_reviews_author_generic: { es: "Cliente Satisfecho", en: "Satisfied Client" },
+
 };
 
 export const frases: Record<Lang, string[]> = {
@@ -359,13 +359,13 @@ export const getProjects = (lang: Lang): (Project & { estadoLabel?: string })[] 
 // Textos de reseñas de Contacto
 export const contactoResenasTextos: Record<Lang, string[]> = {
   es: [
-    "Aquí encontrarás la primera reseña",
-    "Excelente trabajo y muy profesional, superó todas mis expectativas",
-    "Cumplió todos mis requerimientos perfectamente, lo recomiendo 100%",
+    "Trabajar con Luis es una muy buena experiencia. Su capacidad para convertir ideas complejas en soluciones es impresionante. Altamente recomendado.",
+    "He tenido la oportunidad de trabajar con Luis en varios proyectos de desarrollo de software, y puedo afirmar que es un profesional altamente competente y comprometido.",
+    "Su trabajo fue una experiencia sumamente positiva para nuestra empresa. Necesitábamos una aplicación personalizada para optimizar la gestión de nuestros proyectos de ingeniería civil, y Luis entendió perfectamente nuestras necesidades desde el primer momento.",
   ],
   en: [
-    "Here you'll find the first review",
-    "Excellent work and very professional, exceeded all my expectations",
-    "Met all my requirements perfectly, highly recommended",
+    "Working with Luis is a great experience. His ability to turn complex ideas into solutions is impressive. Highly recommended.",
+    "I have had the opportunity to work with Luis on several software development projects, and I can affirm that he is a highly competent and committed professional.",
+    "His work was an extremely positive experience for our company. We needed a custom application to optimize the management of our civil engineering projects, and Luis perfectly understood our needs from the very beginning.",
   ],
 };

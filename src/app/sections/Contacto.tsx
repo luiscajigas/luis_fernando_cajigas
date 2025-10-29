@@ -133,18 +133,18 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
   const reviews = [
     {
       id: 1,
-      text: "Aquí encontrarás la primera reseña",
-      author: "Cliente Satisfecho"
+      text: "Trabajar con Luis es una muy buena experiencia. Su capacidad para convertir ideas complejas en soluciones es impresionante. Altamente recomendado.",
+      author: "Ingeniero Julian Moreno"
     },
     {
       id: 2,
-      text: "Excelente trabajo y muy profesional, superó todas mis expectativas",
-      author: "María González"
+      text: "He tenido la oportunidad de trabajar con Luis en varios proyectos de desarrollo de software, y puedo afirmar que es un profesional altamente competente y comprometido.",
+      author: "Ingeniera Saray Noguera"
     },
     {
       id: 3,
-      text: "Cumplió todos mis requerimientos perfectamente, lo recomiendo 100%",
-      author: "Carlos Rodríguez"
+      text: "Su trabajo fue una experiencia sumamente positiva para nuestra empresa. Necesitábamos una aplicación personalizada para optimizar la gestión de nuestros proyectos de ingeniería civil, y Luis entendió perfectamente nuestras necesidades desde el primer momento.",
+      author: "G&H empresa de ingenieros civiles"
     }
   ];
 

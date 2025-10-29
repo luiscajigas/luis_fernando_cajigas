@@ -51,7 +51,6 @@ export default function Inicio() {
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       <div className="w-full h-full flex flex-col md:flex-row items-center justify-between px-4 md:px-8 gap-6">
-        {/* TiltedCard - Lado izquierdo */}
         <motion.div 
           className="flex-1 w-full flex items-center justify-center"
           initial={{ opacity: 0, scale: 0.5 }}
@@ -82,7 +81,6 @@ export default function Inicio() {
           </div>
         </motion.div>
 
-        {/* Contenido - Lado derecho */}
         <motion.div 
           className="w-full md:flex-1 md:max-w-md md:pr-8"
           initial={{ opacity: 0, x: 50 }}

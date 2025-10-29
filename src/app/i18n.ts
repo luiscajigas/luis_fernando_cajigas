@@ -116,6 +116,8 @@ export const dict: Dict = {
   // Sidebar mode labels
   sidebar_light_mode: { es: "Modo claro", en: "Light mode" },
   sidebar_dark_mode: { es: "Modo oscuro", en: "Dark mode" },
+  // Contacto (Contact)
+  contacto_h1: { es: "CONTACTO", en: "CONTACT" },
   contacto_banner_title: { es: "CONTACTO", en: "CONTACT" },
   contacto_have_project_question: { es: "¿Tienes un proyecto en mente?", en: "Do you have a project in mind?" },
   contacto_intro_paragraph: {
@@ -125,9 +127,7 @@ export const dict: Dict = {
   contacto_card_email: { es: "Email", en: "Email" },
   contacto_card_location: { es: "Ubicación", en: "Location" },
   contacto_card_response_time: { es: "Horario de respuesta", en: "Response time" },
-  contacto_cta_start_conversation: { es: "empezar conversacion", en: "start conversation" },
   contacto_or_send_email: { es: "o envíame un correo directamente a", en: "or send me an email directly at" },
-  contacto_form_title: { es: "Envíame un mensaje", en: "Send me a message" },
   contacto_placeholder_name: { es: "Tu nombre", en: "Your name" },
   contacto_placeholder_email: { es: "Tu correo", en: "Your email" },
   contacto_placeholder_message: { es: "Tu mensaje", en: "Your message" },
@@ -135,13 +135,7 @@ export const dict: Dict = {
   contacto_send: { es: "Enviar", en: "Send" },
   contacto_success: { es: "Mensaje enviado con éxito.", en: "Message sent successfully." },
   contacto_error: { es: "Error al enviar el mensaje.", en: "Error sending the message." },
-  contacto_reviews_button: { es: "Reseñas", en: "Reviews" },
-  contacto_reviews_title: { es: "Reseñas de Clientes", en: "Customer Reviews" },
   contacto_review_label: { es: "Reseña", en: "Review" },
-  proyectos_button_code: { es: "Código", en: "Code" },
-  proyectos_button_web: { es: "Web", en: "Website" },
-  // Contacto (Contact)
-  contacto_h1: { es: "CONTACTO", en: "CONTACT" },
   contacto_question_title: { es: "¿Tienes un proyecto en mente?", en: "Do you have a project in mind?" },
   contacto_question_subtitle: { es: "Estoy siempre abierto a nuevas oportunidades y colaboraciones. Hablemos sobre cómo podemos hacer realidad tu idea.", en: "I'm always open to new opportunities and collaborations. Let's talk about how we can bring your idea to life." },
   contacto_info_email_label: { es: "Email", en: "Email" },

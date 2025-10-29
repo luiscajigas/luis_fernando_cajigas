@@ -7,6 +7,8 @@ import { Calendar, Code, ExternalLink, X, Star, Zap } from "lucide-react";
 import useLang from "../hooks/useLang";
 import { t, getProjects } from "../i18n";
 
+type FilterType = "all" | "completed" | "in_progress";
+
 export default function Proyectos() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const lang = useLang();
@@ -38,7 +40,7 @@ export default function Proyectos() {
   const proyectos = getProjects(lang);
 
   const [selected, setSelected] = useState<any>(null);
-  const [filter, setFilter] = useState<"all" | "completed" | "in_progress">("all");
+  const [filter, setFilter] = useState<FilterType>("all");
   const [particles, setParticles] = useState<{ left: number; top: number }[]>([]);
 
   const getTextColor = (lightColor: string, darkColor: string) => {
@@ -103,11 +105,13 @@ export default function Proyectos() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        {[
-          { value: "all", label: t("proyectos_filter_all", lang) },
-          { value: "completed", label: t("proyectos_filter_completed", lang) },
-          { value: "in_progress", label: t("proyectos_filter_in_progress", lang) },
-        ].map((opt, index) => (
+        {(
+          [
+            { value: "all", label: t("proyectos_filter_all", lang) },
+            { value: "completed", label: t("proyectos_filter_completed", lang) },
+            { value: "in_progress", label: t("proyectos_filter_in_progress", lang) },
+          ] as Array<{ value: FilterType; label: string }>
+        ).map((opt, index) => (
           <motion.button
             key={opt.value}
             onClick={() => setFilter(opt.value)}

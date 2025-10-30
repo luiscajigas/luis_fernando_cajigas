@@ -146,7 +146,7 @@ export default function Proyectos() {
           >
             <div className="flex flex-col items-end pt-4 md:pt-6">
               <h2 
-                className="text-2xl sm:text-4xl md:text-5xl font-light tracking-wide transition-colors duration-300"
+                className="text-4xl sm:text-5xl md:text-6xl font-light tracking-wide transition-colors duration-300"
                 style={{ 
                   color: getTextColor('#111827', 'white')
                 }}

@@ -9,6 +9,19 @@ export default function SplashScreen() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   // Partículas inicializadas sólo en el cliente para evitar errores de hidratación
   const [particles, setParticles] = useState<{ left: number; top: number; dx: number; dy: number }[]>([]);
+  // Detectar modo oscuro/claro para ajustar estilos del splash
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const initial = root.classList.contains("dark");
+    setIsDarkMode(initial);
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(root.classList.contains("dark"));
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -45,7 +58,9 @@ export default function SplashScreen() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-900 via-neutral-800 to-black z-50 overflow-hidden"
+          className={`fixed inset-0 flex items-center justify-center z-50 overflow-hidden bg-gradient-to-br ${
+            isDarkMode ? "from-neutral-900 via-neutral-800 to-black" : "from-gray-50 via-white to-gray-200"
+          }`}
           initial={{ opacity: 1 }}
           exit={{ 
             opacity: 0,
@@ -109,7 +124,9 @@ export default function SplashScreen() {
             >
               <div className="relative">
                 <motion.div
-                  className="w-20 h-20 bg-gradient-to-r from-blue-900 to-blue-800 rounded-xl flex items-center justify-center shadow-2xl"
+                  className={`w-20 h-20 bg-gradient-to-r rounded-xl flex items-center justify-center shadow-2xl ${
+                    isDarkMode ? "from-blue-900 to-blue-800" : "from-purple-600 to-cyan-500"
+                  }`}
                   whileHover={{ scale: 1.05 }}
                   animate={{
                     boxShadow: [
@@ -158,12 +175,12 @@ export default function SplashScreen() {
               </h1>
               
               <motion.p
-                className="text-xl md:text-2xl text-gray-400 mb-8"
+                className={`text-xl md:text-2xl mb-8 ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
               >
-                Desarrollador <span className="text-blue-900 font-semibold">Full Stack</span>
+                Desarrollador <span className={`${isDarkMode ? "text-blue-400" : "text-blue-900"} font-semibold`}>Full Stack</span>
               </motion.p>
             </motion.div>
 
@@ -180,9 +197,11 @@ export default function SplashScreen() {
                 </span>
               </div>
               
-              <div className="w-full bg-gray-800/50 rounded-full h-1 overflow-hidden">
+              <div className={`w-full rounded-full h-1 overflow-hidden ${isDarkMode ? "bg-gray-800/50" : "bg-gray-200"}`}>
                 <motion.div
-                  className="h-full bg-gradient-to-r from-neutral-600 to-neutral-800 rounded-full shadow-lg"
+                  className={`h-full bg-gradient-to-r rounded-full shadow-lg ${
+                    isDarkMode ? "from-neutral-600 to-neutral-800" : "from-purple-600 to-cyan-500"
+                  }`}
                   initial={{ width: "0%" }}
                   animate={{ width: `${loadingProgress}%` }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
@@ -206,7 +225,7 @@ export default function SplashScreen() {
           </div>
 
           <motion.div
-            className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent"
+            className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${isDarkMode ? "from-black/50" : "from-gray-300/50"} to-transparent`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}

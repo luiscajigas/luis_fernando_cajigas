@@ -164,7 +164,7 @@ export default function SplashScreen() {
             >
               <h1 className="text-4xl md:text-6xl font-bold mb-4">
                 <motion.span
-                  className="bg-gradient-to-r from-white via-neutral-400 to-neutral-600 bg-clip-text text-transparent"
+                  className="bg-gradient-to-r from-purple-600 to-cyan-500 bg-clip-text text-transparent"
                   animate={{
                     backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
                   }}

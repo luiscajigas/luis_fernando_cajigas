@@ -13,8 +13,8 @@ interface Props {
 
 function DarkModeToggle({ darkMode, setDarkMode }: Props) {
   const lang = useLang();
+  // Sin opciones de "sistema" dentro del control; reflejar darkMode en DOM y storage
   useEffect(() => {
-
     if (darkMode) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");

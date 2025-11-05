@@ -77,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth" suppressHydrationWarning={true}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -85,6 +85,25 @@ export default function RootLayout({
       <link rel="manifest" href="/manifest.json" />
       <meta name="theme-color" content="#1f2937" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      
+      {/* Inicializar tema según preferencia del sistema o localStorage antes de hidratar */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(() => {
+            try {
+              const root = document.documentElement;
+              const stored = localStorage.getItem('theme');
+              const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+              const shouldDark = stored ? stored === 'dark' : prefersDark;
+              if (shouldDark) {
+                root.classList.add('dark');
+              } else {
+                root.classList.remove('dark');
+              }
+            } catch (e) {}
+          })();`
+        }}
+      />
         
         
         <script
@@ -135,13 +154,17 @@ export default function RootLayout({
           antialiased 
           min-h-screen 
           w-full 
-          text-white 
           bg-gradient-to-br 
-          from-gray-900 
-          via-neutral-900 
-          to-black
+          text-gray-900 
+          from-gray-50 
+          via-white 
+          to-gray-200
+          dark:text-white 
+          dark:from-gray-900 
+          dark:via-neutral-900 
+          dark:to-black
           selection:bg-blue-500/20 
-          selection:text-blue-200
+          selection:text-blue-800 dark:selection:text-blue-200
           overflow-x-hidden
         `}
         suppressHydrationWarning={true}

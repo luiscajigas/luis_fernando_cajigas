@@ -12,15 +12,28 @@ export default function Home() {
   // Hidratar tema desde localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    
-    if (savedTheme) {
-      setDarkMode(savedTheme === "dark");
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if (savedTheme === "dark") {
+      setDarkMode(true);
+    } else if (savedTheme === "light") {
+      setDarkMode(false);
     } else {
-      setDarkMode(prefersDark);
+      // "system" o vacío
+      setDarkMode(media.matches);
     }
-    
+
     setMounted(true);
+
+    let handler: ((e: MediaQueryListEvent) => void) | null = null;
+    if (savedTheme === "system") {
+      handler = (e: MediaQueryListEvent) => setDarkMode(e.matches);
+      media.addEventListener("change", handler);
+    }
+
+    return () => {
+      if (handler) media.removeEventListener("change", handler);
+    };
   }, []);
 
   // Evitar hydration mismatch

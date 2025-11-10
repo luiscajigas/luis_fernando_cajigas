@@ -7,9 +7,9 @@ import { Code, Sparkles } from "lucide-react";
 export default function SplashScreen() {
   const [isVisible, setIsVisible] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  // Partículas inicializadas sólo en el cliente para evitar errores de hidratación
+
   const [particles, setParticles] = useState<{ left: number; top: number; dx: number; dy: number }[]>([]);
-  // Detectar modo oscuro/claro para ajustar estilos del splash
+
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
   useEffect(() => {
@@ -42,7 +42,6 @@ export default function SplashScreen() {
     };
   }, []);
 
-  // Inicializar posiciones de partículas en el cliente
   useEffect(() => {
     setParticles(
       Array.from({ length: 50 }).map(() => ({
@@ -235,4 +234,3 @@ export default function SplashScreen() {
     </AnimatePresence>
   );
 }
-

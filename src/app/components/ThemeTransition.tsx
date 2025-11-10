@@ -15,14 +15,13 @@ export default function ThemeTransition() {
       const current = root.classList.contains("dark");
       setIsDark(current);
       if (prevDarkRef.current !== null && prevDarkRef.current !== current) {
-        // Claro -> Oscuro: derecha a izquierda (rtl); Oscuro -> Claro: izquierda a derecha (ltr)
+
         setDirection(current ? "rtl" : "ltr");
         setVisible(true);
         setTimeout(() => setVisible(false), 700);
       }
       prevDarkRef.current = current;
     };
-    // Inicial
     update();
     const observer = new MutationObserver(update);
     observer.observe(root, { attributes: true, attributeFilter: ["class"] });

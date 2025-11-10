@@ -13,8 +13,8 @@ interface Props {
 
 function DarkModeToggle({ darkMode, setDarkMode }: Props) {
   const lang = useLang();
-  // Sin opciones de "sistema" dentro del control; reflejar darkMode en DOM y storage
   useEffect(() => {
+
     if (darkMode) {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -40,8 +40,7 @@ function DarkModeToggle({ darkMode, setDarkMode }: Props) {
             damping: 30 
           }}
         />
-        
-        {/* botones */}
+       
         <div className="relative flex justify-between items-center">
           <motion.button
             onClick={() => setDarkMode(false)}
@@ -75,7 +74,6 @@ function DarkModeToggle({ darkMode, setDarkMode }: Props) {
     </div>
   );
 }
-
 export default memo(DarkModeToggle, (prev, next) => (
   prev.darkMode === next.darkMode && prev.setDarkMode === next.setDarkMode
 ));

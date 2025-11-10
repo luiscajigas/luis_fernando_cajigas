@@ -2,44 +2,21 @@
 
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  /* Removimos background-color y color para que Tailwind funcione */
 }
 
-/* Ocultar scrollbar global (mantener scroll) */
-html, body {
-  -ms-overflow-style: none; /* IE y Edge */
-  scrollbar-width: none;    /* Firefox */
-}
-
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari y Edge */
-}
-
-/* Para todos los elementos con overflow */
-*::-webkit-scrollbar {
-  display: none;
-}
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-/* Clase utilitaria explícita */
 .scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Chrome, Safari y Edge */
-}
-.scrollbar-hide {
-  -ms-overflow-style: none; /* IE y Edge */
-  scrollbar-width: none;    /* Firefox */
+  display: none; 
 }
 
-/* Transiciones suaves para elementos */
+.scrollbar-hide {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; /
+}
+
 * {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Selección de texto personalizada */
 ::selection {
   background-color: rgba(59, 130, 246, 0.2);
   color: rgb(30, 58, 138);

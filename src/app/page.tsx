@@ -9,7 +9,6 @@ export default function Home() {
   const [selected, setSelected] = useState("inicio");
   const [mounted, setMounted] = useState(false);
 
-  // Hidratar tema desde localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -19,7 +18,6 @@ export default function Home() {
     } else if (savedTheme === "light") {
       setDarkMode(false);
     } else {
-      // "system" o vacío
       setDarkMode(media.matches);
     }
 
@@ -36,7 +34,6 @@ export default function Home() {
     };
   }, []);
 
-  // Evitar hydration mismatch
   if (!mounted) {
     return null;
   }
@@ -54,7 +51,7 @@ export default function Home() {
             : "bg-white border-gray-300"
         }`}
       >
-        {/* PANEL IZQUIERDO */}
+
         <Sidebar
           darkMode={darkMode}
           setDarkMode={setDarkMode}
@@ -62,7 +59,6 @@ export default function Home() {
           setSelected={setSelected}
         />
 
-        {/* CONTENIDO PRINCIPAL */}
         <Content selected={selected} />
       </div>
     </main>

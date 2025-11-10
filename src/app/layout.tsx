@@ -86,7 +86,6 @@ export default function RootLayout({
       <meta name="theme-color" content="#1f2937" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       
-      {/* Inicializar tema según preferencia del sistema o localStorage antes de hidratar */}
       <script
         dangerouslySetInnerHTML={{
           __html: `(() => {

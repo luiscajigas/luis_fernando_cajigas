@@ -26,7 +26,7 @@ export const dict: Dict = {
   years_suffix: { es: " años", en: " years" },
   of_experience: { es: "de experiencia", en: "of experience" },
   software_engineering_semester_5: { es: "Ingeniería de Software - 5to Semestre", en: "Software Engineering - 5th Semester" },
-  // Información bio (new)
+  
   informacion_bio_p1: {
     es: "Con pasión por el desarrollo y el diseño, me enfoco en crear experiencias digitales funcionales y atractivas. Inicié de forma autodidacta y hoy continuo formándome académicamente para fortalecer mis habilidades técnicas y creativas.",
     en: "With a passion for development and design, I focus on building functional and engaging digital experiences. I started self-taught and now continue my academic training to strengthen both my technical and creative skills."
@@ -47,7 +47,7 @@ export const dict: Dict = {
   step_4: { es: "Deploy y documentación", en: "Deploy and documentation" },
   step_5: { es: "Soporte post-lanzamiento", en: "Post-launch support" },
   premium_quality: { es: "Calidad premium", en: "Premium quality" },
-  // Servicios específicos
+ 
   service_frontend_title: { es: "Desarrollo Frontend", en: "Frontend Development" },
   service_frontend_desc: { es: "Interfaces modernas y responsivas con las últimas tecnologías", en: "Modern, responsive interfaces with the latest technologies" },
   service_frontend_desc_full: { es: "Desarrollo de aplicaciones web frontend utilizando React, Next.js, TypeScript y Tailwind CSS. Enfoque en UX/UI, rendimiento optimizado y diseño responsive que funciona perfectamente en todos los dispositivos.", en: "Frontend web applications using React, Next.js, TypeScript, and Tailwind CSS. Focus on UX/UI, optimized performance, and responsive design that works perfectly across devices." },
@@ -80,7 +80,7 @@ export const dict: Dict = {
   service_consulting_feat_security_assessment: { es: "Security assessment", en: "Security assessment" },
   service_consulting_feat_architecture: { es: "Arquitectura de software", en: "Software architecture" },
   service_consulting_feat_mentoring: { es: "Mentoring técnico", en: "Technical mentoring" },
-  // Inicio (Home)
+  
   inicio_years_exp_label: { es: "Años Exp", en: "Years Exp" },
   inicio_projects_label: { es: "Proyectos", en: "Projects" },
   inicio_location: { es: "Pasto, Nariño - Colombia", en: "Pasto, Nariño - Colombia" },
@@ -101,7 +101,7 @@ export const dict: Dict = {
   inicio_bio_experimentation: { es: "experimentación", en: "experimentation" },
   inicio_bio_and2: { es: "y el", en: "and" },
   inicio_bio_critical_thinking: { es: "pensamiento crítico", en: "critical thinking" },
-  // Proyectos (Projects)
+  
   proyectos_filters_all_label: { es: "todos", en: "all" },
   proyectos_filters_completed_label: { es: "completado", en: "completed" },
   proyectos_filters_in_progress_label: { es: "en desarrollo", en: "in progress" },
@@ -113,10 +113,10 @@ export const dict: Dict = {
   proyectos_code: { es: "Código", en: "Code" },
   proyectos_website: { es: "Web", en: "Website" },
   proyectos_dev_design_by: { es: "Dev / Diseño:", en: "Dev / Design:" },
-  // Sidebar mode labels
+ 
   sidebar_light_mode: { es: "Modo claro", en: "Light mode" },
   sidebar_dark_mode: { es: "Modo oscuro", en: "Dark mode" },
-  // Contacto (Contact)
+ 
   contacto_h1: { es: "CONTACTO", en: "CONTACT" },
   contacto_banner_title: { es: "CONTACTO", en: "CONTACT" },
   contacto_have_project_question: { es: "¿Tienes un proyecto en mente?", en: "Do you have a project in mind?" },
@@ -173,21 +173,19 @@ export const frases: Record<Lang, string[]> = {
 
 export const t = (key: keyof typeof dict, lang: Lang) => dict[key][lang];
 
-// Frases específicas para Inicio (rotación de mensajes)
 export const frasesInicio: Record<Lang, string[]> = {
   es: [
     "BIENVENIDO A MI PORTAFOLIO",
     "ESPERO TE GUSTE MI TRABAJO",
-    "AYER FUNCIONABA",
+    "NUNCA PARO DE APRENDER",
   ],
   en: [
     "WELCOME TO MY PORTFOLIO",
     "HOPE YOU LIKE MY WORK",
-    "IT WORKED YESTERDAY",
+    "I NEVER STOP LEARNING",
   ],
 };
 
-// Tipos y datos para Proyectos bilingües
 export type Project = {
   titulo: string;
   fecha?: string;
@@ -356,7 +354,6 @@ export const getProjects = (lang: Lang): (Project & { estadoLabel?: string })[] 
   }));
 };
 
-// Textos de reseñas de Contacto
 export const contactoResenasTextos: Record<Lang, string[]> = {
   es: [
     "Trabajar con Luis es una muy buena experiencia. Su capacidad para convertir ideas complejas en soluciones es impresionante. Altamente recomendado.",

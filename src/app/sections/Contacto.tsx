@@ -60,7 +60,6 @@ export default function Contactame() {
   return () => window.removeEventListener("mousemove", handleMouseMove);
 }, []);
 
-// Inicializar posiciones de partículas sólo en cliente
 const [particles, setParticles] = useState<Array<{ left: string; top: string }>>([]);
 useEffect(() => {
   const arr = Array.from({ length: 50 }).map(() => ({
@@ -70,7 +69,6 @@ useEffect(() => {
   setParticles(arr);
 }, []);
 
-// Colores
 const getTextColor = (lightColor: string, darkColor: string): string => {
   return isDarkMode ? darkColor : lightColor;
 };
@@ -79,7 +77,6 @@ const getBgColor = (lightBg: string, darkBg: string): string => {
   return isDarkMode ? darkBg : lightBg;
 };
 
-// Formulario email
 const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   setLoading(true);
@@ -185,16 +182,8 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         ))}
       </div>
 
-      <h1
-        className="absolute bottom-8 left-6 text-[5rem] md:text-[9rem] font-extrabold opacity-5 select-none leading-none"
-        style={{
-          color: isDarkMode ? "rgb(55, 65, 81)" : "rgb(107, 114, 128)",
-        }}
-      >
-        {t("contacto_banner_title", lang)}
-      </h1>
 
-      {/* Contenedor principal alineado al tope */}
+
       <div className="relative z-10 w-full max-w-6xl min-h-[70vh] mx-auto flex items-start justify-center">
         <AnimatePresence mode="wait">
           {!showForm ? (
@@ -206,7 +195,6 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
               transition={{ duration: 0.5 }}
               className="flex flex-col items-center gap-10 text-center mt-2"
             >
-              {/* Títulos */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -227,7 +215,6 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                 </p>
               </motion.div>
 
-              {/* Tarjetas de contacto */}
               <motion.div
                 className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 w-full max-w-5xl"
                 initial={{ opacity: 0, y: 30 }}
@@ -260,7 +247,6 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
                 ))}
               </motion.div>
 
-              {/* CTA y correo directo */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -376,7 +362,6 @@ const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
           )}
         </AnimatePresence>
 
-        {/* Botón y panel de reseñas flotante */}
         <motion.div
           className="fixed bottom-20 right-18 z-50"
           initial={{ opacity: 0, scale: 0 }}

@@ -138,13 +138,6 @@ export default function Servicios() {
   return (
     <div className="relative w-full min-h-screen px-6 py-20 overflow-hidden">
       
-      <h1 
-        className="absolute bottom-6 left-6 text-[6rem] md:text-[10rem] font-extrabold opacity-10 select-none leading-none"
-        style={{ color: isDarkMode ? 'rgb(55, 65, 81)' : 'rgb(107, 114, 128)' }}
-      >
-        {t("services_title", lang)}
-      </h1>
-
 <div className="absolute inset-0 overflow-hidden pointer-events-none">
   {Array.from({ length: 25 }).map((_, i) => (
     <motion.div

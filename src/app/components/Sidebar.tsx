@@ -23,7 +23,6 @@ export default function Sidebar({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<"es" | "en">("es");
 
-  // init language from localStorage and document
   useEffect(() => {
     const stored = typeof window !== "undefined" ? localStorage.getItem("lang") : null;
     const initial = stored === "en" ? "en" : "es";
@@ -33,7 +32,6 @@ export default function Sidebar({
     }
   }, []);
 
-  // listen for global language change
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent).detail as "es" | "en" | undefined;
@@ -229,7 +227,8 @@ export default function Sidebar({
 
   return (
     <>
-      {/* Botón Hamburguesa - Solo visible en móvil */}
+    
+
       <motion.button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
         className="fixed top-4 left-4 z-50 p-3 rounded-lg backdrop-blur-md border lg:hidden"
@@ -247,7 +246,6 @@ export default function Sidebar({
         {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </motion.button>
 
-      {/* Sidebar Desktop - Siempre visible en pantallas grandes */}
       <motion.div
         className="hidden lg:flex flex-col w-1/4 relative z-10 p-6"
         initial={{ opacity: 0, x: -30 }}
@@ -257,11 +255,9 @@ export default function Sidebar({
         <SidebarContent />
       </motion.div>
 
-      {/* Sidebar Mobile - Menú deslizante */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            {/* Overlay */}
             <motion.div
               className="fixed inset-0 bg-black/50 z-40 lg:hidden"
               initial={{ opacity: 0 }}
@@ -270,7 +266,6 @@ export default function Sidebar({
               onClick={() => setIsMenuOpen(false)}
             />
 
-            {/* Menú deslizante */}
             <motion.div
               className="fixed top-0 left-0 h-full w-72 z-50 p-6 lg:hidden"
               style={{

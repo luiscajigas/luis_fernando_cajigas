@@ -30,7 +30,7 @@ export default function Proyectos() {
   }, []);
 
   useEffect(() => {
-    // Inicializamos las partículas sólo en el cliente para evitar mismatch
+ 
     setParticles(Array.from({ length: 12 }).map(() => ({
       left: Math.random() * 100,
       top: Math.random() * 100,

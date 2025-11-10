@@ -60,7 +60,6 @@ export default function Informacion() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const lang = useLang();
 
-  //modo oscuro
   useEffect(() => {
     const checkDarkMode = () => {
       setIsDarkMode(document.documentElement.classList.contains('dark'));
@@ -112,7 +111,6 @@ export default function Informacion() {
   return (
     <div className="w-full h-full relative overflow-y-auto scrollbar-hide">
       
-      {/* particulas */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {Array.from({ length: 20 }).map((_, i) => (
           <motion.div
@@ -137,19 +135,7 @@ export default function Informacion() {
         ))}
       </div>
 
-      <h1 
-        className="absolute top-130 left-1/2 -translate-x-1/2 text-9xl sm:text-6xl lg:text-8xl font-extrabold bg-gradient-to-r opacity-20 select-none leading-none"
-        style={{ 
-          backgroundImage: isDarkMode 
-            ? 'linear-gradient(to right, rgb(82, 82, 82), rgb(38, 38, 38))'
-            : 'linear-gradient(to right, rgb(209, 213, 219), rgb(107, 114, 128))',
-          WebkitBackgroundClip: 'text',
-          backgroundClip: 'text',
-          color: 'transparent'
-        }}
-      >
-        {t("informacion_title", lang)}
-      </h1>
+
 
       <motion.div
         className="absolute top-4 left-4 flex items-center gap-2 backdrop-blur-sm px-3 py-2 rounded-full shadow-lg border"

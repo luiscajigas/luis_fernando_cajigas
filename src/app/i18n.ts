@@ -244,29 +244,17 @@ const projectsByLang: Record<Lang, Project[]> = {
       estadoKey: "in_progress",
     },
     {
-      titulo: "Proyecto 5",
-      fecha: "May 2025",
+      titulo: "Biblioteca Nesux",
+      fecha: "Oct 25 ",
       descripcion:
-        "Aplicación de gestión de tareas colaborativa con chat en tiempo real y sistema de notificaciones.",
-      tecnologias: ["Vue.js", "Socket.io", "Express", "Redis"],
-      estadoKey: "completed",
-    },
-    {
-      titulo: "Proyecto 6",
-      fecha: "Jun 2025",
-      descripcion:
-        "API REST robusta con documentación completa, autenticación JWT y rate limiting implementado.",
-      tecnologias: ["Python", "FastAPI", "SQLAlchemy", "Docker"],
-      estadoKey: "completed",
-    },
-    {
-      titulo: "Proyecto 7",
-      fecha: "Jul 2025",
-      descripcion:
-        "Plataforma de aprendizaje online con sistema de progreso, certificaciones y gamificación.",
-      tecnologias: ["React Native", "Firebase", "Stripe", "WebRTC"],
+        "Plataforma digital de gestión bibliotecaria donde puedes registrar y administrar libros físicos o digitales, realizar préstamos y reservas con control de fechas, consultar el estado de cada ejemplar, generar reportes, gestionar autores y categorías, además de recibir notificaciones de vencimientos y acceder a estadísticas como libros más prestados o autores más leídos.",
+      imagen: "/images/biblioteca.png",
+      github: "https://github.com/Andres766/biblioteca-proyecto.git",
+      web: "https://biblioteca-proyecto-ypvs.onrender.com/",
+      tecnologias: ["DJANGO", "CSS", "Python", "HTML"],
       estadoKey: "in_progress",
     },
+
   ],
   en: [
     {
@@ -314,27 +302,14 @@ const projectsByLang: Record<Lang, Project[]> = {
       estadoKey: "in_progress",
     },
     {
-      titulo: "Project 5",
-      fecha: "May 2025",
+       titulo: "nesux library",
+      fecha: "Oct 25",
       descripcion:
-        "Collaborative task management app with real-time chat and notification system.",
-      tecnologias: ["Vue.js", "Socket.io", "Express", "Redis"],
-      estadoKey: "completed",
-    },
-    {
-      titulo: "Project 6",
-      fecha: "Jun 2025",
-      descripcion:
-        "Robust REST API with complete documentation, JWT authentication, and implemented rate limiting.",
-      tecnologias: ["Python", "FastAPI", "SQLAlchemy", "Docker"],
-      estadoKey: "completed",
-    },
-    {
-      titulo: "Project 7",
-      fecha: "Jul 2025",
-      descripcion:
-        "Online learning platform with progress tracking, certifications, and gamification.",
-      tecnologias: ["React Native", "Firebase", "Stripe", "WebRTC"],
+        "A digital library management platform where you can register and manage physical or digital books, make loans and reservations with date control, check the status of each copy, generate reports, manage authors and categories, as well as receive notifications of expiration dates and access statistics such as most borrowed books or most read authors.",
+      imagen: "/images/biblioteca.png",
+      github: "https://github.com/Andres766/biblioteca-proyecto.git",
+      web: "https://biblioteca-proyecto-ypvs.onrender.com/",
+      tecnologias: ["DJANGO", "CSS", "Python", "HTML"],
       estadoKey: "in_progress",
     },
   ],

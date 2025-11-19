@@ -77,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth" suppressHydrationWarning={true}>
+    <html lang="es" className="scroll-smooth scrollbar-hide" suppressHydrationWarning={true}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -164,7 +164,7 @@ export default function RootLayout({
           dark:to-black
           selection:bg-blue-500/20 
           selection:text-blue-800 dark:selection:text-blue-200
-          overflow-x-hidden
+          overflow-x-hidden scrollbar-hide
         `}
         suppressHydrationWarning={true}
       >

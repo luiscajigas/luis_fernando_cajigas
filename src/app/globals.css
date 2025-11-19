@@ -26,3 +26,18 @@ body {
   background-color: rgba(59, 130, 246, 0.2);
   color: rgb(147, 197, 253);
 }
+
+/* Ocultar todas las barras de scroll de manera global */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Firefox y IE/Edge heredado */
+html, body, * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE y Edge heredado */
+}

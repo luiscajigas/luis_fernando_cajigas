@@ -171,8 +171,8 @@ export default function Inicio() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <Download size={18} />
-            <span>Descargar CV</span>
+              <Download size={18} />
+              <span>{t("inicio_cv_download", lang)}</span>
           </motion.a>
 
           <motion.div 
